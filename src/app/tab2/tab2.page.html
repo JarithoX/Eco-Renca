@@ -2,6 +2,7 @@
   <ion-toolbar>
     <ion-title>Contenedores Renca</ion-title>
   </ion-toolbar>
+  
   <!-- Barra de Filtros rápidos por Material -->
   <ion-toolbar class="filter-toolbar">
     <ion-segment [value]="selectedFilter" (ionChange)="onFilterChange($event)" scrollable mode="md">
@@ -25,38 +26,64 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" class="map-content">
-  <!-- Spinner mientras carga Google Maps SDK -->
-  <div *ngIf="!isMapLoaded" class="map-loading-container ion-text-center">
-    <ion-spinner name="crescent" color="primary"></ion-spinner>
-    <p>Cargando mapa estratégico...</p>
-  </div>
+  <!-- Mapa Vectorial de Renca (100% Offline y Seguro para Vercel) -->
+  <div class="vector-map-container">
+    <!-- Grid y Fondo de Mapa Tecnológico -->
+    <div class="map-grid-overlay"></div>
+    
+    <!-- Elementos del Mapa Estilizados -->
+    <div class="map-landmark cerro-renca">
+      <ion-icon name="leaf-outline"></ion-icon>
+      <span>Cerro Renca</span>
+    </div>
+    
+    <div class="map-landmark municipalidad">
+      <span>Municipalidad</span>
+    </div>
+    
+    <div class="map-landmark plaza-renca">
+      <span>Plaza Renca</span>
+    </div>
+    
+    <div class="map-river-mapocho">
+      <span>Río Mapocho</span>
+    </div>
 
-  <!-- Google Map Container -->
-  <div class="map-wrapper" *ngIf="isMapLoaded">
-    <google-map 
-      height="100%" 
-      width="100%" 
-      [center]="center" 
-      [zoom]="zoom" 
-      [options]="mapOptions">
+    <!-- Calles Simuladas en el Fondo -->
+    <svg class="map-streets-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
+      <!-- Av. Condell -->
+      <line x1="10" y1="10" x2="10" y2="90" stroke="rgba(var(--ion-text-color-rgb), 0.05)" stroke-width="0.8" />
+      <!-- Blanco Encalada -->
+      <line x1="5" y1="45" x2="95" y2="45" stroke="rgba(var(--ion-text-color-rgb), 0.05)" stroke-width="1.2" />
+      <!-- Av. Apóstol Santiago -->
+      <line x1="75" y1="5" x2="75" y2="95" stroke="rgba(var(--ion-text-color-rgb), 0.05)" stroke-width="0.8" />
+      <!-- Autopista Costanera Norte (Borde Río) -->
+      <path d="M 5,90 Q 50,88 95,90" fill="none" stroke="rgba(var(--ion-color-secondary-rgb), 0.1)" stroke-width="2" />
+    </svg>
+
+    <!-- Pines Dinámicos Geoposicionados -->
+    <button 
+      *ngFor="let bin of filteredBins" 
+      class="vector-marker ripple-btn" 
+      [ngClass]="[bin.status, selectedBin?.id === bin.id ? 'selected' : '']"
+      [style.top]="getBinPosition(bin).top" 
+      [style.left]="getBinPosition(bin).left"
+      (click)="onMarkerClick(bin)">
       
-      <!-- Marcadores de Contenedores -->
-      <map-marker 
-        *ngFor="let bin of filteredBins" 
-        [position]="getMarkerPosition(bin)" 
-        [options]="getMarkerOptions(bin)"
-        (mapClick)="onMarkerClick(bin)">
-      </map-marker>
-
-    </google-map>
+      <div class="pin-pulse"></div>
+      <div class="pin-icon-box">
+        <ion-icon name="pin-sharp" class="pin-icon"></ion-icon>
+      </div>
+      <span class="pin-short-label">{{ bin.name.substring(0,1) }}</span>
+    </button>
   </div>
 
-  <!-- Botón flotante para recentrar el mapa -->
-  <ion-button *ngIf="isMapLoaded" fill="clear" class="recenter-btn ripple-btn" (click)="recenter()">
+  <!-- Botón flotante para restablecer vista -->
+  <ion-button fill="clear" class="recenter-btn ripple-btn" (click)="recenter()">
     <ion-icon name="locate-outline" slot="icon-only"></ion-icon>
   </ion-button>
 
-  <!-- Tarjeta de Detalles del Contenedor Seleccionado (Estilo Deslizable de Google Maps) -->
+  <!-- Tarjeta de Detalles del Contenedor Seleccionado -->
   <div class="glass-card bin-detail-card ion-padding" *ngIf="selectedBin" [ngClass]="{'show': selectedBin}">
     <!-- Header del detalle -->
     <div class="card-detail-header">
@@ -78,7 +105,7 @@
         </ion-badge>
       </div>
 
-      <!-- Barra de Capacidad (Saber si el contenedor está lleno) -->
+      <!-- Barra de Capacidad -->
       <div class="capacity-section ion-margin-top">
         <div class="capacity-labels">
           <span>Capacidad Utilizada</span>
@@ -103,11 +130,11 @@
       </div>
     </div>
 
-    <!-- Acción de simulación rápida o indicaciones -->
+    <!-- Indicación simulada -->
     <div class="action-buttons ion-margin-top">
       <ion-button expand="block" color="primary" class="eco-btn ripple-btn" [disabled]="selectedBin.status === 'maintenance' || selectedBin.status === 'full'">
         <ion-icon name="navigate-outline" slot="start"></ion-icon>
-        Cómo Llegar
+        Cómo Llegar (Ruta Simulada)
       </ion-button>
     </div>
   </div>
