@@ -1,0 +1,184 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-title>EcoTienda</ion-title>
+  </ion-toolbar>
+
+  <!-- Banner de Puntos del Usuario -->
+  <div class="points-header-banner ion-padding-horizontal ion-padding-bottom">
+    <div class="glass-card user-points-card ion-padding">
+      <div class="points-content">
+        <div class="icon-circle">
+          <ion-icon name="wallet-outline" color="primary"></ion-icon>
+        </div>
+        <div class="text-group">
+          <span class="points-val">{{ profile?.points }}</span>
+          <span class="points-lbl">Puntos Disponibles</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Segmento Navegación Interna: Premios vs Mis Cupones -->
+  <ion-toolbar class="segment-toolbar">
+    <ion-segment [value]="activeSegment" (ionChange)="onSegmentChange($event)" mode="md">
+      <ion-segment-button value="rewards">
+        <ion-label>Premios</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="coupons">
+        <ion-label>Mis Cupones</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <!-- PESTAÑA 1: CATÁLOGO DE PREMIOS -->
+  <div *ngIf="activeSegment === 'rewards'">
+    <!-- Chips Filtro Categorías -->
+    <div class="categories-scroll ion-padding-horizontal ion-padding-top">
+      <ion-chip [outline]="selectedCategory !== 'all'" color="primary" (click)="onCategoryChange('all')">
+        <ion-label>Todos</ion-label>
+      </ion-chip>
+      <ion-chip [outline]="selectedCategory !== 'transport'" color="secondary" (click)="onCategoryChange('transport')">
+        <ion-icon name="bus-outline"></ion-icon>
+        <ion-label>Transporte</ion-label>
+      </ion-chip>
+      <ion-chip [outline]="selectedCategory !== 'local_shop'" color="warning" (click)="onCategoryChange('local_shop')">
+        <ion-icon name="storefront-outline"></ion-icon>
+        <ion-label>Comercio Local</ion-label>
+      </ion-chip>
+      <ion-chip [outline]="selectedCategory !== 'eco_product'" color="success" (click)="onCategoryChange('eco_product')">
+        <ion-icon name="leaf-outline"></ion-icon>
+        <ion-label>Eco Productos</ion-label>
+      </ion-chip>
+    </div>
+
+    <!-- Lista de Premios Grid -->
+    <ion-grid class="rewards-grid ion-padding-horizontal">
+      <ion-row>
+        <ion-col size="12" size-md="6" *ngFor="let reward of filteredRewards">
+          <div class="reward-card glass-card">
+            <div class="reward-card-body ion-padding">
+              <div class="reward-header">
+                <div class="category-icon" [ngClass]="reward.category">
+                  <ion-icon [name]="reward.logo"></ion-icon>
+                </div>
+                <ion-badge [color]="getCategoryColor(reward.category)" class="category-badge">
+                  {{ getCategoryName(reward.category) }}
+                </ion-badge>
+              </div>
+              
+              <h3 class="reward-title">{{ reward.title }}</h3>
+              <p class="reward-desc">{{ reward.description }}</p>
+              
+              <div class="reward-footer">
+                <div class="points-cost">
+                  <span class="cost-val">{{ reward.pointsCost }}</span>
+                  <span class="cost-lbl">pts</span>
+                </div>
+                <ion-button 
+                  fill="solid" 
+                  [color]="profile.points >= reward.pointsCost ? 'primary' : 'medium'"
+                  class="redeem-btn ripple-btn" 
+                  (click)="redeem(reward)">
+                  Canjear
+                </ion-button>
+              </div>
+            </div>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <!-- PESTAÑA 2: MIS CUPONES CANJEADOS -->
+  <div *ngIf="activeSegment === 'coupons'" class="coupons-content ion-padding">
+    <!-- Estado vacío si no hay cupones -->
+    <div *ngIf="myCoupons.length === 0" class="empty-state-coupons ion-text-center ion-padding">
+      <ion-icon name="ticket-outline" class="empty-icon-ticket"></ion-icon>
+      <h4>Aún no tienes cupones</h4>
+      <p>Canjea tus puntos por descuentos y beneficios en la pestaña de Premios.</p>
+    </div>
+
+    <!-- Lista de Cupones Activos -->
+    <div *ngIf="myCoupons.length > 0" class="coupons-list">
+      <div *ngFor="let coupon of myCoupons" class="ticket-card glass-card" (click)="latestCoupon = coupon; isCouponModalOpen = true">
+        <div class="ticket-stub">
+          <ion-icon name="barcode-outline" class="stub-icon"></ion-icon>
+          <span class="stub-text">CUPÓN</span>
+        </div>
+        <div class="ticket-main">
+          <h4 class="ticket-title">{{ coupon.title }}</h4>
+          <p class="ticket-code">Código: <strong>{{ coupon.code }}</strong></p>
+          <div class="ticket-footer">
+            <span class="ticket-date">Canjeado: {{ coupon.redeemedDate | date:'dd/MM/yyyy' }}</span>
+            <ion-badge color="success" class="ticket-status-badge">Activo</ion-badge>
+          </div>
+        </div>
+        <div class="ticket-dashed-line"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL DE DETALLE DEL CUPÓN CANJEADO -->
+  <ion-modal [isOpen]="isCouponModalOpen" (willDismiss)="closeCouponModal()" class="coupon-detail-modal">
+    <ng-template>
+      <ion-header class="ion-no-border">
+        <ion-toolbar>
+          <ion-title>Tu EcoCupón</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="closeCouponModal()">
+              <ion-icon name="close-outline" size="large"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+
+      <ion-content class="ion-padding ion-text-center modal-coupon-content">
+        <div class="coupon-modal-card glass-card ion-padding">
+          <div class="success-badge pulse-element">
+            <ion-icon name="checkmark-circle-outline" color="success" class="coupon-success-icon"></ion-icon>
+          </div>
+          <h2 class="coupon-modal-title">¡Cupón Listo!</h2>
+          <p class="coupon-modal-subtitle">Presenta este código en el comercio asociado para activar tu beneficio.</p>
+          
+          <div class="coupon-item-title-box ion-margin-vertical">
+            <h4>{{ latestCoupon?.title }}</h4>
+          </div>
+
+          <!-- Barcode/QR Simulator -->
+          <div class="barcode-wrapper ion-margin-vertical">
+            <div class="barcode-lines">
+              <div class="line thin"></div>
+              <div class="line thick"></div>
+              <div class="line thin"></div>
+              <div class="line medium"></div>
+              <div class="line thick"></div>
+              <div class="line thin"></div>
+              <div class="line medium"></div>
+              <div class="line thick"></div>
+              <div class="line thin"></div>
+              <div class="line medium"></div>
+              <div class="line thin"></div>
+              <div class="line thick"></div>
+            </div>
+            <p class="barcode-code-text">{{ latestCoupon?.code }}</p>
+          </div>
+
+          <div class="instructions-box ion-padding ion-margin-top">
+            <h5>Instrucciones:</h5>
+            <ol>
+              <li>Dirígete al local o transporte correspondiente.</li>
+              <li>Muestra este código de barras / cupón en caja.</li>
+              <li>¡Disfruta tu premio por cuidar el medio ambiente!</li>
+            </ol>
+          </div>
+        </div>
+        
+        <ion-button expand="block" color="primary" class="eco-btn ion-margin-top" (click)="closeCouponModal()">
+          Entendido
+        </ion-button>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+</ion-content>

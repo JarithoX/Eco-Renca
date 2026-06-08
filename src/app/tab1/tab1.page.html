@@ -1,0 +1,93 @@
+<ion-content [fullscreen]="true">
+  <!-- Header de Perfil Superior -->
+  <div class="profile-header-gradient">
+    <div class="header-content ion-padding">
+      <div class="user-info">
+        <ion-text color="light">
+          <p class="greeting-subtitle">¡Hola, bienvenido de vuelta!</p>
+          <h1 class="user-titleName">{{ profile?.name }}</h1>
+        </ion-text>
+      </div>
+      <div class="avatar-container">
+        <div class="avatar-circle">
+          <ion-icon name="person-circle-outline" class="avatar-placeholder"></ion-icon>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tarjeta de Puntos Principal (Glassmorphism) -->
+  <div class="glass-card points-dashboard-card ion-padding">
+    <div class="points-header">
+      <div class="level-badge">
+        <ion-icon name="trophy-outline" color="warning"></ion-icon>
+        <span>{{ profile?.levelName }}</span>
+      </div>
+      <ion-badge color="primary" mode="ios" class="level-number-badge">Nivel {{ profile?.level }}</ion-badge>
+    </div>
+
+    <div class="points-display ion-text-center">
+      <h2 class="points-val">{{ profile?.points }}</h2>
+      <p class="points-lbl">Puntos Acumulados</p>
+    </div>
+
+    <div class="xp-progress-section">
+      <div class="xp-labels">
+        <span>Progreso de Nivel</span>
+        <span>{{ profile?.points }} / {{ profile?.nextLevelPoints }} pts</span>
+      </div>
+      <ion-progress-bar [value]="(profile?.xpProgress || 0) / 100" color="primary" class="eco-progress"></ion-progress-bar>
+      <p class="xp-tip">
+        <ion-icon name="leaf-outline" color="primary"></ion-icon>
+        Te faltan {{ (profile?.nextLevelPoints || 0) - (profile?.points || 0) }} puntos para el siguiente rango.
+      </p>
+    </div>
+  </div>
+
+  <!-- Contenido Principal -->
+  <div class="main-dashboard-content ion-padding-horizontal">
+    <h3 class="section-title">
+      <ion-icon name="time-outline"></ion-icon>
+      Historial de Reciclaje
+    </h3>
+
+    <!-- Estado vacío si no hay actividades -->
+    <div *ngIf="recentActivities.length === 0" class="empty-state ion-text-center ion-padding">
+      <ion-icon name="leaf-outline" class="empty-icon"></ion-icon>
+      <h4>Aún no has reciclado</h4>
+      <p>Pulsa el botón de escanear abajo para registrar tu primer reciclaje.</p>
+    </div>
+
+    <!-- Lista de Actividades Recientes -->
+    <ion-list *ngIf="recentActivities.length > 0" lines="none" class="activity-list">
+      <div *ngFor="let activity of recentActivities" class="activity-card glass-card">
+        <div class="activity-item-content">
+          <div class="activity-icon-container" [ngClass]="activity.material">
+            <ion-icon [name]="getMaterialIcon(activity.material)"></ion-icon>
+          </div>
+          <div class="activity-details">
+            <h4 class="bin-title">{{ activity.binName }}</h4>
+            <div class="activity-meta">
+              <span class="activity-date">{{ activity.date | date:'dd/MM/yyyy HH:mm' }}</span>
+              <ion-badge [color]="getMaterialColor(activity.material)" class="material-badge">
+                {{ translateMaterial(activity.material) }}
+              </ion-badge>
+              <span class="quantity-text">• {{ activity.quantity }} {{ activity.material === 'paper' ? 'Kg' : 'uds' }}</span>
+            </div>
+          </div>
+          <div class="activity-points ion-text-end">
+            <span class="points-plus">+{{ activity.pointsEarned }}</span>
+            <span class="points-unit">pts</span>
+          </div>
+        </div>
+      </div>
+    </ion-list>
+  </div>
+
+  <!-- Botón Flotante para Escanear QR (FAB) -->
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" class="scan-fab">
+    <ion-fab-button (click)="openScanner()" class="pulse-element ripple-btn">
+      <ion-icon name="qr-code-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

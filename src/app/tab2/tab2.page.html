@@ -1,0 +1,114 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-title>Contenedores Renca</ion-title>
+  </ion-toolbar>
+  <!-- Barra de Filtros rápidos por Material -->
+  <ion-toolbar class="filter-toolbar">
+    <ion-segment [value]="selectedFilter" (ionChange)="onFilterChange($event)" scrollable mode="md">
+      <ion-segment-button value="all">
+        <ion-label>Todos</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="plastic">
+        <ion-label>Plástico</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="glass">
+        <ion-label>Vidrio</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="paper">
+        <ion-label>Papel</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="metal">
+        <ion-label>Metal</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="map-content">
+  <!-- Spinner mientras carga Google Maps SDK -->
+  <div *ngIf="!isMapLoaded" class="map-loading-container ion-text-center">
+    <ion-spinner name="crescent" color="primary"></ion-spinner>
+    <p>Cargando mapa estratégico...</p>
+  </div>
+
+  <!-- Google Map Container -->
+  <div class="map-wrapper" *ngIf="isMapLoaded">
+    <google-map 
+      height="100%" 
+      width="100%" 
+      [center]="center" 
+      [zoom]="zoom" 
+      [options]="mapOptions">
+      
+      <!-- Marcadores de Contenedores -->
+      <map-marker 
+        *ngFor="let bin of filteredBins" 
+        [position]="getMarkerPosition(bin)" 
+        [options]="getMarkerOptions(bin)"
+        (mapClick)="onMarkerClick(bin)">
+      </map-marker>
+
+    </google-map>
+  </div>
+
+  <!-- Botón flotante para recentrar el mapa -->
+  <ion-button *ngIf="isMapLoaded" fill="clear" class="recenter-btn ripple-btn" (click)="recenter()">
+    <ion-icon name="locate-outline" slot="icon-only"></ion-icon>
+  </ion-button>
+
+  <!-- Tarjeta de Detalles del Contenedor Seleccionado (Estilo Deslizable de Google Maps) -->
+  <div class="glass-card bin-detail-card ion-padding" *ngIf="selectedBin" [ngClass]="{'show': selectedBin}">
+    <!-- Header del detalle -->
+    <div class="card-detail-header">
+      <div class="header-left">
+        <h3 class="bin-name-title">{{ selectedBin.name }}</h3>
+        <p class="bin-address-desc">{{ selectedBin.address }}</p>
+      </div>
+      <ion-button fill="clear" color="medium" class="close-btn" (click)="closeDetails()">
+        <ion-icon name="close-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </div>
+
+    <!-- Estado y Capacidad -->
+    <div class="bin-info-grid ion-margin-vertical">
+      <div class="info-row">
+        <span class="info-lbl">Estado</span>
+        <ion-badge [color]="getStatusColor(selectedBin.status)" class="status-badge-val">
+          {{ getStatusText(selectedBin.status) }}
+        </ion-badge>
+      </div>
+
+      <!-- Barra de Capacidad (Saber si el contenedor está lleno) -->
+      <div class="capacity-section ion-margin-top">
+        <div class="capacity-labels">
+          <span>Capacidad Utilizada</span>
+          <span [ngClass]="{'color-full': selectedBin.capacity >= 100}">{{ selectedBin.capacity }}%</span>
+        </div>
+        <ion-progress-bar 
+          [value]="selectedBin.capacity / 100" 
+          [color]="selectedBin.capacity >= 90 ? 'danger' : (selectedBin.capacity >= 70 ? 'warning' : 'primary')"
+          class="capacity-progress">
+        </ion-progress-bar>
+      </div>
+    </div>
+
+    <!-- Materiales Aceptados -->
+    <div class="accepted-materials-section">
+      <span class="materials-lbl">Residuos Aceptados</span>
+      <div class="chips-container ion-margin-top">
+        <ion-chip *ngFor="let material of selectedBin.acceptedMaterials" [color]="getMaterialColor(material)" class="material-chip">
+          <ion-icon name="leaf-outline"></ion-icon>
+          <ion-label>{{ translateMaterial(material) }}</ion-label>
+        </ion-chip>
+      </div>
+    </div>
+
+    <!-- Acción de simulación rápida o indicaciones -->
+    <div class="action-buttons ion-margin-top">
+      <ion-button expand="block" color="primary" class="eco-btn ripple-btn" [disabled]="selectedBin.status === 'maintenance' || selectedBin.status === 'full'">
+        <ion-icon name="navigate-outline" slot="start"></ion-icon>
+        Cómo Llegar
+      </ion-button>
+    </div>
+  </div>
+</ion-content>

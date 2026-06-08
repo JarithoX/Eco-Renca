@@ -1,0 +1,477 @@
+/* Header y Banner de Puntos */
+.points-header-banner {
+  background: transparent;
+}
+
+.user-points-card {
+  margin: 0 !important;
+  background: var(--eco-gradient-primary);
+  color: #ffffff;
+  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.2);
+}
+
+.points-content {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.icon-circle {
+  width: 46px;
+  height: 46px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  ion-icon {
+    font-size: 24px;
+    color: #ffffff;
+  }
+}
+
+.text-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.points-val {
+  font-size: 28px;
+  font-weight: 800;
+  line-height: 1;
+  color: #ffffff;
+}
+
+.points-lbl {
+  font-size: 11px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.8);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 2px;
+}
+
+.segment-toolbar {
+  --background: transparent;
+  --border-width: 0;
+  padding: 0 8px;
+  
+  ion-segment {
+    --background: rgba(var(--ion-text-color-rgb), 0.04);
+    border-radius: 12px;
+    padding: 2px;
+    
+    ion-segment-button {
+      --color-checked: var(--ion-color-primary);
+      --indicator-color: #ffffff;
+      font-weight: 700;
+      font-size: 14px;
+      margin: 0;
+      --border-radius: 10px;
+      
+      &::part(indicator) {
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      }
+    }
+  }
+}
+
+/* Scroll de Categorías */
+.categories-scroll {
+  display: flex;
+  overflow-x: auto;
+  gap: 8px;
+  padding-bottom: 12px;
+  -webkit-overflow-scrolling: touch;
+  
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  
+  ion-chip {
+    margin: 0;
+    flex-shrink: 0;
+    font-weight: 600;
+    font-size: 12px;
+  }
+}
+
+/* Grid de Premios */
+.rewards-grid {
+  padding-bottom: 80px;
+  
+  ion-col {
+    padding: 8px 0;
+  }
+}
+
+.reward-card {
+  margin: 0 !important;
+  height: 100%;
+}
+
+.reward-card-body {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
+}
+
+.reward-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.category-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  ion-icon {
+    font-size: 20px;
+  }
+  
+  &.transport {
+    background: rgba(var(--ion-color-secondary-rgb), 0.1);
+    color: var(--ion-color-secondary);
+  }
+  
+  &.local_shop {
+    background: rgba(var(--ion-color-warning-rgb), 0.1);
+    color: var(--ion-color-warning-shade);
+  }
+  
+  &.eco_product {
+    background: rgba(var(--ion-color-success-rgb), 0.1);
+    color: var(--ion-color-success-shade);
+  }
+}
+
+.category-badge {
+  font-size: 9px;
+  font-weight: 700;
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+
+.reward-title {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--ion-text-color);
+  margin: 0 0 6px 0;
+  line-height: 1.3;
+}
+
+.reward-desc {
+  font-size: 12px;
+  color: var(--ion-color-medium);
+  margin: 0 0 16px 0;
+  line-height: 1.4;
+  flex-grow: 1;
+}
+
+.reward-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid rgba(var(--ion-text-color-rgb), 0.06);
+  padding-top: 12px;
+}
+
+.points-cost {
+  display: flex;
+  align-items: baseline;
+  gap: 2px;
+}
+
+.cost-val {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--ion-color-primary);
+}
+
+.cost-lbl {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--ion-color-primary);
+  text-transform: uppercase;
+}
+
+.redeem-btn {
+  --border-radius: 10px;
+  font-weight: 700;
+  font-size: 12px;
+  height: 36px;
+  margin: 0;
+}
+
+/* Cupones Canjeados - Estilo Ticket */
+.coupons-content {
+  padding-bottom: 80px;
+}
+
+.empty-state-coupons {
+  margin-top: 60px;
+  border: 1px dashed rgba(var(--ion-text-color-rgb), 0.15);
+  border-radius: 20px;
+  
+  .empty-icon-ticket {
+    font-size: 56px;
+    color: rgba(var(--ion-color-primary-rgb), 0.3);
+  }
+  
+  h4 {
+    margin: 12px 0 4px 0;
+    font-weight: 700;
+  }
+  
+  p {
+    font-size: 12px;
+    color: var(--ion-color-medium);
+    margin: 0;
+  }
+}
+
+.coupons-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.ticket-card {
+  margin: 0 !important;
+  display: flex;
+  min-height: 100px;
+  position: relative;
+  overflow: visible;
+  
+  &:active {
+    transform: scale(0.98);
+    transition: transform 0.2s;
+  }
+}
+
+.ticket-stub {
+  width: 65px;
+  background: var(--eco-gradient-primary);
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 12px;
+  border-top-left-radius: 18px;
+  border-bottom-left-radius: 18px;
+  
+  .stub-icon {
+    font-size: 26px;
+  }
+  
+  .stub-text {
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    writing-mode: vertical-lr;
+    text-transform: uppercase;
+    transform: rotate(180deg);
+  }
+}
+
+.ticket-main {
+  flex: 1;
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 0;
+}
+
+.ticket-title {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--ion-text-color);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ticket-code {
+  margin: 4px 0;
+  font-size: 12px;
+  color: var(--ion-color-medium);
+  
+  strong {
+    color: var(--ion-color-primary);
+  }
+}
+
+.ticket-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ticket-date {
+  font-size: 10px;
+  color: var(--ion-color-medium);
+}
+
+.ticket-status-badge {
+  font-size: 8px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+/* Línea de troquelado del ticket */
+.ticket-dashed-line {
+  position: absolute;
+  left: 64px;
+  top: 10px;
+  bottom: 10px;
+  border-left: 2px dashed rgba(var(--ion-text-color-rgb), 0.12);
+  z-index: 10;
+}
+
+/* Modal de Cupón */
+.coupon-detail-modal {
+  --height: auto;
+  --border-radius: 24px;
+  
+  &::part(content) {
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  }
+}
+
+.modal-coupon-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 24px;
+}
+
+.coupon-modal-card {
+  margin: 0 !important;
+  width: 100%;
+}
+
+.success-badge {
+  background: rgba(16, 185, 129, 0.1);
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px auto;
+}
+
+.coupon-success-icon {
+  font-size: 38px;
+}
+
+.coupon-modal-title {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--ion-color-primary);
+  margin: 0 0 4px 0;
+}
+
+.coupon-modal-subtitle {
+  font-size: 12px;
+  color: var(--ion-color-medium);
+  margin: 0 0 20px 0;
+  line-height: 1.4;
+}
+
+.coupon-item-title-box {
+  background: rgba(var(--ion-text-color-rgb), 0.04);
+  border-radius: 12px;
+  padding: 12px;
+  border-left: 4px solid var(--ion-color-primary);
+  
+  h4 {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--ion-text-color);
+  }
+}
+
+/* Barcode */
+.barcode-wrapper {
+  background: #ffffff;
+  padding: 16px;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  display: inline-block;
+  width: 100%;
+}
+
+.barcode-lines {
+  height: 60px;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  gap: 2px;
+  background: #ffffff;
+  padding: 0 20px;
+}
+
+.line {
+  background: #1e293b;
+  border-radius: 1px;
+  
+  &.thin { width: 1px; }
+  &.medium { width: 2px; }
+  &.thick { width: 4px; }
+}
+
+.barcode-code-text {
+  margin: 8px 0 0 0;
+  font-family: monospace;
+  font-size: 13px;
+  font-weight: 700;
+  color: #475569;
+  letter-spacing: 2px;
+}
+
+/* Instrucciones */
+.instructions-box {
+  text-align: left;
+  border-top: 1px solid rgba(var(--ion-text-color-rgb), 0.08);
+  
+  h5 {
+    margin: 0 0 8px 0;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--ion-text-color);
+  }
+  
+  ol {
+    margin: 0;
+    padding-left: 18px;
+    font-size: 11px;
+    color: var(--ion-color-medium);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    line-height: 1.4;
+  }
+}
+
+.eco-btn {
+  --background: var(--eco-gradient-primary);
+  --border-radius: 14px;
+  font-weight: 700;
+  height: 48px;
+  margin: 0;
+}
