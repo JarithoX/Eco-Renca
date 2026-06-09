@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, ElementRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule, ModalController } from '@ionic/angular';
@@ -6,7 +6,7 @@ import { BinsService } from '../../../core/services/bins.service';
 import { PointsService } from '../../../core/services/points.service';
 import { RecyclingBin, MaterialType } from '../../../core/models/bin.model';
 import { addIcons } from 'ionicons';
-import { cameraOutline, checkmarkCircleOutline, closeOutline } from 'ionicons/icons';
+import { cameraOutline, checkmarkCircleOutline, closeOutline, videocamOffOutline } from 'ionicons/icons';
 
 @Component({
   selector: 'app-qr-simulator',
@@ -28,16 +28,36 @@ import { cameraOutline, checkmarkCircleOutline, closeOutline } from 'ionicons/ic
       <div class="scanner-container" *ngIf="state === 'scanning'">
         <!-- Viewfinder -->
         <div class="viewfinder">
-          <div class="laser-line"></div>
+          <!-- Video element for camera stream -->
+          <video #videoElement autoplay playsinline muted *ngIf="cameraStatus === 'active'"></video>
+          
+          <div class="laser-line" *ngIf="cameraStatus === 'active'"></div>
           <div class="corners">
             <div class="top-left"></div>
             <div class="top-right"></div>
             <div class="bottom-left"></div>
             <div class="bottom-right"></div>
           </div>
-          <div class="viewfinder-text">
+          
+          <!-- Viewfinder overlay text when camera is active -->
+          <div class="viewfinder-text" *ngIf="cameraStatus === 'active'">
             <ion-icon name="camera-outline" class="camera-icon"></ion-icon>
             <p>Apunta al código QR del contenedor</p>
+          </div>
+
+          <!-- Camera checking state -->
+          <div class="camera-message" *ngIf="cameraStatus === 'checking'">
+            <ion-spinner name="dots" color="light"></ion-spinner>
+            <p>Iniciando cámara...</p>
+          </div>
+
+          <!-- Camera error state -->
+          <div class="camera-message error" *ngIf="cameraStatus === 'denied' || cameraStatus === 'no-device' || cameraStatus === 'error'">
+            <ion-icon name="videocam-off-outline" class="error-icon"></ion-icon>
+            <p class="error-title">Cámara no disponible</p>
+            <p class="error-desc" *ngIf="cameraStatus === 'no-device'">No se detectó ninguna cámara en este dispositivo.</p>
+            <p class="error-desc" *ngIf="cameraStatus === 'denied'">Permiso para usar la cámara denegado. Actívalo en los ajustes.</p>
+            <p class="error-desc" *ngIf="cameraStatus === 'error'">Error al acceder a la cámara del dispositivo.</p>
           </div>
         </div>
 
@@ -140,6 +160,16 @@ import { cameraOutline, checkmarkCircleOutline, closeOutline } from 'ionicons/ic
       box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.6);
     }
 
+    .viewfinder video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 1;
+    }
+
     .laser-line {
       position: absolute;
       width: 90%;
@@ -163,6 +193,7 @@ import { cameraOutline, checkmarkCircleOutline, closeOutline } from 'ionicons/ic
       height: 70%;
       border: 1px dashed rgba(255, 255, 255, 0.2);
       pointer-events: none;
+      z-index: 4;
     }
 
     .corners > div {
@@ -195,6 +226,47 @@ import { cameraOutline, checkmarkCircleOutline, closeOutline } from 'ionicons/ic
       margin: 0;
       font-size: 13px;
       font-weight: 500;
+    }
+
+    .camera-message {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+      color: #fff;
+      text-align: center;
+      padding: 16px;
+      z-index: 2;
+    }
+
+    .camera-message.error {
+      background: #1e293b;
+    }
+
+    .error-icon {
+      font-size: 48px;
+      color: var(--ion-color-danger, #ef4444);
+      margin-bottom: 8px;
+    }
+
+    .error-title {
+      font-size: 16px;
+      font-weight: 700;
+      margin: 0 0 4px 0;
+      color: #f1f5f9;
+    }
+
+    .error-desc {
+      font-size: 12px;
+      color: var(--ion-color-medium, #94a3b8);
+      margin: 0;
+      max-width: 80%;
     }
 
     .controls-card {
@@ -357,7 +429,9 @@ import { cameraOutline, checkmarkCircleOutline, closeOutline } from 'ionicons/ic
     }
   `]
 })
-export class QrSimulatorComponent implements OnInit {
+export class QrSimulatorComponent implements OnInit, OnDestroy {
+  @ViewChild('videoElement') videoElement!: ElementRef<HTMLVideoElement>;
+
   state: 'scanning' | 'processing' | 'success' = 'scanning';
   availableBins: RecyclingBin[] = [];
   
@@ -367,6 +441,10 @@ export class QrSimulatorComponent implements OnInit {
   quantity: number = 2;
   calculatedPoints: number = 0;
 
+  // Estado de cámara
+  cameraStatus: 'checking' | 'active' | 'denied' | 'no-device' | 'error' = 'checking';
+  stream: MediaStream | null = null;
+
   constructor(
     private modalCtrl: ModalController,
     private binsService: BinsService,
@@ -375,7 +453,8 @@ export class QrSimulatorComponent implements OnInit {
     addIcons({
       cameraOutline,
       checkmarkCircleOutline,
-      closeOutline
+      closeOutline,
+      videocamOffOutline
     });
   }
 
@@ -387,6 +466,52 @@ export class QrSimulatorComponent implements OnInit {
         this.selectedBinId = this.availableBins[0].id;
       }
     });
+
+    // Inicializar la cámara
+    this.initCamera();
+  }
+
+  ngOnDestroy() {
+    this.stopCamera();
+  }
+
+  initCamera() {
+    this.cameraStatus = 'checking';
+    
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+      this.cameraStatus = 'no-device';
+      return;
+    }
+
+    navigator.mediaDevices.getUserMedia({
+      video: { facingMode: 'environment' }
+    })
+    .then(stream => {
+      this.stream = stream;
+      this.cameraStatus = 'active';
+      setTimeout(() => {
+        if (this.videoElement && this.videoElement.nativeElement) {
+          this.videoElement.nativeElement.srcObject = stream;
+        }
+      }, 50);
+    })
+    .catch(err => {
+      console.error('Error al acceder a la cámara:', err);
+      if (err.name === 'NotAllowedError' || err.name === 'PermissionDeniedError') {
+        this.cameraStatus = 'denied';
+      } else if (err.name === 'NotFoundError' || err.name === 'DevicesNotFoundError') {
+        this.cameraStatus = 'no-device';
+      } else {
+        this.cameraStatus = 'error';
+      }
+    });
+  }
+
+  stopCamera() {
+    if (this.stream) {
+      this.stream.getTracks().forEach(track => track.stop());
+      this.stream = null;
+    }
   }
 
   getBinName(): string {
@@ -395,6 +520,7 @@ export class QrSimulatorComponent implements OnInit {
   }
 
   startScanningProcess() {
+    this.stopCamera();
     this.state = 'processing';
     
     // Simular un retardo de procesamiento de 1.5 segundos
@@ -425,6 +551,7 @@ export class QrSimulatorComponent implements OnInit {
   }
 
   dismiss() {
+    this.stopCamera();
     this.modalCtrl.dismiss();
   }
 }
