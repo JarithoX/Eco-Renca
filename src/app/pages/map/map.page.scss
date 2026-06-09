@@ -1,31 +1,67 @@
-ion-toolbar {
-  --background: var(--eco-glass-bg);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+.map-header-glass {
+  background: var(--eco-glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--eco-glass-border);
+}
+
+.header-toolbar {
+  --background: transparent;
   --border-width: 0;
-  
-  ion-title {
-    font-weight: 800;
-    font-size: 20px;
+  --padding-top: 8px;
+  --padding-bottom: 4px;
+}
+
+.header-title-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 16px;
+
+  .header-icon {
+    font-size: 22px;
     color: var(--ion-color-primary);
+  }
+
+  ion-title {
+    padding: 0;
+    font-weight: 800;
+    font-size: 22px;
+    color: var(--ion-text-color);
   }
 }
 
-.filter-toolbar {
-  --padding-top: 0;
-  --padding-bottom: 6px;
+/* Carrusel de Filtros Rápidos (Cápsulas) */
+.filter-carousel-wrapper {
+  padding-bottom: 12px;
+}
+
+.filter-carousel {
+  display: flex;
+  overflow-x: auto;
+  gap: 8px;
+  padding: 4px 16px 8px 16px;
+  -webkit-overflow-scrolling: touch;
   
-  ion-segment {
-    --background: transparent;
-    padding: 0 8px;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .filter-chip {
+    margin: 0;
+    flex-shrink: 0;
+    font-weight: 700;
+    font-size: 13px;
+    height: 36px;
+    border-radius: 18px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     
-    ion-segment-button {
-      --color-checked: var(--ion-color-primary);
-      --indicator-color: var(--ion-color-primary);
-      font-weight: 600;
-      font-size: 13px;
-      margin: 0 4px;
-      min-width: 80px;
+    ion-icon {
+      font-size: 16px;
+    }
+    
+    ion-label {
+      margin-top: 0;
     }
   }
 }
@@ -94,41 +130,92 @@ ion-toolbar {
   pointer-events: none;
 }
 
-.cerro-renca {
-  top: 15%;
-  left: 48%;
-  transform: translate(-50%, -50%);
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  border-color: rgba(var(--ion-color-success-rgb), 0.3);
-  color: var(--ion-color-success-shade);
+/* Wrapper interactivo de Pan & Zoom */
+.interactive-map-wrapper {
+  width: 100%;
+  height: 100%;
+  transform-origin: center center;
+  transition: transform 0.1s cubic-bezier(0.16, 1, 0.3, 1);
+  touch-action: none;
+  cursor: grab;
+  user-select: none;
+  
+  &:active {
+    cursor: grabbing;
+  }
 }
 
-.municipalidad {
-  top: 48%;
-  left: 45%;
-  transform: translate(-50%, -50%);
+/* Clases de colores y neón para edificios SVG del Campus */
+.svg-building {
+  fill: rgba(var(--ion-color-primary-rgb), 0.05);
+  stroke: rgba(var(--ion-color-primary-rgb), 0.25);
+  stroke-width: 0.5px;
+  transition: fill 0.3s, stroke 0.3s;
+  
+  &:hover {
+    fill: rgba(var(--ion-color-primary-rgb), 0.12);
+    stroke: rgba(var(--ion-color-primary-rgb), 0.5);
+  }
 }
 
-.plaza-renca {
-  top: 52%;
-  left: 55%;
-  transform: translate(-50%, -50%);
+.block-a-color {
+  fill: rgba(var(--ion-color-secondary-rgb), 0.07);
+  stroke: rgba(var(--ion-color-secondary-rgb), 0.35);
+}
+.block-b-color {
+  fill: rgba(var(--ion-color-success-rgb), 0.07);
+  stroke: rgba(var(--ion-color-success-rgb), 0.35);
+}
+.block-c-color {
+  fill: rgba(var(--ion-color-warning-rgb), 0.07);
+  stroke: rgba(var(--ion-color-warning-rgb), 0.35);
+}
+.block-d-color {
+  fill: rgba(var(--ion-color-primary-rgb), 0.07);
+  stroke: rgba(var(--ion-color-primary-rgb), 0.35);
+}
+.block-e-color {
+  fill: rgba(var(--ion-color-primary-rgb), 0.06);
+  stroke: rgba(var(--ion-color-primary-rgb), 0.3);
+}
+.block-f-color {
+  fill: rgba(var(--ion-color-danger-rgb), 0.06);
+  stroke: rgba(var(--ion-color-danger-rgb), 0.3);
+}
+.block-g-color {
+  fill: rgba(var(--ion-color-secondary-rgb), 0.07);
+  stroke: rgba(var(--ion-color-secondary-rgb), 0.35);
+}
+.block-h-color, .block-j-color, .block-k-color, .block-l-color, .block-z-color {
+  fill: rgba(var(--ion-color-medium-rgb), 0.06);
+  stroke: rgba(var(--ion-color-medium-rgb), 0.3);
 }
 
-.map-river-mapocho {
-  position: absolute;
-  bottom: 8%;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 3;
-  font-size: 10px;
+/* Posiciones porcentuales individuales de las etiquetas de los bloques en el mapa */
+.map-landmark {
+  // Sobrescribir estilos globales de landmarks para el campus
+  letter-spacing: 0.5px;
+  font-size: 8px;
   font-weight: 800;
-  color: rgba(var(--ion-color-secondary-rgb), 0.6);
-  text-transform: uppercase;
-  letter-spacing: 2.5px;
-  pointer-events: none;
+  padding: 2px 4px;
+  border-radius: 4px;
+  transform: translate(-50%, -50%);
+  background: rgba(var(--ion-background-color-rgb), 0.9);
+  border: 1px solid rgba(var(--ion-text-color-rgb), 0.12);
+  
+  &.bloque-d { top: 22%; left: 9%; }
+  &.bloque-e { top: 22%; left: 19%; }
+  &.bloque-f { top: 24%; left: 29%; }
+  &.cancha { top: 19%; left: 41.5%; font-size: 7px; color: var(--ion-color-success-shade); border-color: rgba(16, 185, 129, 0.2); }
+  &.bloque-h { top: 20%; left: 56.5%; }
+  &.bloque-k { top: 25%; left: 74%; }
+  &.bloque-g { top: 43%; left: 32%; }
+  &.bloque-c { top: 34%; left: 10%; }
+  &.bloque-b { top: 69%; left: 19%; }
+  &.bloque-a { top: 85%; left: 38%; color: var(--ion-color-primary-shade); border-color: rgba(var(--ion-color-primary-rgb), 0.2); }
+  &.bloque-j { top: 47%; left: 52%; }
+  &.bloque-l { top: 52%; left: 70%; }
+  &.bloque-z { top: 70%; left: 85.5%; }
 }
 
 /* Marcadores vectoriales */
@@ -238,20 +325,26 @@ ion-toolbar {
   }
 }
 
-/* Recentrar Mapa */
-.recenter-btn {
+/* Grupo Fijo de Controles de Mapa flotantes */
+.map-controls-group {
   position: absolute;
-  bottom: 24px;
+  bottom: 95px; // Posicionado encima de la barra inferior
   right: 16px;
-  z-index: 10;
+  z-index: 30;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.control-btn {
   background: var(--eco-glass-bg);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border: 1px solid var(--eco-glass-border);
   border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  width: 44px;
+  height: 44px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -260,10 +353,27 @@ ion-toolbar {
   --padding-start: 0;
   --padding-end: 0;
   margin: 0;
+  transition: transform 0.2s, background-color 0.2s;
+
+  &:active {
+    transform: scale(0.92);
+  }
 
   ion-icon {
-    font-size: 24px;
+    font-size: 20px;
     color: var(--ion-color-primary);
+  }
+}
+
+.recenter-btn {
+  width: 46px;
+  height: 46px;
+  background: var(--eco-gradient-primary);
+  border: none;
+  
+  ion-icon {
+    font-size: 22px;
+    color: #ffffff;
   }
 }
 

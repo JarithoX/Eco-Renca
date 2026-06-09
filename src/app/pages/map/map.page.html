@@ -1,87 +1,147 @@
-<ion-header class="ion-no-border">
-  <ion-toolbar>
-    <ion-title>Contenedores Renca</ion-title>
+<ion-header class="ion-no-border map-header-glass">
+  <ion-toolbar class="header-toolbar">
+    <div class="header-title-container">
+      <ion-icon name="map-outline" class="header-icon"></ion-icon>
+      <ion-title>INACAP Renca</ion-title>
+    </div>
   </ion-toolbar>
   
-  <!-- Barra de Filtros rápidos por Material -->
-  <ion-toolbar class="filter-toolbar">
-    <ion-segment [value]="selectedFilter" (ionChange)="onFilterChange($event)" scrollable mode="md">
-      <ion-segment-button value="all">
+  <!-- Carrusel de Filtros rápidos por Material en cápsulas -->
+  <div class="filter-carousel-wrapper">
+    <div class="filter-carousel">
+      <ion-chip [outline]="selectedFilter !== 'all'" color="primary" class="filter-chip" (click)="setFilter('all')">
         <ion-label>Todos</ion-label>
-      </ion-segment-button>
-      <ion-segment-button value="plastic">
+      </ion-chip>
+      <ion-chip [outline]="selectedFilter !== 'plastic'" color="success" class="filter-chip" (click)="setFilter('plastic')">
+        <ion-icon name="leaf-outline"></ion-icon>
         <ion-label>Plástico</ion-label>
-      </ion-segment-button>
-      <ion-segment-button value="glass">
+      </ion-chip>
+      <ion-chip [outline]="selectedFilter !== 'glass'" color="secondary" class="filter-chip" (click)="setFilter('glass')">
+        <ion-icon name="wine-outline"></ion-icon>
         <ion-label>Vidrio</ion-label>
-      </ion-segment-button>
-      <ion-segment-button value="paper">
+      </ion-chip>
+      <ion-chip [outline]="selectedFilter !== 'paper'" color="warning" class="filter-chip" (click)="setFilter('paper')">
+        <ion-icon name="receipt-outline"></ion-icon>
         <ion-label>Papel</ion-label>
-      </ion-segment-button>
-      <ion-segment-button value="metal">
+      </ion-chip>
+      <ion-chip [outline]="selectedFilter !== 'metal'" color="danger" class="filter-chip" (click)="setFilter('metal')">
+        <ion-icon name="bar-chart-outline"></ion-icon>
         <ion-label>Metal</ion-label>
-      </ion-segment-button>
-    </ion-segment>
-  </ion-toolbar>
+      </ion-chip>
+    </div>
+  </div>
 </ion-header>
 
-<ion-content [fullscreen]="true" class="map-content">
-  <!-- Mapa Vectorial de Renca (100% Offline y Seguro para Vercel) -->
-  <div class="vector-map-container">
-    <!-- Grid y Fondo de Mapa Tecnológico -->
-    <div class="map-grid-overlay"></div>
+<ion-content [fullscreen]="true" class="map-content" [scrollX]="false" [scrollY]="false">
+  <!-- Contenedor interactuable para arrastrar y hacer zoom (Pan & Zoom) -->
+  <div 
+    class="interactive-map-wrapper" 
+    [style.transform]="'translate(' + translateX + 'px, ' + translateY + 'px) scale(' + scale + ')'"
+    (pointerdown)="onPointerDown($event)"
+    (pointermove)="onPointerMove($event)"
+    (pointerup)="onPointerUp($event)"
+    (wheel)="onWheel($event)">
     
-    <!-- Elementos del Mapa Estilizados -->
-    <div class="map-landmark cerro-renca">
-      <ion-icon name="leaf-outline"></ion-icon>
-      <span>Cerro Renca</span>
-    </div>
-    
-    <div class="map-landmark municipalidad">
-      <span>Municipalidad</span>
-    </div>
-    
-    <div class="map-landmark plaza-renca">
-      <span>Plaza Renca</span>
-    </div>
-    
-    <div class="map-river-mapocho">
-      <span>Río Mapocho</span>
-    </div>
-
-    <!-- Calles Simuladas en el Fondo -->
-    <svg class="map-streets-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
-      <!-- Av. Condell -->
-      <line x1="10" y1="10" x2="10" y2="90" stroke="rgba(var(--ion-text-color-rgb), 0.05)" stroke-width="0.8" />
-      <!-- Blanco Encalada -->
-      <line x1="5" y1="45" x2="95" y2="45" stroke="rgba(var(--ion-text-color-rgb), 0.05)" stroke-width="1.2" />
-      <!-- Av. Apóstol Santiago -->
-      <line x1="75" y1="5" x2="75" y2="95" stroke="rgba(var(--ion-text-color-rgb), 0.05)" stroke-width="0.8" />
-      <!-- Autopista Costanera Norte (Borde Río) -->
-      <path d="M 5,90 Q 50,88 95,90" fill="none" stroke="rgba(var(--ion-color-secondary-rgb), 0.1)" stroke-width="2" />
-    </svg>
-
-    <!-- Pines Dinámicos Geoposicionados -->
-    <button 
-      *ngFor="let bin of filteredBins" 
-      class="vector-marker ripple-btn" 
-      [ngClass]="[bin.status, selectedBin?.id === bin.id ? 'selected' : '']"
-      [style.top]="getBinPosition(bin).top" 
-      [style.left]="getBinPosition(bin).left"
-      (click)="onMarkerClick(bin)">
+    <!-- Mapa Vectorial de Renca (100% Offline) -->
+    <div class="vector-map-container">
+      <!-- Grid y Fondo de Mapa Tecnológico -->
+      <div class="map-grid-overlay"></div>
       
-      <div class="pin-pulse"></div>
-      <div class="pin-icon-box">
-        <ion-icon name="pin-sharp" class="pin-icon"></ion-icon>
-      </div>
-      <span class="pin-short-label">{{ bin.name.substring(0,1) }}</span>
-    </button>
+      <!-- Zonas / Bloques del Campus (Landmarks visuales sobre los bloques) -->
+      <div class="map-landmark bloque-d">D</div>
+      <div class="map-landmark bloque-e">E</div>
+      <div class="map-landmark bloque-f">F</div>
+      <div class="map-landmark cancha">Futbol</div>
+      <div class="map-landmark bloque-h">H</div>
+      <div class="map-landmark bloque-k">K</div>
+      <div class="map-landmark bloque-g">G</div>
+      <div class="map-landmark bloque-c">C</div>
+      <div class="map-landmark bloque-b">B</div>
+      <div class="map-landmark bloque-a">Casino A</div>
+      <div class="map-landmark bloque-j">J</div>
+      <div class="map-landmark bloque-l">L</div>
+      <div class="map-landmark bloque-z">Z</div>
+
+      <!-- Dibujo Vectorial del Campus INACAP Sede Renca -->
+      <svg class="map-streets-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
+        <!-- Pasillos y conectores en gris de fondo -->
+        <path d="M 5,34 L 45,34 L 45,47 L 23,47 Z" fill="rgba(var(--ion-text-color-rgb), 0.03)" />
+        <line x1="78" y1="68" x2="88" y2="68" stroke="rgba(var(--ion-text-color-rgb), 0.08)" stroke-width="1" />
+
+        <!-- Bloque D (Área Electricidad y Electrónica) -->
+        <rect x="5" y="10" width="8" height="20" rx="0.5" class="svg-building block-d-color" />
+        
+        <!-- Bloque E (Aulas y Laboratorios) -->
+        <rect x="15" y="10" width="8" height="20" rx="0.5" class="svg-building block-e-color" />
+        
+        <!-- Bloque F (Área Procesos Industriales) -->
+        <rect x="25" y="10" width="8" height="24" rx="0.5" class="svg-building block-f-color" />
+        
+        <!-- Cancha de Fútbol -->
+        <g class="svg-soccer-field">
+          <rect x="35" y="10" width="13" height="18" rx="0.2" fill="rgba(16, 185, 129, 0.04)" stroke="rgba(16, 185, 129, 0.12)" stroke-width="0.3" />
+          <line x1="35" y1="19" x2="48" y2="19" stroke="rgba(16, 185, 129, 0.1)" stroke-width="0.3" />
+          <circle cx="41.5" cy="19" r="2" fill="none" stroke="rgba(16, 185, 129, 0.1)" stroke-width="0.3" />
+        </g>
+        
+        <!-- Bloque H (Talleres Mecánica) -->
+        <rect x="50" y="10" width="13" height="15" rx="0.5" class="svg-building block-h-color" />
+        
+        <!-- Bloque K (Minería y Metalurgia) -->
+        <rect x="70" y="12" width="8" height="26" rx="0.5" class="svg-building block-k-color" />
+        
+        <!-- Bloque G (Dirección Asuntos Estudiantiles) -->
+        <rect x="25" y="38" width="14" height="10" rx="0.5" class="svg-building block-g-color" />
+        
+        <!-- Bloque C (Primeros Auxilios / Conector) -->
+        <polygon points="5,30 23,30 23,48 15,48 15,38 5,38" class="svg-building block-c-color" />
+        
+        <!-- Bloque B (Auditorio, Biblioteca, Administración) -->
+        <rect x="15" y="48" width="8" height="42" rx="0.5" class="svg-building block-b-color" />
+        
+        <!-- Bloque A (Casino Central, Fotocopiadora) -->
+        <rect x="23" y="80" width="30" height="10" rx="0.5" class="svg-building block-a-color" />
+        
+        <!-- Bloque J (Área Mecánica) -->
+        <rect x="48" y="34" width="8" height="26" rx="0.5" class="svg-building block-j-color" />
+        
+        <!-- Bloque L (Talleres Mecánica) -->
+        <rect x="65" y="45" width="10" height="14" rx="0.5" class="svg-building block-l-color" />
+        
+        <!-- Bloque Z (Talleres Electricidad / Construcción) -->
+        <rect x="80" y="60" width="11" height="20" rx="0.5" class="svg-building block-z-color" />
+      </svg>
+
+      <!-- Pines Dinámicos Geoposicionados de Contenedores -->
+      <button 
+        *ngFor="let bin of filteredBins" 
+        class="vector-marker ripple-btn" 
+        [ngClass]="[bin.status, selectedBin?.id === bin.id ? 'selected' : '']"
+        [style.top]="getBinPosition(bin).top" 
+        [style.left]="getBinPosition(bin).left"
+        (click)="onMarkerClick(bin)">
+        
+        <div class="pin-pulse"></div>
+        <div class="pin-icon-box">
+          <ion-icon name="pin-sharp" class="pin-icon"></ion-icon>
+        </div>
+        <span class="pin-short-label">{{ bin.name.substring(0,1) }}</span>
+      </button>
+    </div>
   </div>
 
-  <!-- Botón flotante para restablecer vista -->
-  <ion-button fill="clear" class="recenter-btn ripple-btn" (click)="recenter()">
-    <ion-icon name="locate-outline" slot="icon-only"></ion-icon>
-  </ion-button>
+  <!-- Grupo Fijo de Controles de Mapa (Zoom y Recentrar) -->
+  <div class="map-controls-group">
+    <ion-button fill="clear" class="control-btn ripple-btn" (click)="zoomIn()">
+      <ion-icon name="add-outline" slot="icon-only"></ion-icon>
+    </ion-button>
+    <ion-button fill="clear" class="control-btn ripple-btn" (click)="zoomOut()">
+      <ion-icon name="remove-outline" slot="icon-only"></ion-icon>
+    </ion-button>
+    <ion-button fill="clear" class="control-btn recenter-btn ripple-btn" (click)="recenter()">
+      <ion-icon name="locate-outline" slot="icon-only"></ion-icon>
+    </ion-button>
+  </div>
 
   <!-- Tarjeta de Detalles del Contenedor Seleccionado -->
   <div class="glass-card bin-detail-card ion-padding" *ngIf="selectedBin" [ngClass]="{'show': selectedBin}">

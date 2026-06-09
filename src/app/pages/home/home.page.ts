@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { 
   IonContent, IonProgressBar, IonList, IonIcon, 
-  IonFab, IonFabButton, IonBadge, IonText
+  IonFab, IonFabButton, IonBadge
 } from '@ionic/angular/standalone';
 import { PointsService } from '../../core/services/points.service';
 import { UserProfile, RecyclingActivity } from '../../core/models/user.model';
@@ -23,7 +23,7 @@ import {
   imports: [
     CommonModule, 
     IonContent, IonProgressBar, IonList, IonIcon, 
-    IonFab, IonFabButton, IonBadge, IonText
+    IonFab, IonFabButton, IonBadge
   ],
   providers: [ModalController]
 })
