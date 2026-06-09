@@ -7,9 +7,9 @@ import {
   IonBadge, IonButton, 
   IonIcon, IonGrid, IonRow, IonCol, IonModal, IonChip, IonButtons
 } from '@ionic/angular/standalone';
-import { PointsService } from '../core/services/points.service';
-import { UserProfile } from '../core/models/user.model';
-import { Reward, RedeemedCoupon } from '../core/models/reward.model';
+import { PointsService } from '../../core/services/points.service';
+import { UserProfile } from '../../core/models/user.model';
+import { Reward, RedeemedCoupon } from '../../core/models/reward.model';
 import { addIcons } from 'ionicons';
 import { 
   giftOutline, walletOutline, busOutline, 
@@ -20,9 +20,9 @@ import {
 import { AlertController } from '@ionic/angular';
 
 @Component({
-  selector: 'app-tab3',
-  templateUrl: 'tab3.page.html',
-  styleUrls: ['tab3.page.scss'],
+  selector: 'app-store',
+  templateUrl: 'store.page.html',
+  styleUrls: ['store.page.scss'],
   standalone: true,
   imports: [
     CommonModule, 
@@ -34,12 +34,11 @@ import { AlertController } from '@ionic/angular';
   ],
   providers: [AlertController]
 })
-export class Tab3Page implements OnInit {
+export class StorePage implements OnInit {
   profile!: UserProfile;
   activeSegment: 'rewards' | 'coupons' = 'rewards';
   selectedCategory: 'all' | 'transport' | 'local_shop' | 'eco_product' = 'all';
   
-  // Catálogo de premios
   rewards: Reward[] = [
     {
       id: 'rew_1',
@@ -118,7 +117,6 @@ export class Tab3Page implements OnInit {
   filteredRewards: Reward[] = [];
   myCoupons: RedeemedCoupon[] = [];
   
-  // Modal de Cupón Recién Canjeado
   isCouponModalOpen = false;
   latestCoupon: RedeemedCoupon | null = null;
 
@@ -171,7 +169,6 @@ export class Tab3Page implements OnInit {
     }
   }
 
-  // Canjear recompensa
   async redeem(reward: Reward) {
     if (this.profile.points < reward.pointsCost) {
       const alert = await this.alertCtrl.create({
@@ -212,7 +209,6 @@ export class Tab3Page implements OnInit {
     this.latestCoupon = null;
   }
 
-  // Helper ui
   getCategoryName(category: string): string {
     switch (category) {
       case 'transport': return 'Transporte';

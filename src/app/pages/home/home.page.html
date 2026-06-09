@@ -63,7 +63,7 @@
       <div *ngFor="let activity of recentActivities" class="activity-card glass-card">
         <div class="activity-item-content">
           <div class="activity-icon-container" [ngClass]="activity.material">
-            <ion-icon [name]="getMaterialIcon(activity.material)"></ion-icon>
+            <ion-icon [ngClass]="" [name]="getMaterialIcon(activity.material)"></ion-icon>
           </div>
           <div class="activity-details">
             <h4 class="bin-title">{{ activity.binName }}</h4>

@@ -4,9 +4,9 @@ import {
   IonContent, IonProgressBar, IonList, IonIcon, 
   IonFab, IonFabButton, IonBadge, IonText
 } from '@ionic/angular/standalone';
-import { PointsService } from '../core/services/points.service';
-import { UserProfile, RecyclingActivity } from '../core/models/user.model';
-import { QrSimulatorComponent } from '../shared/components/qr-simulator/qr-simulator.component';
+import { PointsService } from '../../core/services/points.service';
+import { UserProfile, RecyclingActivity } from '../../core/models/user.model';
+import { QrSimulatorComponent } from '../../shared/components/qr-simulator/qr-simulator.component';
 import { ModalController } from '@ionic/angular';
 import { addIcons } from 'ionicons';
 import { 
@@ -16,18 +16,18 @@ import {
 } from 'ionicons/icons';
 
 @Component({
-  selector: 'app-tab1',
-  templateUrl: 'tab1.page.html',
-  styleUrls: ['tab1.page.scss'],
+  selector: 'app-home',
+  templateUrl: 'home.page.html',
+  styleUrls: ['home.page.scss'],
   standalone: true,
   imports: [
     CommonModule, 
     IonContent, IonProgressBar, IonList, IonIcon, 
     IonFab, IonFabButton, IonBadge, IonText
   ],
-  providers: [ModalController] // Proveer ModalController para poder levantar el modal
+  providers: [ModalController]
 })
-export class Tab1Page implements OnInit {
+export class HomePage implements OnInit {
   profile!: UserProfile;
   recentActivities: RecyclingActivity[] = [];
 
@@ -49,18 +49,15 @@ export class Tab1Page implements OnInit {
   }
 
   ngOnInit() {
-    // Suscribirse a los datos del perfil
     this.pointsService.getProfile().subscribe(prof => {
       this.profile = prof;
     });
 
-    // Suscribirse a las actividades recientes (limitar a las últimas 5 en la vista)
     this.pointsService.getHistory().subscribe(history => {
       this.recentActivities = history.slice(0, 5);
     });
   }
 
-  // Abrir modal simulador de QR
   async openScanner() {
     const modal = await this.modalCtrl.create({
       component: QrSimulatorComponent,
@@ -69,18 +66,16 @@ export class Tab1Page implements OnInit {
     return await modal.present();
   }
 
-  // Retornar clase css para colores de materiales
   getMaterialColor(material: string): string {
     switch (material) {
-      case 'plastic': return 'success'; // Verde
-      case 'glass': return 'secondary'; // Mint
-      case 'paper': return 'warning'; // Amber/Gold
-      case 'metal': return 'danger'; // Rojo/Coral
+      case 'plastic': return 'success';
+      case 'glass': return 'secondary';
+      case 'paper': return 'warning';
+      case 'metal': return 'danger';
       default: return 'medium';
     }
   }
 
-  // Retornar icono según material
   getMaterialIcon(material: string): string {
     switch (material) {
       case 'plastic': return 'leaf-outline';
@@ -91,7 +86,6 @@ export class Tab1Page implements OnInit {
     }
   }
 
-  // Traducir nombre de material
   translateMaterial(material: string): string {
     switch (material) {
       case 'plastic': return 'Plástico';
