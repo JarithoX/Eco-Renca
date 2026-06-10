@@ -1,0 +1,214 @@
+.splash-content {
+  --background: transparent;
+  --padding-top: 0;
+  --padding-bottom: 0;
+  --padding-start: 0;
+  --padding-end: 0;
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+.splash-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  width: 100%;
+  background: radial-gradient(circle at center, #0e1e1b 0%, #040706 100%);
+  color: #ffffff;
+  padding: 24px;
+  box-sizing: border-box;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Efecto de partículas/brillo ambiental verde muy sutil */
+.splash-container::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at 30% 30%, rgba(16, 185, 129, 0.04) 0%, transparent 40%),
+              radial-gradient(circle at 70% 70%, rgba(6, 182, 212, 0.03) 0%, transparent 40%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Contenedor del Logotipo */
+.logo-wrapper {
+  position: relative;
+  z-index: 2;
+  margin-bottom: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: logo-entry 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.splash-logo {
+  width: 130px;
+  height: 130px;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 24px rgba(16, 185, 129, 0.25));
+  z-index: 3;
+}
+
+/* Resplandor verde de fondo pulsante */
+.logo-glow {
+  position: absolute;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: rgba(16, 185, 129, 0.15);
+  filter: blur(28px);
+  z-index: 2;
+  animation: glow-pulse 3s ease-in-out infinite alternate;
+}
+
+/* Título de Marca y Subtítulo */
+.brand-wrapper {
+  z-index: 2;
+  margin-bottom: 70px;
+}
+
+.brand-title {
+  font-size: 38px;
+  font-weight: 900;
+  margin: 0;
+  letter-spacing: -1px;
+  background: linear-gradient(135deg, #10b981 0%, #059669 50%, #06b6d4 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: fade-in-up 1s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
+  opacity: 0;
+}
+
+.brand-subtitle {
+  font-size: 13px;
+  font-weight: 600;
+  color: #94a3b8;
+  margin: 8px 0 0 0;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  animation: fade-in-up 1s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards;
+  opacity: 0;
+}
+
+/* Cargador Spinner y Texto */
+.loader-wrapper {
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  position: absolute;
+  bottom: 8vh;
+  animation: fade-in 1s ease-out 0.7s forwards;
+  opacity: 0;
+}
+
+.modern-spinner {
+  position: relative;
+  width: 42px;
+  height: 42px;
+}
+
+.spinner-ring {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 3px solid rgba(16, 185, 129, 0.08);
+  border-top-color: #10b981;
+  border-right-color: rgba(6, 182, 212, 0.8);
+  animation: spin 1.2s cubic-bezier(0.5, 0.1, 0.5, 0.9) infinite;
+}
+
+.spinner-dot {
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  width: 6px;
+  height: 6px;
+  background: #22c55e;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #22c55e;
+}
+
+.loading-text {
+  font-size: 11px;
+  font-weight: 700;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  animation: text-pulse 1.8s ease-in-out infinite;
+}
+
+/* Animaciones Keyframes */
+@keyframes logo-entry {
+  0% {
+    transform: scale(0.6) translateY(20px);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes glow-pulse {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.6;
+    background: rgba(16, 185, 129, 0.12);
+  }
+  100% {
+    transform: scale(1.15);
+    opacity: 1;
+    background: rgba(6, 182, 212, 0.22);
+  }
+}
+
+@keyframes fade-in-up {
+  0% {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes text-pulse {
+  0%, 100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+    color: #10b981;
+  }
+}

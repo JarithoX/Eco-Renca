@@ -336,6 +336,8 @@
     --background: var(--eco-gradient-primary);
     --box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
     --color: #ffffff;
+    border-radius: 50%;
+    overflow: hidden;
     
     ion-icon {
       font-size: 26px;

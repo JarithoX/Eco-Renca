@@ -78,7 +78,7 @@
                 </div>
                 <ion-button 
                   fill="solid" 
-                  [color]="profile.points >= reward.pointsCost ? 'primary' : 'medium'"
+                  [color]="(profile?.points ?? 0) >= reward.pointsCost ? 'primary' : 'medium'"
                   class="redeem-btn ripple-btn" 
                   (click)="redeem(reward)">
                   Canjear

@@ -11,9 +11,9 @@ export class BinsService {
     {
       id: 'bin_1',
       name: 'Punto Limpio Entrada Principal',
-      address: 'Hall de Acceso Principal, INACAP Sede Renca',
-      lat: -33.405550,
-      lng: -70.682600,
+      address: 'Hall de Acceso Principal (Bloque B), INACAP Sede Renca',
+      lat: -33.405870,
+      lng: -70.683400,
       acceptedMaterials: ['plastic', 'glass', 'paper'],
       capacity: 45,
       status: 'available'
@@ -21,9 +21,9 @@ export class BinsService {
     {
       id: 'bin_2',
       name: 'Punto Ecológico Casino Central',
-      address: 'Patio de Comidas y Casino, INACAP Sede Renca',
-      lat: -33.405800,
-      lng: -70.682900,
+      address: 'Patio de Comidas y Casino (Bloque A), INACAP Sede Renca',
+      lat: -33.406300,
+      lng: -70.682940,
       acceptedMaterials: ['plastic', 'metal'],
       capacity: 85,
       status: 'available'
@@ -31,9 +31,9 @@ export class BinsService {
     {
       id: 'bin_3',
       name: 'Eco-Punto Estacionamiento A',
-      address: 'Zona de Estacionamiento Norte, INACAP Sede Renca',
-      lat: -33.405100,
-      lng: -70.682500,
+      address: 'Zona de Estacionamiento Norte (Acceso Principal), INACAP Sede Renca',
+      lat: -33.404900,
+      lng: -70.682770,
       acceptedMaterials: ['plastic', 'glass', 'paper', 'metal'],
       capacity: 100,
       status: 'full'
@@ -41,9 +41,9 @@ export class BinsService {
     {
       id: 'bin_4',
       name: 'Punto Reciclaje Bloque Laboratorios',
-      address: 'Pasillo Central Bloque B (Segundo Piso), INACAP Sede Renca',
-      lat: -33.405300,
-      lng: -70.683000,
+      address: 'Pasillo Central Bloque F (Segundo Piso), INACAP Sede Renca',
+      lat: -33.404990,
+      lng: -70.683160,
       acceptedMaterials: ['plastic', 'paper'],
       capacity: 20,
       status: 'available'
@@ -51,12 +51,112 @@ export class BinsService {
     {
       id: 'bin_5',
       name: 'Contenedor Metal-Vidrio Talleres',
-      address: 'Patio Trasero Bloque de Talleres Industriales, INACAP Sede Renca',
-      lat: -33.406000,
-      lng: -70.682300,
+      address: 'Patio Central de Talleres (Bloque Z), INACAP Sede Renca',
+      lat: -33.405980,
+      lng: -70.681800,
       acceptedMaterials: ['glass', 'metal'],
       capacity: 0,
       status: 'maintenance'
+    },
+    {
+      id: 'bin_6',
+      name: 'Punto Papel/Cartón Bloque D',
+      address: 'Pasillo del Bloque D (Electricidad y Electrónica), INACAP Sede Renca',
+      lat: -33.405000,
+      lng: -70.683450,
+      acceptedMaterials: ['paper'],
+      capacity: 60,
+      status: 'available'
+    },
+    {
+      id: 'bin_7',
+      name: 'Contenedor Plásticos Bloque E',
+      address: 'Pasillo del Bloque E (Aulas y Laboratorios), INACAP Sede Renca',
+      lat: -33.405050,
+      lng: -70.683250,
+      acceptedMaterials: ['plastic'],
+      capacity: 95,
+      status: 'available'
+    },
+    {
+      id: 'bin_8',
+      name: 'Eco-Punto Bloque G (DAE)',
+      address: 'Hall Bloque G (Dirección de Asuntos Estudiantiles), INACAP Sede Renca',
+      lat: -33.405400,
+      lng: -70.683100,
+      acceptedMaterials: ['plastic', 'paper', 'metal'],
+      capacity: 30,
+      status: 'available'
+    },
+    {
+      id: 'bin_9',
+      name: 'Punto Verde Bloque C',
+      address: 'Acceso Bloque C (Primeros Auxilios / Conector), INACAP Sede Renca',
+      lat: -33.405300,
+      lng: -70.683400,
+      acceptedMaterials: ['glass', 'paper'],
+      capacity: 10,
+      status: 'available'
+    },
+    {
+      id: 'bin_10',
+      name: 'Punto Reciclaje Bloque B (Sur)',
+      address: 'Bloque B Sur (Biblioteca y Administración), INACAP Sede Renca',
+      lat: -33.406100,
+      lng: -70.683380,
+      acceptedMaterials: ['plastic', 'glass', 'metal'],
+      capacity: 55,
+      status: 'available'
+    },
+    {
+      id: 'bin_11',
+      name: 'Contenedor Metal-Plástico Bloque J',
+      address: 'Talleres de Mecánica (Bloque J), INACAP Sede Renca',
+      lat: -33.405450,
+      lng: -70.682600,
+      acceptedMaterials: ['metal', 'plastic'],
+      capacity: 100,
+      status: 'full'
+    },
+    {
+      id: 'bin_12',
+      name: 'Punto Limpio Bloque H',
+      address: 'Área de Talleres de Mecánica (Bloque H), INACAP Sede Renca',
+      lat: -33.404950,
+      lng: -70.682550,
+      acceptedMaterials: ['plastic', 'glass', 'paper'],
+      capacity: 15,
+      status: 'available'
+    },
+    {
+      id: 'bin_13',
+      name: 'Eco-Punto Bloque K',
+      address: 'Bloque K (Minería y Metalurgia), INACAP Sede Renca',
+      lat: -33.405150,
+      lng: -70.682050,
+      acceptedMaterials: ['glass', 'metal'],
+      capacity: 40,
+      status: 'available'
+    },
+    {
+      id: 'bin_14',
+      name: 'Punto Reciclaje Bloque L',
+      address: 'Talleres de Mecánica (Bloque L), INACAP Sede Renca',
+      lat: -33.405650,
+      lng: -70.682150,
+      acceptedMaterials: ['plastic', 'paper'],
+      capacity: 0,
+      status: 'maintenance'
+    },
+    {
+      id: 'bin_15',
+      name: 'Eco-Punto Estacionamiento B',
+      address: 'Zona de Estacionamiento Este (Acceso Secundario), INACAP Sede Renca',
+      lat: -33.405350,
+      lng: -70.682250,
+      acceptedMaterials: ['plastic', 'glass', 'paper', 'metal'],
+      capacity: 70,
+      status: 'available'
     }
   ];
 

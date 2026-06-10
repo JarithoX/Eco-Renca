@@ -28,7 +28,7 @@ import {
   providers: [ModalController]
 })
 export class HomePage implements OnInit {
-  profile!: UserProfile;
+  profile?: UserProfile;
   recentActivities: RecyclingActivity[] = [];
 
   constructor(

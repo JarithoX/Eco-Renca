@@ -32,7 +32,7 @@
   </div>
 </ion-header>
 
-<ion-content [fullscreen]="true" class="map-content" [scrollX]="false" [scrollY]="false">
+<ion-content [fullscreen]="false" class="map-content" [scrollX]="false" [scrollY]="false">
   <!-- Contenedor interactuable para arrastrar y hacer zoom (Pan & Zoom) -->
   <div 
     class="interactive-map-wrapper" 
@@ -119,13 +119,13 @@
         [ngClass]="[bin.status, selectedBin?.id === bin.id ? 'selected' : '']"
         [style.top]="getBinPosition(bin).top" 
         [style.left]="getBinPosition(bin).left"
+        [style.transform]="'translate(-50%, -50%) scale(' + (1 / scale) + ')'"
         (click)="onMarkerClick(bin)">
         
         <div class="pin-pulse"></div>
         <div class="pin-icon-box">
           <ion-icon name="pin-sharp" class="pin-icon"></ion-icon>
         </div>
-        <span class="pin-short-label">{{ bin.name.substring(0,1) }}</span>
       </button>
     </div>
   </div>

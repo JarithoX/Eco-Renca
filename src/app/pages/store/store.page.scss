@@ -1,3 +1,15 @@
+ion-header {
+  background: var(--eco-glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--eco-glass-border);
+}
+
+ion-toolbar {
+  --background: transparent;
+  --border-width: 0;
+}
+
 /* Header y Banner de Puntos */
 .points-header-banner {
   background: transparent;

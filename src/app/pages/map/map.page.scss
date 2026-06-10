@@ -298,15 +298,6 @@
   transition: transform 0.2s ease;
 }
 
-.pin-short-label {
-  position: absolute;
-  z-index: 15;
-  color: #ffffff;
-  font-size: 8px;
-  font-weight: 800;
-  top: 10px; // Alinear letra dentro del óvalo superior del pin
-  pointer-events: none;
-}
 
 /* Marcador seleccionado */
 .vector-marker.selected {
@@ -328,7 +319,7 @@
 /* Grupo Fijo de Controles de Mapa flotantes */
 .map-controls-group {
   position: absolute;
-  bottom: 95px; // Posicionado encima de la barra inferior
+  bottom: 20px; // Posicionado de forma óptima ya que no es fullscreen
   right: 16px;
   z-index: 30;
   display: flex;
@@ -383,7 +374,7 @@
   bottom: 16px;
   left: 16px;
   right: 16px;
-  z-index: 20;
+  z-index: 40;
   margin: 0 !important;
   max-width: calc(100% - 32px);
   transform: translateY(120%);

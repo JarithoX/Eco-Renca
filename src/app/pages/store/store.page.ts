@@ -35,7 +35,7 @@ import { AlertController } from '@ionic/angular';
   providers: [AlertController]
 })
 export class StorePage implements OnInit {
-  profile!: UserProfile;
+  profile?: UserProfile;
   activeSegment: 'rewards' | 'coupons' = 'rewards';
   selectedCategory: 'all' | 'transport' | 'local_shop' | 'eco_product' = 'all';
   
@@ -170,6 +170,7 @@ export class StorePage implements OnInit {
   }
 
   async redeem(reward: Reward) {
+    if (!this.profile) return;
     if (this.profile.points < reward.pointsCost) {
       const alert = await this.alertCtrl.create({
         header: 'Puntos Insuficientes',
