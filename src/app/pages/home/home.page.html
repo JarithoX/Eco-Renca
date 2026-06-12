@@ -157,7 +157,7 @@
           <ion-icon [name]="isWasteExpanded(waste.name) ? 'chevron-up-outline' : 'chevron-down-outline'" class="accordion-arrow"></ion-icon>
         </div>
 
-        <!-- Contenido Desplegable (Detalles del Reciclaje) -->
+        <!-- Contenido Desplegable (Detalles del Reciclaje) --> 
         <div class="waste-body" [class.show-body]="isWasteExpanded(waste.name)">
           <p class="waste-description">{{ waste.description }}</p>
           
@@ -187,7 +187,6 @@
 
   <!-- Espaciador inferior para no tapar contenido con el FAB -->
   <div class="bottom-spacer"></div>
-
   <!-- Botón Flotante para Escanear QR (FAB) -->
   <ion-fab vertical="bottom" horizontal="end" slot="fixed" class="scan-fab">
     <ion-fab-button (click)="openScanner()" class="pulse-element ripple-btn">
