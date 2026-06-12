@@ -14,9 +14,14 @@ export class SplashPage implements OnInit {
   constructor(private router: Router) {}
 
   ngOnInit() {
-    // Redirigir a la vista de inicio (/tabs/home) después de 2.5 segundos
+    // Redirigir según la existencia de una carrera seleccionada
     setTimeout(() => {
-      this.router.navigateByUrl('/tabs/home', { replaceUrl: true });
+      const savedCareerId = localStorage.getItem('selectedEcoRencaCareer');
+      if (savedCareerId) {
+        this.router.navigateByUrl('/tabs/home', { replaceUrl: true });
+      } else {
+        this.router.navigateByUrl('/career-selection', { replaceUrl: true });
+      }
     }, 2500);
   }
 }

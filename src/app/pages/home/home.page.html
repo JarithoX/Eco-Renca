@@ -1,6 +1,32 @@
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" 
+  [class.bg-quimica]="selectedCareer?.id === 'qui_quimica'" 
+  [class.bg-construccion]="selectedCareer?.id === 'con_construccion'" 
+  [class.bg-mecanica]="selectedCareer?.id?.startsWith('mec_')">
+
+  <!-- Decoración de Fondo Temática de la Carrera (Patrón de iconos flotantes) -->
+  <div *ngIf="selectedCareer" class="career-bg-decor" [ngClass]="selectedCareer.gradientClass">
+    <div 
+      *ngFor="let iconName of selectedCareer.bgDecorIcons; let i = index" 
+      [class]="'floating-icon-wrapper icon-' + i">
+      <ion-icon [name]="iconName"></ion-icon>
+    </div>
+  </div>
+
+  <!-- Contenedores temáticos para fondos personalizados complejos (Química, Construcción, Mecánica) -->
+  <div *ngIf="selectedCareer?.id === 'qui_quimica'" class="personalized-bg chemistry-bg-overlay">
+    <div class="hex-grid"></div>
+  </div>
+  <div *ngIf="selectedCareer?.id === 'con_construccion'" class="personalized-bg construction-bg-overlay">
+    <div class="blueprint-grid"></div>
+  </div>
+  <div *ngIf="selectedCareer?.id?.startsWith('mec_')" class="personalized-bg mechanics-bg-overlay">
+    <div class="carbon-fiber"></div>
+    <div class="rotating-gear-1"><ion-icon name="settings-outline"></ion-icon></div>
+    <div class="rotating-gear-2"><ion-icon name="cog-outline"></ion-icon></div>
+  </div>
+
   <!-- Header de Perfil Superior -->
-  <div class="profile-header-gradient">
+  <div class="profile-header-gradient" [ngClass]="selectedCareer ? selectedCareer.gradientClass : ''">
     <div class="header-content ion-padding">
       <div class="app-branding">
         <div class="logo-container">
@@ -13,7 +39,7 @@
       </div>
       <div class="avatar-container">
         <div class="avatar-circle">
-          <ion-icon name="person-circle-outline" class="avatar-placeholder"></ion-icon>
+          <ion-icon [name]="selectedCareer ? selectedCareer.icon : 'person-circle-outline'" class="avatar-placeholder"></ion-icon>
         </div>
       </div>
     </div>
@@ -47,7 +73,21 @@
     </div>
   </div>
 
-  <!-- Contenido Principal -->
+  <!-- Tarjeta de Invitación a seleccionar Carrera (si no hay carrera seleccionada en home) -->
+  <div *ngIf="!selectedCareer" class="glass-card career-cta-card ion-padding ripple-btn" (click)="clearCareer()">
+    <div class="career-cta-content">
+      <div class="cta-icon-wrapper">
+        <ion-icon name="school-outline" color="primary"></ion-icon>
+      </div>
+      <div class="cta-text">
+        <h3>Tu Carrera Sostenible</h3>
+        <p>Selecciona tu especialidad para conocer qué residuos generas e innovaciones de reciclaje.</p>
+      </div>
+      <ion-icon name="arrow-forward-outline" class="cta-arrow"></ion-icon>
+    </div>
+  </div>
+
+  <!-- Contenido Principal (Historial de Reciclaje) -->
   <div class="main-dashboard-content ion-padding-horizontal">
     <h3 class="section-title">
       <ion-icon name="time-outline"></ion-icon>
@@ -66,7 +106,7 @@
       <div *ngFor="let activity of recentActivities" class="activity-card glass-card">
         <div class="activity-item-content">
           <div class="activity-icon-container" [ngClass]="activity.material">
-            <ion-icon [ngClass]="" [name]="getMaterialIcon(activity.material)"></ion-icon>
+            <ion-icon [name]="getMaterialIcon(activity.material)"></ion-icon>
           </div>
           <div class="activity-details">
             <h4 class="bin-title">{{ activity.binName }}</h4>
@@ -86,6 +126,67 @@
       </div>
     </ion-list>
   </div>
+
+  <!-- Sección de Residuos de Especialidad (si hay carrera seleccionada) -->
+  <div *ngIf="selectedCareer" class="career-wastes-section ion-padding-horizontal">
+    <div class="section-header-flex">
+      <h3 class="section-title">
+        <ion-icon [name]="selectedCareer.icon"></ion-icon>
+        Mi Especialidad: {{ selectedCareer.name }}
+      </h3>
+      <ion-button fill="clear" size="small" class="change-career-btn" (click)="clearCareer()">
+        Cambiar
+        <ion-icon name="close-circle-outline" slot="end"></ion-icon>
+      </ion-button>
+    </div>
+    <p class="career-description-text">{{ selectedCareer.description }}</p>
+
+    <div class="waste-accordion-list">
+      <div *ngFor="let waste of selectedCareer.wastes" class="waste-accordion-card glass-card" [class.is-expanded]="isWasteExpanded(waste.name)">
+        <!-- Encabezado del Residuo -->
+        <div class="waste-header" (click)="toggleWaste(waste.name)">
+          <div class="waste-header-title">
+            <ion-icon name="trash-outline" class="waste-icon" [color]="getMaterialColor(waste.material)"></ion-icon>
+            <div class="waste-header-text">
+              <h4>{{ waste.name }}</h4>
+              <ion-badge [color]="getMaterialColor(waste.material)" class="material-badge">
+                {{ translateMaterial(waste.material) }}
+              </ion-badge>
+            </div>
+          </div>
+          <ion-icon [name]="isWasteExpanded(waste.name) ? 'chevron-up-outline' : 'chevron-down-outline'" class="accordion-arrow"></ion-icon>
+        </div>
+
+        <!-- Contenido Desplegable (Detalles del Reciclaje) -->
+        <div class="waste-body" [class.show-body]="isWasteExpanded(waste.name)">
+          <p class="waste-description">{{ waste.description }}</p>
+          
+          <div class="recycling-info-grid">
+            <!-- Reciclaje Clásico -->
+            <div class="recycling-card standard-recycling-card">
+              <div class="card-subheader">
+                <ion-icon name="leaf-outline"></ion-icon>
+                <h5>Reciclaje Tradicional</h5>
+              </div>
+              <p>{{ waste.standardRecycling }}</p>
+            </div>
+
+            <!-- Reciclaje Innovador -->
+            <div class="recycling-card innovative-recycling-card">
+              <div class="card-subheader">
+                <ion-icon name="sparkles-outline"></ion-icon>
+                <h5>Innovación Sostenible</h5>
+              </div>
+              <p>{{ waste.innovativeRecycling }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Espaciador inferior para no tapar contenido con el FAB -->
+  <div class="bottom-spacer"></div>
 
   <!-- Botón Flotante para Escanear QR (FAB) -->
   <ion-fab vertical="bottom" horizontal="end" slot="fixed" class="scan-fab">

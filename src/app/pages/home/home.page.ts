@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 import { 
   IonContent, IonProgressBar, IonList, IonIcon, 
-  IonFab, IonFabButton, IonBadge
+  IonFab, IonFabButton, IonBadge, IonButton
 } from '@ionic/angular/standalone';
 import { PointsService } from '../../core/services/points.service';
 import { UserProfile, RecyclingActivity } from '../../core/models/user.model';
@@ -12,8 +13,22 @@ import { addIcons } from 'ionicons';
 import { 
   qrCodeOutline, trophyOutline, personCircleOutline, 
   timeOutline, leafOutline, chevronForwardOutline,
-  wineOutline, receiptOutline, barChartOutline
+  wineOutline, receiptOutline, barChartOutline,
+  schoolOutline, arrowForwardOutline, hammerOutline,
+  flaskOutline, constructOutline, flashOutline,
+  nutritionOutline, earthOutline, sparklesOutline,
+  bulbOutline, cogOutline, trashOutline,
+  closeCircleOutline, chevronDownOutline, chevronUpOutline,
+  nuclearOutline, waterOutline, gitNetworkOutline,
+  hardwareChipOutline, sunnyOutline, carSportOutline,
+  settingsOutline, cubeOutline, bonfireOutline,
+  desktopOutline, shieldCheckmarkOutline, wifiOutline,
+  briefcaseOutline, airplaneOutline, calculatorOutline,
+  buildOutline
 } from 'ionicons/icons';
+import { CAREERS } from '../../core/data/career.data';
+import { Career } from '../../core/models/career.model';
+import { CareerService } from '../../core/services/career.service';
 
 @Component({
   selector: 'app-home',
@@ -23,17 +38,24 @@ import {
   imports: [
     CommonModule, 
     IonContent, IonProgressBar, IonList, IonIcon, 
-    IonFab, IonFabButton, IonBadge
+    IonFab, IonFabButton, IonBadge, IonButton
   ],
   providers: [ModalController]
 })
 export class HomePage implements OnInit {
   profile?: UserProfile;
   recentActivities: RecyclingActivity[] = [];
+  
+  // Lógica Eco-Carreras
+  careers: Career[] = CAREERS;
+  selectedCareer: Career | null = null;
+  expandedWastes: Record<string, boolean> = {};
 
   constructor(
     private pointsService: PointsService,
-    private modalCtrl: ModalController
+    private modalCtrl: ModalController,
+    private router: Router,
+    private careerService: CareerService
   ) {
     addIcons({
       qrCodeOutline,
@@ -44,7 +66,38 @@ export class HomePage implements OnInit {
       chevronForwardOutline,
       wineOutline,
       receiptOutline,
-      barChartOutline
+      barChartOutline,
+      schoolOutline,
+      arrowForwardOutline,
+      hammerOutline,
+      flaskOutline,
+      constructOutline,
+      flashOutline,
+      nutritionOutline,
+      earthOutline,
+      sparklesOutline,
+      bulbOutline,
+      cogOutline,
+      trashOutline,
+      closeCircleOutline,
+      chevronDownOutline,
+      chevronUpOutline,
+      nuclearOutline,
+      waterOutline,
+      gitNetworkOutline,
+      hardwareChipOutline,
+      sunnyOutline,
+      carSportOutline,
+      settingsOutline,
+      cubeOutline,
+      bonfireOutline,
+      desktopOutline,
+      shieldCheckmarkOutline,
+      wifiOutline,
+      briefcaseOutline,
+      airplaneOutline,
+      calculatorOutline,
+      buildOutline
     });
   }
 
@@ -55,6 +108,11 @@ export class HomePage implements OnInit {
 
     this.pointsService.getHistory().subscribe(history => {
       this.recentActivities = history.slice(0, 5);
+    });
+
+    // Suscribirse de manera reactiva a la carrera seleccionada
+    this.careerService.getSelectedCareer().subscribe(career => {
+      this.selectedCareer = career;
     });
   }
 
@@ -92,7 +150,21 @@ export class HomePage implements OnInit {
       case 'glass': return 'Vidrio';
       case 'paper': return 'Papel/Cartón';
       case 'metal': return 'Metal/Latas';
-      default: return material;
+      default: return 'Otro';
     }
+  }
+
+  // Métodos de Eco-Carreras
+  clearCareer() {
+    this.careerService.clearCareer();
+    this.router.navigateByUrl('/career-selection');
+  }
+
+  toggleWaste(wasteName: string) {
+    this.expandedWastes[wasteName] = !this.expandedWastes[wasteName];
+  }
+
+  isWasteExpanded(wasteName: string): boolean {
+    return !!this.expandedWastes[wasteName];
   }
 }

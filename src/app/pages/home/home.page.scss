@@ -344,3 +344,513 @@
     }
   }
 }
+
+/* ==========================================================================
+   Sección Eco-Carreras & Tematización Dinámica
+   ========================================================================== */
+
+/* Gradientes Temáticos de Cabeceras */
+.profile-header-gradient {
+  transition: background 0.5s ease, box-shadow 0.5s ease;
+  
+  &.theme-quimica {
+    background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%) !important;
+    box-shadow: 0 8px 24px rgba(168, 85, 247, 0.25) !important;
+  }
+  
+  &.theme-construccion {
+    background: linear-gradient(135deg, #f97316 0%, #ea580c 100%) !important;
+    box-shadow: 0 8px 24px rgba(234, 88, 12, 0.25) !important;
+  }
+  
+  &.theme-mineria {
+    background: linear-gradient(135deg, #334155 0%, #0f172a 100%) !important;
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.25) !important;
+  }
+  
+  &.theme-electronica {
+    background: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%) !important;
+    box-shadow: 0 8px 24px rgba(59, 130, 246, 0.25) !important;
+  }
+  
+  &.theme-mecanica {
+    background: linear-gradient(135deg, #64748b 0%, #334155 100%) !important;
+    box-shadow: 0 8px 24px rgba(51, 65, 85, 0.25) !important;
+  }
+  
+  &.theme-agronomia {
+    background: linear-gradient(135deg, #10b981 0%, #064e3b 100%) !important;
+    box-shadow: 0 8px 24px rgba(16, 185, 129, 0.25) !important;
+  }
+}
+
+/* Animación de Flotación para Iconos de Fondo */
+@keyframes float-slow {
+  0% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-15px) rotate(8deg); }
+  100% { transform: translateY(0px) rotate(0deg); }
+}
+
+@keyframes float-medium {
+  0% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-25px) rotate(-12deg); }
+  100% { transform: translateY(0px) rotate(0deg); }
+}
+
+/* Contenedor de Decoración de Fondo */
+.career-bg-decor {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0; // Detrás del contenido pero en el scroll
+  overflow: hidden;
+
+  .floating-icon-wrapper {
+    position: absolute;
+    color: var(--ion-color-primary);
+    opacity: 0.04;
+    transition: color 0.5s ease;
+
+    &.icon-0 {
+      top: 28%;
+      left: 6%;
+      font-size: 80px;
+      animation: float-slow 10s infinite ease-in-out;
+    }
+    
+    &.icon-1 {
+      top: 52%;
+      right: -8%;
+      font-size: 130px;
+      animation: float-medium 15s infinite ease-in-out;
+    }
+    
+    &.icon-2 {
+      top: 78%;
+      left: 10%;
+      font-size: 95px;
+      animation: float-slow 12s infinite ease-in-out 1.5s;
+    }
+  }
+
+  /* Colores adaptados a los iconos de fondo */
+  &.theme-quimica .floating-icon-wrapper { color: #a855f7; opacity: 0.06; }
+  &.theme-construccion .floating-icon-wrapper { color: #ea580c; opacity: 0.06; }
+  &.theme-mineria .floating-icon-wrapper { color: #94a3b8; opacity: 0.05; }
+  &.theme-electronica .floating-icon-wrapper { color: #3b82f6; opacity: 0.06; }
+  &.theme-mecanica .floating-icon-wrapper { color: #64748b; opacity: 0.06; }
+  &.theme-agronomia .floating-icon-wrapper { color: #10b981; opacity: 0.06; }
+}
+
+/* Contenedores de Fondos Personalizados Complejos */
+.personalized-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+  opacity: 0.6;
+}
+
+// 1. Fondo Especial Química: hexágonos moleculares e índigo profundo
+.chemistry-bg-overlay {
+  background: radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.04) 0%, rgba(168, 85, 247, 0.04) 90%);
+  
+  .hex-grid {
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    top: -50%;
+    left: -50%;
+    background-image: 
+      linear-gradient(30deg, rgba(168, 85, 247, 0.02) 25%, transparent 25%), 
+      linear-gradient(330deg, rgba(168, 85, 247, 0.02) 25%, transparent 25%), 
+      linear-gradient(90deg, rgba(168, 85, 247, 0.02) 25%, transparent 25%), 
+      linear-gradient(150deg, rgba(168, 85, 247, 0.02) 25%, transparent 25%), 
+      linear-gradient(210deg, rgba(168, 85, 247, 0.02) 25%, transparent 25%), 
+      linear-gradient(270deg, rgba(168, 85, 247, 0.02) 25%, transparent 25%);
+    background-size: 60px 104px;
+    opacity: 0.7;
+    transform: rotate(10deg);
+  }
+}
+
+// 2. Fondo Especial Construcción: líneas de plano y diseño naranja/ladrillo
+.construction-bg-overlay {
+  background: radial-gradient(circle at 10% 20%, rgba(249, 115, 22, 0.03) 0%, rgba(234, 88, 12, 0.03) 90%);
+
+  .blueprint-grid {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: 
+      linear-gradient(rgba(234, 88, 12, 0.015) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(234, 88, 12, 0.015) 1px, transparent 1px);
+    background-size: 25px 25px;
+    opacity: 0.8;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-image: repeating-linear-gradient(45deg, transparent, transparent 120px, rgba(234, 88, 12, 0.008) 120px, rgba(234, 88, 12, 0.008) 121px);
+    }
+  }
+}
+
+// 3. Fondo Especial Mecánica: fibra de carbono y engranajes giratorios
+.mechanics-bg-overlay {
+  background: radial-gradient(circle at 10% 20%, rgba(100, 116, 139, 0.04) 0%, rgba(51, 65, 85, 0.04) 90%);
+
+  .carbon-fiber {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: 
+      linear-gradient(27deg, rgba(100, 116, 139, 0.006) 5px, transparent 5px) 0 5px,
+      linear-gradient(207deg, rgba(100, 116, 139, 0.006) 5px, transparent 5px) 10px 0px,
+      linear-gradient(27deg, rgba(51, 65, 85, 0.008) 5px, transparent 5px) 0px 10px,
+      linear-gradient(207deg, rgba(51, 65, 85, 0.008) 5px, transparent 5px) 10px 5px;
+    background-size: 20px 20px;
+    opacity: 0.8;
+  }
+
+  @keyframes rotate-clockwise {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  @keyframes rotate-counter-clockwise {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(-360deg); }
+  }
+
+  .rotating-gear-1, .rotating-gear-2 {
+    position: absolute;
+    color: var(--ion-color-medium);
+    opacity: 0.03;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    ion-icon {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .rotating-gear-1 {
+    top: 18%;
+    right: -60px;
+    width: 180px;
+    height: 180px;
+    animation: rotate-clockwise 45s infinite linear;
+    
+    @media (prefers-color-scheme: dark) {
+      color: #94a3b8;
+    }
+  }
+
+  .rotating-gear-2 {
+    top: 32%;
+    right: 80px;
+    width: 110px;
+    height: 110px;
+    animation: rotate-counter-clockwise 30s infinite linear;
+    
+    @media (prefers-color-scheme: dark) {
+      color: #94a3b8;
+    }
+  }
+}
+
+/* Modificaciones de Fondo al Contenedor Content */
+ion-content.home-content {
+  --background: radial-gradient(circle at 10% 20%, rgba(243, 244, 246, 1) 0%, rgba(209, 250, 229, 0.3) 90%);
+  
+  &.bg-quimica {
+    --background: radial-gradient(circle at 10% 20%, rgba(243, 244, 246, 1) 0%, rgba(224, 231, 255, 0.4) 90%) !important;
+  }
+  &.bg-construccion {
+    --background: radial-gradient(circle at 10% 20%, rgba(243, 244, 246, 1) 0%, rgba(254, 215, 170, 0.25) 90%) !important;
+  }
+  &.bg-mecanica {
+    --background: radial-gradient(circle at 10% 20%, rgba(243, 244, 246, 1) 0%, rgba(241, 245, 249, 0.4) 90%) !important;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    --background: radial-gradient(circle at 10% 20%, rgba(15, 23, 42, 1) 0%, rgba(6, 78, 59, 0.2) 90%);
+    
+    &.bg-quimica {
+      --background: radial-gradient(circle at 10% 20%, rgba(15, 23, 42, 1) 0%, rgba(88, 28, 135, 0.15) 90%) !important;
+    }
+    &.bg-construccion {
+      --background: radial-gradient(circle at 10% 20%, rgba(15, 23, 42, 1) 0%, rgba(124, 45, 18, 0.15) 90%) !important;
+    }
+    &.bg-mecanica {
+      --background: radial-gradient(circle at 10% 20%, rgba(15, 23, 42, 1) 0%, rgba(30, 41, 59, 0.3) 90%) !important;
+    }
+  }
+}
+
+/* Tarjeta de Invitación a la Carrera (CTA) */
+.career-cta-card {
+  margin: 16px 16px 8px 16px !important;
+  background: var(--eco-glass-bg);
+  border: 1px solid var(--eco-glass-border);
+  border-radius: 18px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+  cursor: pointer;
+
+  .career-cta-content {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    .cta-icon-wrapper {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: rgba(var(--ion-color-primary-rgb), 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+
+      ion-icon {
+        font-size: 24px;
+        color: var(--ion-color-primary);
+      }
+    }
+
+    .cta-text {
+      flex: 1;
+      
+      h3 {
+        margin: 0;
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--ion-text-color);
+      }
+
+      p {
+        margin: 4px 0 0 0;
+        font-size: 11px;
+        color: var(--ion-color-medium);
+        line-height: 1.4;
+      }
+    }
+
+    .cta-arrow {
+      font-size: 18px;
+      color: var(--ion-color-medium);
+    }
+  }
+}
+
+/* Sección de Residuos de la Especialidad */
+.career-wastes-section {
+  margin-top: 16px;
+  
+  .section-header-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    
+    .section-title {
+      margin: 0;
+      flex: 1;
+    }
+  }
+
+  .change-career-btn {
+    --color: var(--ion-color-medium);
+    font-size: 12px;
+    margin: 0;
+    --padding-start: 8px;
+    --padding-end: 8px;
+
+    ion-icon {
+      font-size: 16px;
+      margin-left: 4px;
+    }
+  }
+
+  .career-description-text {
+    margin: 8px 0 16px 0;
+    font-size: 13px;
+    color: var(--ion-color-medium);
+    line-height: 1.4;
+  }
+}
+
+.waste-accordion-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.waste-accordion-card {
+  margin: 0 !important;
+  border-radius: 16px;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+
+  &.is-expanded {
+    border-color: rgba(var(--ion-color-primary-rgb), 0.25);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  }
+}
+
+.waste-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  cursor: pointer;
+  user-select: none;
+
+  .waste-header-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+    min-width: 0;
+
+    .waste-icon {
+      font-size: 24px;
+      flex-shrink: 0;
+    }
+
+    .waste-header-text {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      min-width: 0;
+
+      h4 {
+        margin: 0;
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--ion-text-color);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      
+      .material-badge {
+        align-self: flex-start;
+        font-size: 9px;
+        font-weight: 700;
+        padding: 2px 6px;
+        border-radius: 4px;
+      }
+    }
+  }
+
+  .accordion-arrow {
+    font-size: 18px;
+    color: var(--ion-color-medium);
+    transition: transform 0.3s ease;
+  }
+}
+
+.waste-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), padding 0.3s ease;
+  padding: 0 16px;
+
+  &.show-body {
+    max-height: 800px; /* Suficiente para el contenido */
+    padding: 0 16px 16px 16px;
+    border-top: 1px solid var(--eco-glass-border);
+  }
+
+  .waste-description {
+    margin: 12px 0;
+    font-size: 13px;
+    color: var(--ion-text-color);
+    opacity: 0.9;
+    line-height: 1.4;
+  }
+}
+
+.recycling-info-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.recycling-card {
+  padding: 12px;
+  border-radius: 12px;
+  background: rgba(var(--ion-text-color-rgb), 0.03);
+  border: 1px solid rgba(var(--ion-text-color-rgb), 0.05);
+
+  .card-subheader {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 6px;
+
+    ion-icon {
+      font-size: 16px;
+    }
+
+    h5 {
+      margin: 0;
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+  }
+
+  p {
+    margin: 0;
+    font-size: 12px;
+    color: var(--ion-color-medium);
+    line-height: 1.4;
+  }
+
+  /* Estilos para el bloque tradicional */
+  &.standard-recycling-card {
+    border-left: 4px solid var(--ion-color-success);
+    
+    .card-subheader {
+      color: var(--ion-color-success-shade);
+    }
+  }
+
+  /* Estilos ultra premium iluminados para la innovación */
+  &.innovative-recycling-card {
+    border-left: 4px solid var(--ion-color-warning);
+    background: rgba(var(--ion-color-warning-rgb), 0.05);
+    border-color: var(--ion-color-warning);
+    box-shadow: inset 0 0 12px rgba(var(--ion-color-warning-rgb), 0.05);
+
+    .card-subheader {
+      color: var(--ion-color-warning-shade);
+    }
+    
+    p {
+      color: var(--ion-text-color);
+      font-weight: 500;
+    }
+  }
+}
+
+.bottom-spacer {
+  height: 80px;
+}

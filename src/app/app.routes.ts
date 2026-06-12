@@ -6,6 +6,10 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/splash/splash.page').then(m => m.SplashPage)
   },
   {
+    path: 'career-selection',
+    loadComponent: () => import('./pages/career-selection/career-selection.page').then(m => m.CareerSelectionPage)
+  },
+  {
     path: '',
     redirectTo: 'splash',
     pathMatch: 'full'

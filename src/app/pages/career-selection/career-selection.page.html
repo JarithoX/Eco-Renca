@@ -1,0 +1,76 @@
+<ion-content [fullscreen]="true" class="selection-content">
+  <!-- Cabecera de la Página -->
+  <div class="header-container ion-padding">
+    <div class="logo-area">
+      <div class="logo-box">
+        <img src="assets/icon/logo.png" class="app-logo" alt="EcoRenca" />
+      </div>
+      <h2>EcoRenca</h2>
+    </div>
+    <h1>¿Cuál es tu carrera?</h1>
+    <p>Selecciona tu especialidad para adaptar el reciclaje e innovaciones a tu perfil técnico en INACAP Renca.</p>
+  </div>
+
+  <!-- Buscador -->
+  <div class="search-container ion-padding-horizontal">
+    <ion-searchbar 
+      placeholder="Buscar tu especialidad..." 
+      [value]="searchTerm"
+      (ionInput)="onSearch($event)"
+      class="custom-searchbar"
+      mode="ios">
+    </ion-searchbar>
+  </div>
+
+  <!-- Listado por Áreas -->
+  <div class="areas-container ion-padding">
+    <div *ngIf="groupedCareers.length === 0" class="empty-results ion-text-center">
+      <ion-icon name="search-outline" class="empty-icon"></ion-icon>
+      <p>No encontramos ninguna carrera que coincida con tu búsqueda.</p>
+    </div>
+
+    <div *ngFor="let group of groupedCareers" class="area-block">
+      <div class="area-header">
+        <span class="area-dot"></span>
+        <h3 class="area-title">{{ group.area }}</h3>
+      </div>
+      
+      <div class="careers-list">
+        <div 
+          *ngFor="let c of group.careers" 
+          class="career-card ripple-btn" 
+          [class.selected]="selectedCareerId === c.id"
+          (click)="selectCareer(c.id)">
+          <div class="card-left">
+            <div class="icon-circle" [ngClass]="c.gradientClass">
+              <ion-icon [name]="c.icon"></ion-icon>
+            </div>
+            <div class="card-details">
+              <h4>{{ c.name }}</h4>
+              <p>{{ c.description }}</p>
+            </div>
+          </div>
+          <div class="card-right">
+            <div class="indicator-wrapper" [class.is-selected]="selectedCareerId === c.id">
+              <ion-icon 
+                [name]="selectedCareerId === c.id ? 'checkmark-circle-outline' : 'chevron-forward-outline'"
+                class="select-indicator">
+              </ion-icon>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Espaciador para el botón inferior -->
+  <div class="bottom-spacer"></div>
+
+  <!-- Barra de Acción de Confirmación Inferior -->
+  <div class="action-footer ion-padding" *ngIf="selectedCareerId">
+    <button class="confirm-btn pulse-element ripple-btn" (click)="confirmSelection()">
+      <span>Ingresar a EcoRenca</span>
+      <ion-icon name="arrow-forward-outline"></ion-icon>
+    </button>
+  </div>
+</ion-content>
