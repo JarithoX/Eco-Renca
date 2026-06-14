@@ -22,6 +22,11 @@ export const routes: Routes = [
           import('../store/store.page').then((m) => m.StorePage),
       },
       {
+        path: 'ranking',
+        loadComponent: () =>
+          import('../ranking/ranking.page').then((m) => m.RankingPage),
+      },
+      {
         path: '',
         redirectTo: '/tabs/home',
         pathMatch: 'full',

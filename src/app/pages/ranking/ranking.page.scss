@@ -1,0 +1,1758 @@
+.eco-ranking-content {
+  --background: #f8fafc;
+  font-family: 'Outfit', 'Inter', sans-serif;
+}
+
+/* Cabecera Estilo Banner Premium */
+.ranking-header {
+  position: relative;
+  background: linear-gradient(135deg, #0f172a, #1e293b);
+  padding: 40px 20px 48px;
+  color: #ffffff;
+  overflow: hidden;
+  text-align: center;
+
+  .header-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 80% 20%, rgba(16, 185, 129, 0.15) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .header-content {
+    position: relative;
+    z-index: 1;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .badge-wrapper {
+    display: inline-flex;
+    align-items: center;
+    background: rgba(16, 185, 129, 0.15);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    padding: 6px 14px;
+    border-radius: 20px;
+    margin-bottom: 16px;
+
+    .leaf-icon-animated {
+      color: #10b981;
+      font-size: 16px;
+      margin-right: 6px;
+      animation: rotateLeaf 4s ease-in-out infinite alternate;
+    }
+
+    .badge-text {
+      color: #34d399;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+    }
+  }
+
+  h1 {
+    font-size: 32px;
+    font-weight: 800;
+    margin: 0 0 10px;
+    letter-spacing: -0.5px;
+    background: linear-gradient(to right, #ffffff, #94a3b8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  p {
+    font-size: 14px;
+    color: #94a3b8;
+    line-height: 1.5;
+    margin: 0;
+  }
+}
+
+/* Contenedor del Paisaje del Bosque Principal */
+.forest-card-container {
+  margin: -24px 16px 0;
+  position: relative;
+  z-index: 10;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.forest-landscape {
+  position: relative;
+  height: 250px;
+  background: linear-gradient(to bottom, #bae6fd, #e0f2fe, #f0fdf4);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+/* Nubes en el cielo del bosque */
+.forest-sky {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 140px;
+  pointer-events: none;
+
+  .cloud {
+    position: absolute;
+    background: #ffffff;
+    border-radius: 20px;
+    opacity: 0.65;
+    filter: blur(1px);
+
+    &::before, &::after {
+      content: '';
+      position: absolute;
+      background: #ffffff;
+      border-radius: 50%;
+    }
+  }
+
+  .cloud-1 {
+    width: 60px;
+    height: 18px;
+    top: 25px;
+    left: -80px;
+    animation: floatCloud 24s linear infinite;
+
+    &::before { width: 26px; height: 26px; top: -14px; left: 10px; }
+    &::after { width: 34px; height: 34px; top: -20px; left: 24px; }
+  }
+
+  .cloud-2 {
+    width: 80px;
+    height: 24px;
+    top: 55px;
+    left: -120px;
+    animation: floatCloud 32s linear infinite;
+    animation-delay: -8s;
+    opacity: 0.45;
+
+    &::before { width: 30px; height: 30px; top: -16px; left: 15px; }
+    &::after { width: 42px; height: 42px; top: -25px; left: 32px; }
+  }
+
+  .cloud-3 {
+    width: 50px;
+    height: 15px;
+    top: 15px;
+    left: -60px;
+    animation: floatCloud 18s linear infinite;
+    animation-delay: -12s;
+    opacity: 0.55;
+
+    &::before { width: 22px; height: 22px; top: -11px; left: 8px; }
+    &::after { width: 28px; height: 28px; top: -15px; left: 20px; }
+  }
+}
+
+.forest-sun {
+  position: absolute;
+  top: -20px;
+  right: 40px;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(253, 224, 71, 0.4) 0%, rgba(253, 224, 71, 0) 70%);
+  pointer-events: none;
+}
+
+/* Suelo del bosque */
+.forest-ground {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 38px;
+  background: linear-gradient(to bottom, #86efac, #4ade80);
+  border-top: 3px solid #22c55e;
+  z-index: 2;
+
+  .grass-detail {
+    position: absolute;
+    width: 8px;
+    height: 12px;
+    background: #15803d;
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    opacity: 0.35;
+  }
+  .grass-1 { bottom: 15px; left: 12%; }
+  .grass-2 { bottom: 8px; left: 45%; transform: scale(1.3); }
+  .grass-3 { bottom: 20px; left: 82%; transform: scale(0.9); }
+}
+
+/* Fila de árboles alineados horizontalmente */
+.forest-trees-row {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+  padding: 0 8px 30px;
+  height: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  scroll-behavior: smooth;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Cada árbol individual */
+.tree-wrapper {
+  flex: 0 0 16%;
+  max-width: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  margin: 0 4px;
+
+  &:hover {
+    transform: translateY(-5px) scale(1.05);
+
+    .tree-label {
+      opacity: 1;
+      color: #0f172a;
+    }
+  }
+
+  &.active {
+    transform: scale(1.1);
+
+    .tree-label {
+      font-weight: 700;
+      color: #22c55e;
+      background: #ffffff;
+      padding: 1px 8px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  &.user-tree {
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 2px;
+      width: 44px;
+      height: 3px;
+      background: rgba(34, 197, 94, 0.6);
+      border-radius: 50%;
+      filter: blur(1.5px);
+      animation: pulseBase 2s infinite ease-in-out;
+    }
+  }
+}
+
+.tree-badge {
+  position: absolute;
+  top: -24px;
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  padding: 2px 6px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  font-size: 9px;
+  font-weight: 700;
+  pointer-events: none;
+  transition: all 0.3s ease;
+
+  ion-icon {
+    font-size: 10px;
+    margin-right: 3px;
+    color: #4ade80;
+  }
+
+  &.user-badge {
+    background: rgba(34, 197, 94, 0.9);
+    border-color: rgba(255, 255, 255, 0.3);
+
+    ion-icon {
+      color: #ffffff;
+    }
+  }
+}
+
+.tree-svg-container {
+  width: 58px;
+  height: 70px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+
+  .tree-svg {
+    width: 100%;
+    height: 100%;
+    transform-origin: bottom center;
+    animation: treeSway 6s ease-in-out infinite;
+  }
+}
+
+.tree-label {
+  font-size: 8px;
+  color: #475569;
+  text-align: center;
+  margin-top: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 68px;
+  display: block;
+  opacity: 0.9;
+  transition: all 0.2s ease;
+}
+
+.tree-points {
+  font-size: 9px;
+  font-weight: 700;
+  color: #334155;
+}
+
+.user-indicator-dot {
+  position: absolute;
+  bottom: -15px;
+  background: #22c55e;
+  color: #ffffff;
+  font-size: 7px;
+  font-weight: 800;
+  text-transform: uppercase;
+  padding: 1px 5px;
+  border-radius: 6px;
+  letter-spacing: 0.5px;
+  animation: bounceDot 2s infinite ease-in-out;
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   ESTILOS PREMIUM DEL TARJETÓN MODAL (CON SUPER ANIMACIONES Y CLIMAS)
+   ========================================================================== */
+
+/* Fondo desenfocado oscuro */
+.modal-backdrop-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(15, 23, 42, 0.55);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 999;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.35s ease;
+
+  &.show {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+/* Contenedor del Tarjetón */
+.modal-card-container {
+  position: fixed;
+  top: 52%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.9);
+  width: 92%;
+  max-width: 440px;
+  height: 84vh;
+  max-height: 720px;
+  background: #ffffff;
+  border-radius: 28px;
+  overflow-y: auto;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.15);
+  box-shadow: 0 25px 60px rgba(15, 23, 42, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+
+  &.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: rgba(148, 163, 184, 0.3);
+    border-radius: 3px;
+  }
+}
+
+/* Botón de Cerrar Modal */
+.modal-close-btn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 1010;
+  transition: all 0.2s ease;
+
+  ion-icon {
+    font-size: 20px;
+  }
+
+  &:hover {
+    background: rgba(15, 23, 42, 0.85);
+    transform: scale(1.1);
+  }
+}
+
+/* Escenario del Paisaje de Ecosistema */
+.ecosystem-card-scenery {
+  position: relative;
+  height: 280px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  transition: background 0.8s ease;
+
+  /* ==========================================
+     SISTEMA DE CLIMAS SEGÚN EL NIVEL DE ÁRBOL
+     ========================================== */
+
+  /* Nivel 1: Tormenta / Lluvia torrencial triste */
+  &.weather-stage-1 {
+    background: linear-gradient(to bottom, #1e293b, #334155, #64748b);
+    
+    .scenery-ground {
+      background: linear-gradient(to bottom, #5f806e, #275e47);
+      border-top-color: #1b4d36;
+    }
+  }
+
+  /* Nivel 2: Muy Nublado y plomizo */
+  &.weather-stage-2 {
+    background: linear-gradient(to bottom, #334155, #475569, #94a3b8);
+    
+    .scenery-ground {
+      background: linear-gradient(to bottom, #5f856f, #256149);
+      border-top-color: #1a4d38;
+    }
+  }
+
+  /* Nivel 3: Despejándose / Nubosidad parcial gris-celeste */
+  &.weather-stage-3 {
+    background: linear-gradient(to bottom, #64748b, #94a3b8, #e2e8f0, #e0f2fe);
+    
+    .scenery-ground {
+      background: linear-gradient(to bottom, #6ee7b7, #10b981);
+    }
+  }
+
+  /* Nivel 4: Parcialmente despejado / Suave celeste */
+  &.weather-stage-4 {
+    background: linear-gradient(to bottom, #7dd3fc, #bae6fd, #e0f2fe, #f0fdf4);
+  }
+
+  /* Niveles 5 a 10: Sol radiante, clima festivo y alegre */
+  &.weather-stage-5, &.weather-stage-6, &.weather-stage-7,
+  &.weather-stage-8, &.weather-stage-9, &.weather-stage-10 {
+    background: linear-gradient(to bottom, #38bdf8, #bae6fd, #e0f2fe, #f0fdf4);
+  }
+}
+
+.scenery-sky {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 160px;
+  pointer-events: none;
+
+  .sky-cloud {
+    position: absolute;
+    background: #ffffff;
+    border-radius: 20px;
+    opacity: 0.8;
+    
+    &::before, &::after {
+      content: '';
+      position: absolute;
+      background: #ffffff;
+      border-radius: 50%;
+    }
+
+    &.c1 {
+      width: 70px;
+      height: 20px;
+      top: 35px;
+      left: -90px;
+      animation: floatCloud 20s linear infinite;
+      &::before { width: 28px; height: 28px; top: -14px; left: 10px; }
+      &::after { width: 38px; height: 38px; top: -20px; left: 26px; }
+    }
+
+    &.c2 {
+      width: 55px;
+      height: 16px;
+      top: 65px;
+      left: -80px;
+      animation: floatCloud 28s linear infinite;
+      animation-delay: -7s;
+      opacity: 0.6;
+      &::before { width: 22px; height: 22px; top: -11px; left: 8px; }
+      &::after { width: 30px; height: 30px; top: -15px; left: 20px; }
+    }
+
+    /* Nubes de Tormenta Oscuras */
+    &.storm {
+      background: #475569 !important;
+      opacity: 0.9;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+
+      &::before, &::after {
+        background: #475569 !important;
+      }
+
+      &.cs1 {
+        width: 100px; height: 28px; top: 15px; left: -110px;
+        animation: floatCloud 16s linear infinite;
+        &::before { width: 40px; height: 40px; top: -20px; left: 15px; }
+        &::after { width: 54px; height: 54px; top: -28px; left: 40px; }
+      }
+      &.cs2 {
+        width: 80px; height: 22px; top: 50px; left: -90px;
+        animation: floatCloud 24s linear infinite;
+        animation-delay: -4s;
+        &::before { width: 30px; height: 30px; top: -15px; left: 12px; }
+        &::after { width: 42px; height: 42px; top: -22px; left: 30px; }
+      }
+      &.cs3 {
+        width: 120px; height: 32px; top: 30px; left: -130px;
+        animation: floatCloud 30s linear infinite;
+        animation-delay: -10s;
+        opacity: 0.65;
+        &::before { width: 45px; height: 45px; top: -22px; left: 20px; }
+        &::after { width: 60px; height: 60px; top: -32px; left: 48px; }
+      }
+    }
+
+    /* Nubes Grises */
+    &.grey {
+      background: #94a3b8 !important;
+      opacity: 0.8;
+      &::before, &::after {
+        background: #94a3b8 !important;
+      }
+    }
+  }
+}
+
+.sky-sun-glow {
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(253, 224, 71, 0.45) 0%, rgba(253, 224, 71, 0) 70%);
+  pointer-events: none;
+  animation: sunGlowPulse 4s ease-in-out infinite alternate;
+}
+
+@keyframes sunGlowPulse {
+  0% { transform: translateX(-50%) scale(0.95); opacity: 0.8; }
+  100% { transform: translateX(-50%) scale(1.05); opacity: 1; }
+}
+
+/* Suelo del ecosistema */
+.scenery-ground {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 48px;
+  background: linear-gradient(to bottom, #6ee7b7, #10b981);
+  border-top: 4px solid #059669;
+  z-index: 2;
+  transition: all 0.8s ease;
+
+  .scenery-grass {
+    position: absolute;
+    width: 10px;
+    height: 16px;
+    background: #047857;
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    opacity: 0.4;
+  }
+  .grass-l1 { bottom: 18px; left: 20%; }
+  .grass-l2 { bottom: 12px; left: 55%; transform: scale(1.4); }
+  .grass-l3 { bottom: 22px; left: 80%; transform: scale(0.9); }
+}
+
+/* Flores Silvestres */
+.wildflower {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #f43f5e;
+  z-index: 3;
+  box-shadow: 0 0 4px #ec4899;
+
+  &::before {
+    content: '';
+    position: absolute;
+    width: 2px;
+    height: 6px;
+    background: #047857;
+    top: 5px;
+    left: 2px;
+  }
+
+  &.flower-1 { bottom: 20px; left: 32%; }
+  &.flower-2 { bottom: 15px; left: 74%; background: #fbbf24; box-shadow: 0 0 4px #eab308;}
+}
+
+/* Árbol en Tamaño Grande Detallado */
+.detailed-tree-display {
+  position: relative;
+  z-index: 3;
+  width: 110px;
+  height: 128px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  margin-bottom: 36px;
+
+  .detailed-tree-svg {
+    width: 100%;
+    height: 100%;
+    transform-origin: bottom center;
+    animation: treeSway 5s ease-in-out infinite;
+  }
+}
+
+/* ==========================================================================
+   SUPER ANIMACIONES: AVES, CONEJOS, ARDILLAS, HOJAS Y LUCIÉRNAGAS
+   ========================================================================== */
+
+/* LLUVIA TORRENCIAL (Nivel 1) */
+.rain-overlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  pointer-events: none;
+  z-index: 6;
+}
+
+.rain-drop {
+  position: absolute;
+  width: 1.5px;
+  height: 14px;
+  background: rgba(186, 230, 253, 0.4);
+  animation: fallRain 1s linear infinite;
+
+  &.rd1 { left: 8%; animation-delay: 0s; }
+  &.rd2 { left: 16%; animation-delay: 0.3s; animation-duration: 0.8s; }
+  &.rd3 { left: 24%; animation-delay: 0.1s; }
+  &.rd4 { left: 30%; animation-delay: 0.6s; animation-duration: 1.1s; }
+  &.rd5 { left: 38%; animation-delay: 0.2s; }
+  &.rd6 { left: 45%; animation-delay: 0.4s; animation-duration: 0.9s; }
+  &.rd7 { left: 52%; animation-delay: 0.7s; }
+  &.rd8 { left: 58%; animation-delay: 0.1s; animation-duration: 1s; }
+  &.rd9 { left: 66%; animation-delay: 0.5s; }
+  &.rd10 { left: 72%; animation-delay: 0.3s; animation-duration: 0.8s; }
+  &.rd11 { left: 78%; animation-delay: 0.6s; }
+  &.rd12 { left: 84%; animation-delay: 0.2s; animation-duration: 1.1s; }
+  &.rd13 { left: 90%; animation-delay: 0.8s; }
+  &.rd14 { left: 94%; animation-delay: 0.4s; animation-duration: 0.9s; }
+  &.rd15 { left: 98%; animation-delay: 0.7s; }
+}
+
+@keyframes fallRain {
+  0% { transform: translateY(-20px) translateX(0); opacity: 0; }
+  10% { opacity: 0.7; }
+  90% { opacity: 0.7; }
+  100% { transform: translateY(280px) translateX(-15px); opacity: 0; }
+}
+
+/* Aves Volando */
+@keyframes flyRightBasic {
+  0% { transform: translate(-40px, 40px) scale(0.65); }
+  100% { transform: translate(460px, 15px) scale(0.65); }
+}
+
+@keyframes flyRightCurved {
+  0% { transform: translate(-40px, 70px) scale(0.5) scaleY(1); }
+  50% { transform: translate(200px, 45px) scale(0.5) scaleY(0.3); }
+  100% { transform: translate(460px, 75px) scale(0.5) scaleY(1); }
+}
+
+@keyframes flapWings {
+  0%, 100% { transform: scaleY(1); }
+  50% { transform: scaleY(0.2); }
+}
+
+.flying-bird {
+  position: absolute;
+  width: 22px;
+  height: 16px;
+  z-index: 4;
+  pointer-events: none;
+  transform-origin: center;
+
+  &.bird-1 { animation: flyRightBasic 10s linear infinite; }
+  &.bird-2 { animation: flyRightCurved 14s linear infinite; animation-delay: 3s; }
+  &.bird-3 { animation: flyRightBasic 8s linear infinite; animation-delay: 5.5s; }
+
+  path {
+    animation: flapWings 0.35s ease-in-out infinite;
+    transform-origin: center;
+  }
+}
+
+/* Conejo Saltando */
+@keyframes rabbitHop {
+  0% { transform: translate(-40px, 15px) scale(0.85); }
+  8% { transform: translate(15px, -15px) scale(0.85) rotate(-15deg); }
+  12% { transform: translate(35px, 15px) scale(0.85) rotate(0); }
+  16% { transform: translate(35px, 15px) scale(0.85); }
+  24% { transform: translate(85px, -18px) scale(0.85) rotate(-15deg); }
+  28% { transform: translate(105px, 15px) scale(0.85) rotate(0); }
+  32% { transform: translate(105px, 15px) scale(0.85); }
+  40% { transform: translate(155px, -15px) scale(0.85) rotate(-15deg); }
+  44% { transform: translate(175px, 15px) scale(0.85) rotate(0); }
+  48% { transform: translate(175px, 15px) scale(0.85); }
+  56% { transform: translate(225px, -18px) scale(0.85) rotate(-15deg); }
+  60% { transform: translate(245px, 15px) scale(0.85) rotate(0); }
+  64% { transform: translate(245px, 15px) scale(0.85); }
+  72% { transform: translate(295px, -15px) scale(0.85) rotate(-15deg); }
+  76% { transform: translate(315px, 15px) scale(0.85) rotate(0); }
+  100% { transform: translate(460px, 15px) scale(0.85); }
+}
+
+.rabbit {
+  position: absolute;
+  bottom: 2px;
+  left: 0;
+  width: 32px;
+  height: 22px;
+  z-index: 5;
+  pointer-events: none;
+  animation: rabbitHop 14s linear infinite;
+}
+
+/* Ardilla Corriendo */
+@keyframes squirrelScurry {
+  0% { transform: translate(-40px, 12px) scale(0.75); }
+  30% { transform: translate(130px, 12px) scale(0.75); }
+  33% { transform: translate(130px, 7px) scale(0.75) scaleX(-0.75); }
+  42% { transform: translate(130px, 12px) scale(0.75) scaleX(-0.75); }
+  45% { transform: translate(130px, 12px) scale(0.75) scaleX(0.75); }
+  62% { transform: translate(270px, 12px) scale(0.75); }
+  65% { transform: translate(270px, 12px) scale(0.75) scaleX(-0.75); }
+  72% { transform: translate(270px, 12px) scale(0.75) scaleX(-0.75); }
+  75% { transform: translate(270px, 12px) scale(0.75) scaleX(0.75); }
+  90% { transform: translate(450px, 12px) scale(0.75); }
+  100% { transform: translate(450px, 12px) scale(0.75); }
+}
+
+.squirrel {
+  position: absolute;
+  bottom: 3px;
+  left: 0;
+  width: 28px;
+  height: 18px;
+  z-index: 5;
+  pointer-events: none;
+  animation: squirrelScurry 18s linear infinite;
+  animation-delay: 2s;
+}
+
+/* MARIPOSAS VOLANDO (Nivel 9+) */
+.butterflies-container {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  pointer-events: none;
+  z-index: 6;
+}
+
+.butterfly {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: #ec4899;
+  border-radius: 50%;
+  box-shadow: 0 0 4px rgba(236, 72, 153, 0.4);
+
+  &::before, &::after {
+    content: '';
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    background: #f472b6;
+    border-radius: 50%;
+    top: -2px;
+  }
+  &::before { left: -4px; animation: flutterLeft 0.15s ease-in-out infinite alternate; }
+  &::after { right: -4px; animation: flutterRight 0.15s ease-in-out infinite alternate; }
+
+  &.bf1 {
+    top: 45%; left: 20%;
+    animation: butterflyGlide1 8s ease-in-out infinite;
+  }
+  &.bf2 {
+    top: 35%; left: 75%;
+    animation: butterflyGlide2 10s ease-in-out infinite;
+    animation-delay: 2.5s;
+  }
+}
+
+@keyframes flutterLeft { 0% { transform: rotate(0deg); } 100% { transform: rotate(45deg); } }
+@keyframes flutterRight { 0% { transform: rotate(0deg); } 100% { transform: rotate(-45deg); } }
+
+@keyframes butterflyGlide1 {
+  0%, 100% { transform: translate(0, 0) scale(0.8); }
+  33% { transform: translate(50px, -30px) scale(0.8); }
+  66% { transform: translate(20px, -50px) scale(0.8); }
+}
+
+@keyframes butterflyGlide2 {
+  0%, 100% { transform: translate(0, 0) scale(0.8); }
+  33% { transform: translate(-40px, -20px) scale(0.8); }
+  66% { transform: translate(-10px, -45px) scale(0.8); }
+}
+
+/* COMUNIDAD ANIMADA (Nivel 10) */
+.person-sprite {
+  transform-origin: bottom center;
+  animation: personSway 4s ease-in-out infinite alternate;
+}
+
+.person-sprite-2 {
+  transform-origin: bottom center;
+  animation: personSway 3s ease-in-out infinite alternate;
+  animation-delay: 0.5s;
+}
+
+@keyframes personSway {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(1.5deg); }
+}
+
+@keyframes waveArm {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(18deg) translateY(-0.5px); }
+}
+
+.waving-arm {
+  transform-origin: bottom left;
+  animation: waveArm 1.5s ease-in-out infinite;
+}
+
+/* Aves en las Ramas (Nesting) */
+@keyframes nestChirp {
+  0%, 100% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(-8deg) scale(1.2) translateY(-1px); }
+}
+
+.baby-bird-beak {
+  transform-origin: bottom left;
+  animation: nestChirp 0.45s ease-in-out infinite alternate;
+
+  &.b2 {
+    transform-origin: bottom right;
+    animation: nestChirp 0.55s ease-in-out infinite alternate;
+    animation-delay: 0.12s;
+  }
+}
+
+@keyframes nestShaking {
+  0%, 100% { transform: translate(38px, 70px) rotate(0deg); }
+  50% { transform: translate(38px, 70px) rotate(1deg); }
+}
+
+.shaking-nest {
+  transform-origin: bottom center;
+  animation: nestShaking 4s ease-in-out infinite;
+}
+
+@keyframes perchedLook {
+  0%, 100% { transform: scaleX(1); }
+  25%, 35% { transform: scaleX(-1) translateX(-8px); }
+  60%, 75% { transform: scaleX(1); }
+  65% { transform: scaleX(1) translateY(-1px) rotate(-5deg); }
+}
+
+.detailed-perched-bird {
+  transform-origin: center bottom;
+  animation: perchedLook 9s ease-in-out infinite;
+}
+
+/* Hojas Cayendo */
+.falling-leaves-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 8;
+}
+
+.falling-leaf {
+  position: absolute;
+  width: 7px;
+  height: 11px;
+  border-radius: 0 100% 0 100%;
+  opacity: 0.85;
+  top: -15px;
+
+  &.theme-mecanica { background: linear-gradient(135deg, #22c55e, #14532d); }
+  &.theme-informatica { background: linear-gradient(135deg, #34d399, #065f46); }
+  &.theme-administracion { background: linear-gradient(135deg, #a7f3d0, #15803d); }
+  &.theme-electricidad { background: linear-gradient(135deg, #fbbf24, #16a34a); }
+  &.theme-quimica { background: linear-gradient(135deg, #a7f3d0, #047857); }
+  &.theme-construccion { background: linear-gradient(135deg, #f97316, #991b1b); }
+
+  animation: leafFallSway 8s linear infinite;
+
+  &.fl1 { left: 20%; animation-delay: 0s; animation-duration: 7s; }
+  &.fl2 { left: 40%; animation-delay: 1.8s; animation-duration: 9.5s; }
+  &.fl3 { left: 55%; animation-delay: 3.2s; animation-duration: 8s; }
+  &.fl4 { left: 70%; animation-delay: 4.8s; animation-duration: 11s; }
+  &.fl5 { left: 85%; animation-delay: 6.5s; animation-duration: 7.5s; }
+}
+
+@keyframes leafFallSway {
+  0% { top: 0px; transform: translateX(0) rotate(0deg) rotateY(0deg); opacity: 0; }
+  12% { opacity: 0.85; }
+  85% { opacity: 0.85; }
+  100% { top: 250px; transform: translateX(50px) rotate(390deg) rotateY(180deg); opacity: 0; }
+}
+
+/* Luciérnagas Flotantes */
+.fireflies-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 8;
+}
+
+.firefly {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #fef08a;
+  box-shadow: 0 0 6px #eab308, 0 0 10px #fef08a;
+  opacity: 0;
+
+  &.ff1 { top: 35%; left: 35%; animation: fireflyMove 6s ease-in-out infinite; }
+  &.ff2 { top: 55%; left: 65%; animation: fireflyMove 8s ease-in-out infinite; animation-delay: 1.5s; }
+  &.ff3 { top: 25%; left: 60%; animation: fireflyMove 7s ease-in-out infinite; animation-delay: 3.2s; }
+  &.ff4 { top: 48%; left: 22%; animation: fireflyMove 9s ease-in-out infinite; animation-delay: 4.8s; }
+}
+
+@keyframes fireflyMove {
+  0%, 100% { transform: translate(0, 0); opacity: 0; }
+  25%, 75% { opacity: 0.8; }
+  50% { transform: translate(30px, -35px); opacity: 1; }
+}
+
+/* Flores Silvestres en la copa del árbol */
+@keyframes flowerWind {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-0.8px) scale(1.05); }
+}
+
+.tree-flower {
+  animation: flowerWind 3s ease-in-out infinite alternate;
+}
+
+/* Detalles del Cuerpo del Tarjetón */
+.modal-card-details {
+  padding: 24px;
+}
+
+.modal-details-title {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+
+  .title-avatar-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    flex-shrink: 0;
+
+    ion-icon {
+      font-size: 24px;
+    }
+
+    &.theme-quimica { background: linear-gradient(135deg, #6366f1, #a855f7); }
+    &.theme-construccion { background: linear-gradient(135deg, #f97316, #ea580c); }
+    &.theme-mecanica { background: linear-gradient(135deg, #64748b, #334155); }
+    &.theme-electronica { background: linear-gradient(135deg, #06b6d4, #3b82f6); }
+    &.theme-agronomia { background: linear-gradient(135deg, #10b981, #064e3b); }
+  }
+
+  h2 {
+    font-size: 18px;
+    font-weight: 800;
+    margin: 0;
+    color: #0f172a;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+  }
+
+  .tree-type-subtitle {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+}
+
+.modal-stats-row {
+  display: flex;
+  gap: 14px;
+  margin-bottom: 20px;
+
+  .detail-stat-box {
+    flex: 1;
+    padding: 14px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+
+    .stat-lbl {
+      font-size: 10px;
+      color: #64748b;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 4px;
+    }
+
+    .stat-val {
+      font-size: 18px;
+      color: #0f172a;
+    }
+  }
+}
+
+.modal-progress-container {
+  background: #f8fafc;
+  border: 1px solid #f1f5f9;
+  border-radius: 16px;
+  padding: 14px;
+  margin-bottom: 20px;
+
+  .progress-info-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    font-weight: 700;
+    color: #475569;
+    margin-bottom: 8px;
+  }
+
+  .modal-progress-bar {
+    height: 8px;
+    border-radius: 4px;
+    margin-bottom: 8px;
+  }
+
+  .modal-progress-hint {
+    font-size: 11px;
+    color: #64748b;
+    margin: 0;
+
+    strong {
+      color: #10b981;
+    }
+  }
+}
+
+.max-level-banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(90deg, rgba(16, 185, 129, 0.1), rgba(52, 211, 153, 0.15));
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  padding: 8px;
+  border-radius: 8px;
+  color: #047857;
+  font-weight: 700;
+  font-size: 11px;
+  gap: 6px;
+  margin-bottom: 6px;
+
+  ion-icon {
+    font-size: 14px;
+    animation: spinSparkle 3s linear infinite;
+  }
+}
+
+.modal-breakdown-section {
+  margin-bottom: 20px;
+
+  h3 {
+    font-size: 12px;
+    font-weight: 800;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 0 0 10px;
+  }
+}
+
+.modal-careers-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.modal-career-item {
+  display: flex;
+  align-items: center;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 8px 12px;
+  font-size: 11px;
+  
+  .career-marker {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    margin-right: 10px;
+
+    &.theme-quimica { background: #6366f1; }
+    &.theme-construccion { background: #f97316; }
+    &.theme-mecanica { background: #64748b; }
+    &.theme-electronica { background: #06b6d4; }
+    &.theme-agronomia { background: #10b981; }
+  }
+
+  .m-career-name {
+    flex: 1;
+    color: #334155;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-right: 8px;
+  }
+
+  .m-career-pts {
+    font-weight: 700;
+    color: #0f172a;
+  }
+}
+
+.modal-materials-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.modal-material-chip {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 8px 12px;
+  display: inline-flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 80px;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+
+  .m-mat-lbl {
+    font-size: 8px;
+    color: #64748b;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+  }
+
+  .m-mat-val {
+    font-size: 12px;
+    font-weight: 700;
+    color: #0f172a;
+  }
+}
+
+/* ==========================================================================
+   ELEMENTOS ADICIONALES (GLASSMORPHISM, BANNER E IMPACTO)
+   ========================================================================== */
+
+/* Glassmorphism General */
+.card-glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+}
+
+/* Banner de Impacto del Alumno */
+.user-impact-banner {
+  display: flex;
+  padding: 16px;
+  gap: 16px;
+  margin-top: 16px;
+
+  .banner-icon-side {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    flex-shrink: 0;
+
+    ion-icon {
+      font-size: 24px;
+    }
+
+    &.theme-quimica { background: linear-gradient(135deg, #6366f1, #a855f7); }
+    &.theme-construccion { background: linear-gradient(135deg, #f97316, #ea580c); }
+    &.theme-mecanica { background: linear-gradient(135deg, #64748b, #334155); }
+    &.theme-electronica { background: linear-gradient(135deg, #06b6d4, #3b82f6); }
+    &.theme-agronomia { background: linear-gradient(135deg, #10b981, #064e3b); }
+  }
+
+  .banner-text-side {
+    flex: 1;
+    min-width: 0;
+
+    h3 {
+      font-size: 15px;
+      font-weight: 800;
+      margin: 0 0 4px;
+      color: #0f172a;
+    }
+
+    p {
+      font-size: 12px;
+      color: #475569;
+      line-height: 1.5;
+      margin: 0 0 12px;
+    }
+  }
+
+  .banner-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .area-badge {
+    font-size: 10px;
+    font-weight: 800;
+    color: #ffffff;
+    padding: 3px 8px;
+    border-radius: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+
+    &.theme-quimica { background: linear-gradient(135deg, #6366f1, #a855f7); }
+    &.theme-construccion { background: linear-gradient(135deg, #f97316, #ea580c); }
+    &.theme-mecanica { background: linear-gradient(135deg, #64748b, #334155); }
+    &.theme-electronica { background: linear-gradient(135deg, #06b6d4, #3b82f6); }
+    &.theme-agronomia { background: linear-gradient(135deg, #10b981, #064e3b); }
+  }
+
+  .btn-change-career {
+    --padding-start: 0;
+    --padding-end: 0;
+    font-size: 11px;
+    font-weight: 700;
+    margin: 0;
+    height: 24px;
+    color: #10b981;
+    --color: #10b981;
+
+    ion-icon {
+      font-size: 12px;
+    }
+  }
+
+  &.warning-banner {
+    border: 1px solid rgba(249, 115, 22, 0.2);
+    background: rgba(254, 243, 199, 0.4);
+
+    .btn-select-career-banner {
+      margin-top: 4px;
+      --border-radius: 10px;
+      font-weight: 700;
+      font-size: 11px;
+      --box-shadow: 0 4px 10px rgba(16, 185, 129, 0.2);
+    }
+  }
+}
+
+/* Espaciadores de Layout */
+.container-spacing {
+  padding: 0 16px;
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  margin: 24px 0 12px;
+  gap: 8px;
+
+  ion-icon {
+    font-size: 18px;
+    color: #eab308;
+  }
+
+  h2 {
+    font-size: 16px;
+    font-weight: 800;
+    margin: 0;
+    color: #0f172a;
+    letter-spacing: -0.3px;
+  }
+}
+
+/* Tabla de Posiciones con Acordeón */
+.leaderboard-accordion-group {
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+  background: transparent;
+}
+
+.leaderboard-accordion-item {
+  margin-bottom: 8px;
+  border-radius: 12px !important;
+  overflow: hidden;
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  background: #ffffff;
+  transition: all 0.25s ease;
+
+  &::before, &::after {
+    display: none !important;
+  }
+
+  &.is-user-item {
+    border-color: rgba(34, 197, 94, 0.4);
+    box-shadow: 0 4px 10px rgba(34, 197, 94, 0.04);
+    
+    .leaderboard-item-header {
+      background: rgba(240, 253, 244, 0.5) !important;
+    }
+  }
+}
+
+.leaderboard-item-header {
+  --padding-start: 12px;
+  --padding-end: 12px;
+  --inner-padding-end: 0;
+  --background: #ffffff;
+  min-height: 64px;
+
+  .rank-badge {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: #f1f5f9;
+    color: #64748b;
+    font-size: 11px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 12px;
+
+    /* Podio Colores */
+    &.podium-gold {
+      background: linear-gradient(135deg, #fef08a, #facc15);
+      color: #854d0e;
+      box-shadow: 0 2px 6px rgba(250, 204, 21, 0.3);
+    }
+    &.podium-silver {
+      background: linear-gradient(135deg, #e2e8f0, #cbd5e1);
+      color: #475569;
+    }
+    &.podium-bronze {
+      background: linear-gradient(135deg, #ffedd5, #fed7aa);
+      color: #9a3412;
+    }
+
+    ion-icon {
+      font-size: 14px;
+    }
+  }
+
+  .area-icon-avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    margin-right: 12px;
+
+    ion-icon {
+      font-size: 18px;
+    }
+
+    &.theme-quimica { background: linear-gradient(135deg, #6366f1, #a855f7); }
+    &.theme-construccion { background: linear-gradient(135deg, #f97316, #ea580c); }
+    &.theme-mecanica { background: linear-gradient(135deg, #64748b, #334155); }
+    &.theme-electronica { background: linear-gradient(135deg, #06b6d4, #3b82f6); }
+    &.theme-agronomia { background: linear-gradient(135deg, #10b981, #064e3b); }
+  }
+
+  .area-details-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex: 1;
+    min-width: 0;
+
+    .name-block {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+
+      h3 {
+        font-size: 13px;
+        font-weight: 700;
+        color: #0f172a;
+        margin: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .level-lbl {
+        font-size: 9px;
+        color: #64748b;
+        font-weight: 500;
+      }
+    }
+
+    .points-block {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      line-height: 1;
+
+      .pts-val {
+        font-size: 16px;
+        font-weight: 800;
+        color: #0f172a;
+      }
+
+      .pts-lbl {
+        font-size: 9px;
+        color: #64748b;
+        font-weight: 700;
+        text-transform: uppercase;
+      }
+    }
+  }
+}
+
+/* Detalle desplegado del acordeón */
+.leaderboard-item-content {
+  padding: 0 16px 16px;
+  background: rgba(248, 250, 252, 0.4);
+
+  .divider {
+    height: 1px;
+    background: #e2e8f0;
+    margin: 0 0 12px;
+  }
+
+  .content-block {
+    margin-bottom: 12px;
+
+    h4 {
+      font-size: 10px;
+      font-weight: 800;
+      color: #64748b;
+      text-transform: uppercase;
+      margin: 0 0 8px;
+      letter-spacing: 0.5px;
+    }
+  }
+
+  .career-contributions-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .career-contribution-item {
+    display: flex;
+    align-items: center;
+    font-size: 11px;
+    color: #334155;
+
+    .career-bullet {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: #10b981;
+      margin-right: 8px;
+    }
+
+    .career-name {
+      flex: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .career-pts {
+      color: #475569;
+    }
+  }
+
+  .materials-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .material-chip-stat {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 4px 8px;
+    display: inline-flex;
+    flex-direction: column;
+    min-width: 65px;
+    text-align: center;
+
+    .mat-name {
+      font-size: 8px;
+      color: #64748b;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    .mat-qty {
+      font-size: 11px;
+      color: #0f172a;
+    }
+  }
+
+  .carbon-saved-footer {
+    display: flex;
+    align-items: center;
+    background: rgba(16, 185, 129, 0.08);
+    border: 1px dashed rgba(16, 185, 129, 0.3);
+    padding: 8px 12px;
+    border-radius: 10px;
+    color: #065f46;
+    font-size: 11px;
+    gap: 6px;
+    margin-top: 14px;
+
+    ion-icon {
+      font-size: 14px;
+      color: #10b981;
+    }
+
+    strong {
+      color: #047857;
+    }
+  }
+}
+
+/* ==========================================================================
+   ANIMACIONES GENERALES KEYFRAMES
+   ========================================================================== */
+
+@keyframes floatCloud {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(540px); }
+}
+
+@keyframes treeSway {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(1.2deg); }
+}
+
+@keyframes rotateLeaf {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(30deg); }
+}
+
+@keyframes pulseBase {
+  0%, 100% { transform: scaleX(1); opacity: 0.5; }
+  50% { transform: scaleX(1.1); opacity: 0.8; }
+}
+
+@keyframes bounceDot {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
+@keyframes spinSparkle {
+  0% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(180deg) scale(1.15); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+
+@keyframes sparkleGlow {
+  0%, 100% { opacity: 0.3; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+.sparkle {
+  transform-origin: center;
+  animation: sparkleGlow 2s ease-in-out infinite;
+
+  &:nth-child(2) { animation-delay: 0.4s; }
+  &:nth-child(3) { animation-delay: 0.8s; }
+  &:nth-child(4) { animation-delay: 1.2s; }
+  &:nth-child(5) { animation-delay: 1.6s; }
+}
+
+.leaf-pulse {
+  transform-origin: center;
+  animation: leafPulseAnim 5s ease-in-out infinite;
+
+  &:nth-child(even) {
+    animation-delay: 1.5s;
+  }
+}
+
+@keyframes leafPulseAnim {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.025); }
+}
+
+/* ==========================================================================
+   SIMULADOR DE PROTOTIPADO (DEBUG PANEL)
+   ========================================================================== */
+.debug-simulation-panel {
+  margin-top: 24px;
+  padding: 16px;
+  background: rgba(241, 245, 249, 0.6);
+  border: 1px dashed #cbd5e1;
+  border-radius: 16px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  text-align: center;
+
+  h4 {
+    margin: 0 0 4px 0;
+    font-size: 13px;
+    font-weight: 800;
+    color: #475569;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  p {
+    margin: 0 0 12px 0;
+    font-size: 11px;
+    color: #64748b;
+  }
+}
+
+.debug-btn-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.debug-lvl-btn {
+  padding: 8px 0;
+  font-size: 12px;
+  font-weight: 700;
+  color: #475569;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+
+  &:hover {
+    background: #f8fafc;
+    border-color: #cbd5e1;
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+
+  &.active {
+    color: #ffffff;
+    background: #10b981;
+    border-color: #059669;
+    box-shadow: 0 0 8px rgba(16, 185, 129, 0.4);
+  }
+}
+
+.reset-debug-btn {
+  width: 100%;
+  padding: 10px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #ef4444;
+  background: rgba(239, 68, 68, 0.08);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: rgba(239, 68, 68, 0.15);
+    border-color: rgba(239, 68, 68, 0.3);
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+}

@@ -3,6 +3,8 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { UserProfile, RecyclingActivity } from '../models/user.model';
 import { Reward, RedeemedCoupon } from '../models/reward.model';
 import { MaterialType } from '../models/bin.model';
+import { CareerService } from './career.service';
+import { RankingService } from './ranking.service';
 
 @Injectable({
   providedIn: 'root'
@@ -40,7 +42,10 @@ export class PointsService {
 
   private couponsSubject = new BehaviorSubject<RedeemedCoupon[]>([]);
 
-  constructor() {
+  constructor(
+    private careerService: CareerService,
+    private rankingService: RankingService
+  ) {
     this.recalculateLevel(this.userProfileSubject.value.points);
   }
 
@@ -86,6 +91,12 @@ export class PointsService {
 
     // Actualizar perfil
     this.recalculateLevel(newPoints);
+
+    // Sumar puntos al ranking del área académica correspondiente
+    const selectedCareer = this.careerService.getSelectedCareerValue();
+    if (selectedCareer) {
+      this.rankingService.addPointsToArea(selectedCareer.id, pointsEarned);
+    }
   }
 
   // Canjear una recompensa

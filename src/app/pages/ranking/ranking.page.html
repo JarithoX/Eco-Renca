@@ -1,0 +1,649 @@
+<ion-content [fullscreen]="true" class="eco-ranking-content">
+  <!-- Cabecera de la página -->
+  <div class="ranking-header">
+    <div class="header-overlay"></div>
+    <div class="header-content">
+      <div class="badge-wrapper">
+        <ion-icon name="leaf-outline" class="leaf-icon-animated"></ion-icon>
+        <span class="badge-text">Inacap Renca Sustentable</span>
+      </div>
+      <h1>El Bosque de Renca</h1>
+      <p>El reflejo del compromiso ecológico de cada área académica. ¡Recicla para hacer crecer el bosque de tu especialidad!</p>
+    </div>
+  </div>
+
+  <!-- Contenedor del Bosque Virtual Interactiva -->
+  <div class="forest-card-container">
+    <div class="forest-landscape">
+      <!-- Cielo degradado animado y nubes -->
+      <div class="forest-sky">
+        <div class="cloud cloud-1"></div>
+        <div class="cloud cloud-2"></div>
+        <div class="cloud cloud-3"></div>
+      </div>
+      
+      <!-- Sol / Brillo de fondo -->
+      <div class="forest-sun"></div>
+
+      <!-- El suelo del bosque -->
+      <div class="forest-ground">
+        <div class="grass-detail grass-1"></div>
+        <div class="grass-detail grass-2"></div>
+        <div class="grass-detail grass-3"></div>
+      </div>
+
+      <!-- Los 6 Árboles (SVGs interactivos) -->
+      <div class="forest-trees-row">
+        <!-- Definición de Gradientes SVG Globales con colores reales y naturales -->
+        <svg style="width:0; height:0; position:absolute;">
+          <defs>
+            <!-- Mecánica (Pino Verde Profundo) -->
+            <linearGradient id="mecanica-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#22c55e" />
+              <stop offset="50%" stop-color="#166534" />
+              <stop offset="100%" stop-color="#14532d" />
+            </linearGradient>
+            <!-- Informática (Roble Esmeralda Vivo) -->
+            <linearGradient id="informatica-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#34d399" />
+              <stop offset="70%" stop-color="#10b981" />
+              <stop offset="100%" stop-color="#065f46" />
+            </linearGradient>
+            <!-- Administración (Olivo Verde Suave) -->
+            <linearGradient id="administracion-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#a7f3d0" />
+              <stop offset="60%" stop-color="#4ade80" />
+              <stop offset="100%" stop-color="#15803d" />
+            </linearGradient>
+            <!-- Electricidad (Acacia Amarillo Dorado/Primavera) -->
+            <linearGradient id="electricidad-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#fef08a" />
+              <stop offset="40%" stop-color="#eab308" />
+              <stop offset="100%" stop-color="#16a34a" />
+            </linearGradient>
+            <!-- Química (Abedul Verde Menta Fresco) -->
+            <linearGradient id="quimica-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#a7f3d0" />
+              <stop offset="50%" stop-color="#34d399" />
+              <stop offset="100%" stop-color="#047857" />
+            </linearGradient>
+            <!-- Construcción (Arce Naranja Rojizo Otoñal) -->
+            <linearGradient id="construccion-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#fca5a5" />
+              <stop offset="40%" stop-color="#f97316" />
+              <stop offset="100%" stop-color="#991b1b" />
+            </linearGradient>
+          </defs>
+        </svg>
+
+        <!-- Árbol Individual -->
+        <div 
+          *ngFor="let area of rankings" 
+          class="tree-wrapper" 
+          [class.user-tree]="isUserArea(area.areaName)"
+          (click)="selectAreaTree(area.areaKey)"
+        >
+          <!-- Etiqueta del árbol -->
+          <div class="tree-badge" [class.user-badge]="isUserArea(area.areaName)">
+            <ion-icon [name]="area.icon"></ion-icon>
+            <span>Lvl {{ area.treeLevel }}</span>
+          </div>
+
+          <!-- Representación Dinámica del Árbol de 1 a 10 niveles -->
+          <div class="tree-svg-container" [ngSwitch]="area.treeLevel">
+            <!-- Nivel 1: Maceta vacía (Brote durmiente) -->
+            <svg *ngSwitchCase="1" viewBox="0 0 100 120" class="tree-svg">
+              <rect x="38" y="96" width="24" height="16" rx="2.5" fill="#8d6e63" />
+              <rect x="35" y="96" width="30" height="3" rx="1" fill="#704f4f" />
+              <ellipse cx="50" cy="96" rx="11" ry="2" fill="#4e342e" />
+            </svg>
+
+            <!-- Nivel 2: Tallo con una sola hoja -->
+            <svg *ngSwitchCase="2" viewBox="0 0 100 120" class="tree-svg">
+              <rect x="42" y="98" width="16" height="12" rx="2" fill="#8d6e63" />
+              <ellipse cx="50" cy="98" rx="8" ry="2" fill="#4e342e" />
+              <path d="M50,98 Q49,82 52,70" stroke="#8b5a2b" stroke-width="3.5" fill="none" stroke-linecap="round" />
+              <path d="M52,70 Q62,64 59,54 Q49,60 52,70 Z" [attr.fill]="'url(#' + area.areaKey + '-grad)'" />
+            </svg>
+
+            <!-- Nivel 3: Arbolito (Antiguo nivel 2) -->
+            <svg *ngSwitchCase="3" viewBox="0 0 100 120" class="tree-svg">
+              <path d="M25,108 L75,108" stroke="#8d6e63" stroke-width="3" stroke-linecap="round"/>
+              <path d="M50,108 Q50,85 48,72" stroke="#795548" stroke-width="5" fill="none" stroke-linecap="round"/>
+              <path d="M49,90 Q40,80 34,83" stroke="#795548" stroke-width="3" fill="none" stroke-linecap="round"/>
+              <path d="M48,80 Q59,70 64,73" stroke="#795548" stroke-width="3" fill="none" stroke-linecap="round"/>
+              <circle cx="48" cy="62" r="14" [attr.fill]="'url(#' + area.areaKey + '-grad)'" opacity="0.95"/>
+              <circle cx="33" cy="78" r="9" [attr.fill]="'url(#' + area.areaKey + '-grad)'" opacity="0.9"/>
+              <circle cx="64" cy="70" r="10" [attr.fill]="'url(#' + area.areaKey + '-grad)'" opacity="0.9"/>
+            </svg>
+
+            <!-- Nivel 4: Árbol Joven (Antiguo nivel 3) -->
+            <svg *ngSwitchCase="4" viewBox="0 0 100 120" class="tree-svg">
+              <path d="M20,110 L80,110" stroke="#795548" stroke-width="4" stroke-linecap="round"/>
+              <path d="M50,110 C53,92 47,75 48,58" stroke="#5d4037" stroke-width="8" fill="none" stroke-linecap="round"/>
+              <path d="M50,88 Q36,73 30,78" stroke="#5d4037" stroke-width="4" fill="none" stroke-linecap="round"/>
+              <path d="M49,75 Q64,60 69,65" stroke="#5d4037" stroke-width="4" fill="none" stroke-linecap="round"/>
+              <circle cx="48" cy="46" r="18" [attr.fill]="'url(#' + area.areaKey + '-grad)'" opacity="0.95"/>
+              <circle cx="28" cy="70" r="13" [attr.fill]="'url(#' + area.areaKey + '-grad)'" opacity="0.9"/>
+              <circle cx="68" cy="58" r="14" [attr.fill]="'url(#' + area.areaKey + '-grad)'" opacity="0.9"/>
+              <circle cx="38" cy="58" r="11" [attr.fill]="'url(#' + area.areaKey + '-grad)'" opacity="0.85"/>
+            </svg>
+
+            <!-- Nivel 5 a 10: Árbol grande evolutivo (Antiguo nivel 4 + capas condicionales) -->
+            <svg *ngSwitchDefault viewBox="0 0 100 120" class="tree-svg">
+              <!-- Tronco y ramas principales -->
+              <path d="M15,112 L85,112" stroke="#6d4c41" stroke-width="5" stroke-linecap="round"/>
+              <path d="M50,112 C54,92 45,72 48,48" stroke="#4e342e" stroke-width="11" fill="none" stroke-linecap="round"/>
+              <path d="M50,88 C35,78 25,68 22,73" stroke="#4e342e" stroke-width="6.5" fill="none" stroke-linecap="round"/>
+              <path d="M48,73 C65,63 75,53 78,58" stroke="#4e342e" stroke-width="6.5" fill="none" stroke-linecap="round"/>
+              
+              <!-- Follaje -->
+              <circle cx="48" cy="40" r="21" [attr.fill]="'url(#' + area.areaKey + '-grad)'" opacity="0.95" [class.leaf-pulse]="area.treeLevel >= 8"/>
+              <circle cx="21" cy="67" r="15" [attr.fill]="'url(#' + area.areaKey + '-grad)'" opacity="0.9" [class.leaf-pulse]="area.treeLevel >= 8"/>
+              <circle cx="77" cy="52" r="16" [attr.fill]="'url(#' + area.areaKey + '-grad)'" opacity="0.9" [class.leaf-pulse]="area.treeLevel >= 8"/>
+              <circle cx="31" cy="30" r="14" [attr.fill]="'url(#' + area.areaKey + '-grad)'" opacity="0.9" [class.leaf-pulse]="area.treeLevel >= 8"/>
+              <circle cx="63" cy="30" r="15" [attr.fill]="'url(#' + area.areaKey + '-grad)'" opacity="0.9" [class.leaf-pulse]="area.treeLevel >= 8"/>
+              
+              <!-- FLORES (Nivel 6+) -->
+              <g *ngIf="area.treeLevel >= 6">
+                <circle cx="48" cy="35" r="2" fill="#ff8a80" />
+                <circle cx="30" cy="36" r="1.5" fill="#f43f5e" />
+                <circle cx="66" cy="32" r="2" fill="#f43f5e" />
+                <circle cx="70" cy="50" r="1.5" fill="#ffe082" />
+              </g>
+
+              <!-- NIDO DE PÁJAROS (Nivel 7+) -->
+              <g *ngIf="area.treeLevel >= 7" transform="translate(32, 66)">
+                <path d="M0,4 C0,1 15,1 15,4 C15,8 0,8 0,4 Z" fill="#78350f" />
+                <polygon points="5,2 7,0 8,3" fill="#fbbf24" class="baby-bird-beak" />
+              </g>
+
+              <!-- PÁJARO POSADO (Nivel 8+) -->
+              <g *ngIf="area.treeLevel >= 8" transform="translate(64, 48)">
+                <path d="M 0,4 Q 3,0 6,2 Q 9,1 8,5 Q 6,6 4,6 Q 0,6 0,4 Z" fill="#3b82f6" />
+                <polygon points="8,3 10,4 8,5" fill="#f59e0b" />
+              </g>
+
+              <!-- COMUNIDAD (Nivel 10): Pequeña silueta de contenedor y persona -->
+              <g *ngIf="area.treeLevel >= 10">
+                <rect x="74" y="99" width="6" height="9" fill="#10b981" rx="0.5" />
+                <circle cx="83" cy="94" r="1.5" fill="#334155" />
+                <path d="M83,95.5 L83,101 L81,105 M83,101 L85,105" stroke="#334155" stroke-width="1" fill="none" />
+              </g>
+            </svg>
+          </div>
+
+          <!-- Nombre del área (Abreviado) -->
+          <span class="tree-label">{{ area.areaName.replace('Área ', '') }}</span>
+          <span class="tree-points">{{ area.points }} pts</span>
+
+          <!-- Indicador visual si es el área del usuario -->
+          <div *ngIf="isUserArea(area.areaName)" class="user-indicator-dot">
+            <span>Mi Área</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TARJETÓN MODAL SUPERPUESTO (ANIMADO & PREMIUM - 10 NIVELES Y CLIMAS) -->
+  <div class="modal-backdrop-overlay" [class.show]="isModalOpen" (click)="closeAreaModal()"></div>
+  
+  <div class="modal-card-container" [class.show]="isModalOpen" *ngIf="selectedArea">
+    <!-- Botón de Cerrar -->
+    <button class="modal-close-btn" (click)="closeAreaModal()">
+      <ion-icon name="close-outline"></ion-icon>
+    </button>
+
+    <!-- Paisaje de Ecosistema Detallado con climas condicionales -->
+    <div class="ecosystem-card-scenery" [class]="'weather-stage-' + selectedArea.treeLevel">
+      
+      <!-- LLUVIA TORRENCIAL (Solo Nivel 1) -->
+      <div class="rain-overlay" *ngIf="selectedArea.treeLevel === 1">
+        <div class="rain-drop rd1"></div>
+        <div class="rain-drop rd2"></div>
+        <div class="rain-drop rd3"></div>
+        <div class="rain-drop rd4"></div>
+        <div class="rain-drop rd5"></div>
+        <div class="rain-drop rd6"></div>
+        <div class="rain-drop rd7"></div>
+        <div class="rain-drop rd8"></div>
+        <div class="rain-drop rd9"></div>
+        <div class="rain-drop rd10"></div>
+        <div class="rain-drop rd11"></div>
+        <div class="rain-drop rd12"></div>
+        <div class="rain-drop rd13"></div>
+        <div class="rain-drop rd14"></div>
+        <div class="rain-drop rd15"></div>
+      </div>
+
+      <!-- Cielo con Nubes y Sol -->
+      <div class="scenery-sky">
+        <!-- Brillo del sol (Solo a partir de Nivel 3) -->
+        <div class="sky-sun-glow" *ngIf="selectedArea.treeLevel >= 3"></div>
+        
+        <!-- Nubes de Tormenta Oscuras (Niveles 1 y 2) -->
+        <ng-container *ngIf="selectedArea.treeLevel <= 2">
+          <div class="sky-cloud storm cs1"></div>
+          <div class="sky-cloud storm cs2"></div>
+          <div class="sky-cloud storm cs3"></div>
+        </ng-container>
+
+        <!-- Nubes Grises Aclarándose (Nivel 3) -->
+        <ng-container *ngIf="selectedArea.treeLevel === 3">
+          <div class="sky-cloud grey c1"></div>
+          <div class="sky-cloud grey c2"></div>
+        </ng-container>
+
+        <!-- Nubes Blancas Suaves (Nivel 4) -->
+        <ng-container *ngIf="selectedArea.treeLevel === 4">
+          <div class="sky-cloud white c1"></div>
+          <div class="sky-cloud white c2"></div>
+        </ng-container>
+
+        <!-- PÁJAROS VOLANDO (Nivel 6+) -->
+        <svg *ngIf="selectedArea.treeLevel >= 6" class="flying-bird bird-1" viewBox="0 0 20 15">
+          <path d="M 0,5 Q 5,0 10,5 Q 15,0 20,5 Q 10,10 0,5 Z" fill="#475569" />
+        </svg>
+        <svg *ngIf="selectedArea.treeLevel >= 7" class="flying-bird bird-2" viewBox="0 0 20 15">
+          <path d="M 0,5 Q 5,0 10,5 Q 15,0 20,5 Q 10,10 0,5 Z" fill="#475569" />
+        </svg>
+        <svg *ngIf="selectedArea.treeLevel >= 9" class="flying-bird bird-3" viewBox="0 0 20 15">
+          <path d="M 0,5 Q 5,0 10,5 Q 15,0 20,5 Q 10,10 0,5 Z" fill="#475569" />
+        </svg>
+      </div>
+
+      <!-- MARIPOSAS REVOLOTEANDO (Nivel 9+) -->
+      <div class="butterflies-container" *ngIf="selectedArea.treeLevel >= 9">
+        <div class="butterfly bf1"></div>
+        <div class="butterfly bf2"></div>
+      </div>
+
+      <!-- LLUVIA DE HOJAS CAYENDO GENTELMENTE (Nivel 9+) -->
+      <div class="falling-leaves-container" *ngIf="selectedArea.treeLevel >= 9">
+        <div class="falling-leaf fl1" [class]="selectedArea.colorClass"></div>
+        <div class="falling-leaf fl2" [class]="selectedArea.colorClass"></div>
+        <div class="falling-leaf fl3" [class]="selectedArea.colorClass"></div>
+        <div class="falling-leaf fl4" [class]="selectedArea.colorClass"></div>
+        <div class="falling-leaf fl5" [class]="selectedArea.colorClass"></div>
+      </div>
+
+      <!-- LUCIÉRNAGAS FLOTANTES (Nivel 8+) -->
+      <div class="fireflies-container" *ngIf="selectedArea.treeLevel >= 8">
+        <div class="firefly ff1"></div>
+        <div class="firefly ff2"></div>
+        <div class="firefly ff3"></div>
+        <div class="firefly ff4"></div>
+      </div>
+
+      <!-- Suelo de Ecosistema con Detalles de Pasto -->
+      <div class="scenery-ground">
+        <div class="scenery-grass grass-l1"></div>
+        <div class="scenery-grass grass-l2"></div>
+        <div class="scenery-grass grass-l3"></div>
+        
+        <!-- Flores Silvestres en el Suelo (Nivel 9+) -->
+        <ng-container *ngIf="selectedArea.treeLevel >= 9">
+          <div class="wildflower flower-1"></div>
+          <div class="wildflower flower-2"></div>
+        </ng-container>
+        
+        <!-- ANIMALES ANIMADOS PASANDO EN EL FONDO -->
+        <!-- Conejo saltando (Nivel 7+) -->
+        <svg *ngIf="selectedArea.treeLevel >= 7" class="running-animal rabbit" viewBox="0 0 30 20">
+          <path d="M 8,15 C 8,11 12,8 16,8 C 19,8 21,10 22,12 C 24,11 26,11 27,13 C 28,14 27,17 25,17 C 23,17 21,16 20,15 C 18,17 14,17 12,17 M 15,8 Q 14,3 12,3 Q 10,3 12,8 M 18,8 Q 19,3 21,3 Q 23,3 21,8" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="0.5"/>
+          <circle cx="23" cy="11" r="1.5" fill="#f87171"/>
+          <circle cx="6" cy="15" r="2.5" fill="#ffffff"/>
+        </svg>
+
+        <!-- Ardilla corriendo (Nivel 8+) -->
+        <svg *ngIf="selectedArea.treeLevel >= 8" class="running-animal squirrel" viewBox="0 0 30 20">
+          <path d="M 22,16 C 22,12 18,10 15,10 C 13,10 11,11 10,13 Q 5,10 3,14 C 2,16 4,18 7,18 C 11,18 13,17 15,16 C 18,18 20,18 22,16 Z" fill="#d97706" />
+          <path d="M 5,14 C 2,10 2,4 6,2 C 10,0 12,4 9,8 C 8,9 6,11 5,14" fill="#b45309" />
+          <circle cx="20" cy="12" r="1.2" fill="#000" />
+        </svg>
+      </div>
+
+      <!-- Árbol en Tamaño Grande Detallado (10 Niveles) -->
+      <div class="detailed-tree-display" [ngSwitch]="selectedArea.treeLevel">
+        
+        <!-- Nivel 1: Maceta Detallada y Vacía (Triste) -->
+        <svg *ngSwitchCase="1" viewBox="0 0 100 120" class="detailed-tree-svg">
+          <rect x="34" y="86" width="32" height="24" rx="4" fill="#8d6e63" />
+          <rect x="30" y="86" width="40" height="5" rx="1.5" fill="#704f4f" />
+          <ellipse cx="50" cy="86" rx="15" ry="3.5" fill="#4e342e" />
+        </svg>
+
+        <!-- Nivel 2: Tallo Detallado con una sola hoja -->
+        <svg *ngSwitchCase="2" viewBox="0 0 100 120" class="detailed-tree-svg">
+          <rect x="36" y="88" width="28" height="22" rx="3.5" fill="#8d6e63" />
+          <rect x="32" y="88" width="36" height="4.5" rx="1.5" fill="#704f4f" />
+          <ellipse cx="50" cy="88" rx="13" ry="3" fill="#4e342e" />
+          <path d="M50,88 Q48,60 53,42" stroke="#8b5a2b" stroke-width="6.5" fill="none" stroke-linecap="round" />
+          <!-- Una sola hoja natural en la punta -->
+          <path d="M53,42 Q68,34 64,18 Q49,26 53,42 Z" [attr.fill]="'url(#' + selectedArea.areaKey + '-grad)'" />
+        </svg>
+
+        <!-- Nivel 3: Arbolito Detallado (Antiguo nivel 2) -->
+        <svg *ngSwitchCase="3" viewBox="0 0 100 120" class="detailed-tree-svg">
+          <path d="M15,108 L85,108" stroke="#8d6e63" stroke-width="4" stroke-linecap="round"/>
+          <path d="M50,108 Q50,75 48,55" stroke="#795548" stroke-width="8" fill="none" stroke-linecap="round"/>
+          <path d="M49,82 Q34,68 28,73" stroke="#795548" stroke-width="5" fill="none" stroke-linecap="round"/>
+          <path d="M48,68 Q64,54 70,59" stroke="#795548" stroke-width="5" fill="none" stroke-linecap="round"/>
+          <circle cx="48" cy="42" r="20" [attr.fill]="'url(#' + selectedArea.areaKey + '-grad)'" opacity="0.95"/>
+          <circle cx="27" cy="65" r="13" [attr.fill]="'url(#' + selectedArea.areaKey + '-grad)'" opacity="0.9"/>
+          <circle cx="70" cy="54" r="15" [attr.fill]="'url(#' + selectedArea.areaKey + '-grad)'" opacity="0.9"/>
+        </svg>
+
+        <!-- Nivel 4: Árbol Joven Detallado (Antiguo nivel 3) -->
+        <svg *ngSwitchCase="4" viewBox="0 0 100 120" class="detailed-tree-svg">
+          <path d="M10,110 L90,110" stroke="#795548" stroke-width="5" stroke-linecap="round"/>
+          <path d="M50,110 C53,85 46,65 48,45" stroke="#5d4037" stroke-width="12" fill="none" stroke-linecap="round"/>
+          <path d="M50,82 Q30,62 24,68" stroke="#5d4037" stroke-width="6.5" fill="none" stroke-linecap="round"/>
+          <path d="M49,68 Q69,50 75,56" stroke="#5d4037" stroke-width="6.5" fill="none" stroke-linecap="round"/>
+          <circle cx="48" cy="32" r="24" [attr.fill]="'url(#' + selectedArea.areaKey + '-grad)'" opacity="0.95"/>
+          <circle cx="21" cy="62" r="18" [attr.fill]="'url(#' + selectedArea.areaKey + '-grad)'" opacity="0.9"/>
+          <circle cx="75" cy="48" r="19" [attr.fill]="'url(#' + selectedArea.areaKey + '-grad)'" opacity="0.9"/>
+          <circle cx="34" cy="48" r="15" [attr.fill]="'url(#' + selectedArea.areaKey + '-grad)'" opacity="0.85"/>
+        </svg>
+
+        <!-- Niveles 5 a 10: Árbol Grande Detallado con capas progresivas -->
+        <svg *ngSwitchDefault viewBox="0 0 120 140" class="detailed-tree-svg">
+          <!-- Tronco y ramas principales -->
+          <path d="M10,128 L110,128" stroke="#6d4c41" stroke-width="6" stroke-linecap="round"/>
+          <path d="M60,128 C64,102 54,78 58,48" stroke="#4e342e" stroke-width="14" fill="none" stroke-linecap="round"/>
+          <path d="M60,98 C42,86 30,75 26,80" stroke="#4e342e" stroke-width="8" fill="none" stroke-linecap="round"/>
+          <path d="M58,80 C78,68 90,56 94,62" stroke="#4e342e" stroke-width="8" fill="none" stroke-linecap="round"/>
+          <path d="M57,62 C48,45 36,40 38,34" stroke="#4e342e" stroke-width="5.5" fill="none" stroke-linecap="round"/>
+          
+          <!-- Follaje denso (con aleteo/pulsación si es nivel alto) -->
+          <circle cx="58" cy="38" r="28" [attr.fill]="'url(#' + selectedArea.areaKey + '-grad)'" opacity="0.95" [class.leaf-pulse]="selectedArea.treeLevel >= 8"/>
+          <circle cx="24" cy="74" r="20" [attr.fill]="'url(#' + selectedArea.areaKey + '-grad)'" opacity="0.9" [class.leaf-pulse]="selectedArea.treeLevel >= 8"/>
+          <circle cx="94" cy="56" r="21" [attr.fill]="'url(#' + selectedArea.areaKey + '-grad)'" opacity="0.9" [class.leaf-pulse]="selectedArea.treeLevel >= 8"/>
+          <circle cx="37" cy="28" r="18" [attr.fill]="'url(#' + selectedArea.areaKey + '-grad)'" opacity="0.9" [class.leaf-pulse]="selectedArea.treeLevel >= 8"/>
+          <circle cx="79" cy="28" r="19" [attr.fill]="'url(#' + selectedArea.areaKey + '-grad)'" opacity="0.9" [class.leaf-pulse]="selectedArea.treeLevel >= 8"/>
+          <circle cx="42" cy="56" r="19" [attr.fill]="'url(#' + selectedArea.areaKey + '-grad)'" opacity="0.85" [class.leaf-pulse]="selectedArea.treeLevel >= 8"/>
+          <circle cx="74" cy="58" r="18" [attr.fill]="'url(#' + selectedArea.areaKey + '-grad)'" opacity="0.85" [class.leaf-pulse]="selectedArea.treeLevel >= 8"/>
+          
+          <!-- FLORES SILVESTRES EN LA COPA (Nivel 6+) -->
+          <g *ngIf="selectedArea.treeLevel >= 6">
+            <circle cx="42" cy="24" r="3.5" fill="#f43f5e" class="tree-flower" />
+            <circle cx="42" cy="24" r="1.5" fill="#fef08a" />
+            <circle cx="72" cy="20" r="3.5" fill="#ec4899" class="tree-flower" />
+            <circle cx="72" cy="20" r="1.5" fill="#fef08a" />
+            <circle cx="25" cy="42" r="3.5" fill="#f43f5e" class="tree-flower" />
+            <circle cx="25" cy="42" r="1.5" fill="#fef08a" />
+            <circle cx="94" cy="38" r="3.5" fill="#f59e0b" class="tree-flower" />
+            <circle cx="94" cy="38" r="1.5" fill="#fef08a" />
+          </g>
+
+          <!-- NIDO DE PÁJAROS CON BEBÉS (Nivel 7+) -->
+          <g *ngIf="selectedArea.treeLevel >= 7" transform="translate(38, 70)" class="shaking-nest">
+            <path d="M0,6 C0,1 22,1 22,6 C22,12 0,12 0,6 Z" fill="#78350f" />
+            <path d="M3,6 Q11,2 19,6 Q11,9 3,6" fill="#d97706" />
+            <!-- Dos piquitos hambrientos asomándose -->
+            <polygon points="7,2 9,0 11,3" fill="#fbbf24" class="baby-bird-beak" />
+            <polygon points="12,3 14,1 16,4" fill="#fbbf24" class="baby-bird-beak b2" />
+          </g>
+
+          <!-- PÁJARO AZUL POSADO (Nivel 8+) -->
+          <g *ngIf="selectedArea.treeLevel >= 8" transform="translate(82, 54)" class="detailed-perched-bird">
+            <path d="M 0,5 Q 4,0 8,3 Q 12,1 11,6 Q 9,8 5,8 Q 0,8 0,5 Z" fill="#3b82f6" />
+            <path d="M 0,6 L -5,9 L -4,6 Z" fill="#1d4ed8" />
+            <polygon points="11,4 14,5 11,6" fill="#f59e0b" />
+            <circle cx="8" cy="4" r="0.8" fill="#ffffff" />
+            <circle cx="8" cy="4" r="0.4" fill="#000000" />
+          </g>
+
+          <!-- BRILLOS MÁGICOS (Nivel 8+) -->
+          <g *ngIf="selectedArea.treeLevel >= 8">
+            <circle cx="38" cy="32" r="2.5" fill="#fff" class="sparkle" />
+            <circle cx="68" cy="28" r="2" fill="#fff" class="sparkle" />
+            <circle cx="28" cy="48" r="1.8" fill="#fff" class="sparkle" />
+            <circle cx="82" cy="42" r="2.2" fill="#fff" class="sparkle" />
+          </g>
+
+          <!-- COMUNIDAD: SILUETAS DE PERSONAS RECICLANDO (Nivel 10) -->
+          <g *ngIf="selectedArea.treeLevel >= 10" class="community-sprites animate__animated animate__fadeInUp">
+            <!-- Contenedor Verde INACAP Sede Renca -->
+            <rect x="86" y="98" width="12" height="18" fill="#059669" rx="1.5" stroke="#047857" stroke-width="0.5" />
+            <rect x="88" y="100" width="8" height="4" fill="#047857" rx="0.5" />
+            <!-- Logo reciclaje blanco en el contenedor -->
+            <circle cx="92" cy="108" r="2" fill="#ffffff" opacity="0.6" />
+            
+            <!-- Persona 1 (Estudiante que recicla una botella) -->
+            <g transform="translate(101, 88)" class="person-sprite">
+              <!-- Cabeza -->
+              <circle cx="0" cy="0" r="3.5" fill="#1e293b" />
+              <!-- Cuerpo e inclinación -->
+              <path d="M -0.5,3.5 C -3.5,4 -5.5,7 -8,11 L -12,23 L -8,23 L -6,15 L -4,15 L -2,23 L 2,23 L 0,12 C 1.5,8.5 2,5 0,3.5" fill="#1e293b" />
+              <!-- Brazo estirado hacia el contenedor con botella -->
+              <path d="M -1.5,6 C -7,6.5 -12,10 -15,11.5" stroke="#1e293b" stroke-width="2.2" fill="none" stroke-linecap="round" />
+              <!-- Botella plástica que arroja -->
+              <ellipse cx="-16" cy="11.5" rx="1.2" ry="2.2" fill="#3b82f6" transform="rotate(30 -16 11.5)" />
+            </g>
+
+            <!-- Persona 2 (Estudiante observando o apoyando) -->
+            <g transform="translate(14, 88)" class="person-sprite-2">
+              <circle cx="0" cy="0" r="3.5" fill="#334155" />
+              <path d="M 0,3.5 C -2.5,3.5 -4.5,6 -4.5,10 L -4.5,23 L -1.5,23 L -1.5,16 L 1.5,16 L 1.5,23 L 4.5,23 L 4.5,10 C 4.5,6 2.5,3.5 0,3.5" fill="#334155" />
+              <!-- Brazo saludando con alegría -->
+              <path d="M 3,6 Q 8,1 -1, -5" stroke="#334155" stroke-width="2" fill="none" stroke-linecap="round" class="waving-arm" />
+            </g>
+          </g>
+
+        </svg>
+      </div>
+    </div>
+
+    <!-- Detalles del Impacto del Área (Cuerpo del Tarjetón) -->
+    <div class="modal-card-details">
+      <!-- Encabezado con Nombre y Tipo de Árbol -->
+      <div class="modal-details-title">
+        <div class="title-avatar-icon" [class]="selectedArea.colorClass">
+          <ion-icon [name]="selectedArea.icon"></ion-icon>
+        </div>
+        <div>
+          <h2>{{ selectedArea.areaName }}</h2>
+          <span class="tree-type-subtitle text-gradient" [class]="selectedArea.colorClass">
+            Árbol {{ selectedArea.treeLevelName }} (Nivel {{ selectedArea.treeLevel }} / 10)
+          </span>
+        </div>
+      </div>
+
+      <!-- Cuadrícula de Impacto -->
+      <div class="modal-stats-row">
+        <div class="detail-stat-box card-glass">
+          <span class="stat-lbl">Puntos Totales</span>
+          <span class="stat-val text-dark font-black">{{ selectedArea.points }}</span>
+        </div>
+        <div class="detail-stat-box card-glass">
+          <span class="stat-lbl">CO₂ Mitigado</span>
+          <span class="stat-val text-success font-black">🌿 {{ selectedArea.co2Saved }} kg</span>
+        </div>
+      </div>
+
+      <!-- Sección de Progreso (si no está al máximo) -->
+      <div class="modal-progress-container" *ngIf="selectedArea.treeLevel < 10">
+        <div class="progress-info-row">
+          <span>Progreso al Nivel {{ selectedArea.treeLevel + 1 }}</span>
+          <span>{{ selectedArea.points }} / {{ getStageMaxPoints(selectedArea.treeLevel) }} pts</span>
+        </div>
+        <ion-progress-bar 
+          [value]="getStageProgress(selectedArea.points, selectedArea.treeLevel)" 
+          color="success" 
+          class="modal-progress-bar"
+        ></ion-progress-bar>
+        <p class="modal-progress-hint">Faltan <strong>{{ getPointsToNextLevel(selectedArea.points, selectedArea.treeLevel) }}</strong> puntos para ver evolucionar este árbol.</p>
+      </div>
+
+      <!-- Sección de Progreso Máximo (Nivel 10) -->
+      <div class="modal-progress-container" *ngIf="selectedArea.treeLevel === 10">
+        <div class="max-level-banner">
+          <ion-icon name="sparkles-outline"></ion-icon>
+          <span>¡NIVEL MÁXIMO LOGRADO!</span>
+        </div>
+        <p class="modal-progress-hint text-center">¡Felicitaciones! Has creado una comunidad unida en torno al reciclaje y la ecología en la sede.</p>
+      </div>
+
+      <!-- Desglose de Carreras -->
+      <div class="modal-breakdown-section">
+        <h3>Contribuciones de Carreras</h3>
+        <div class="modal-careers-list">
+          <div *ngFor="let career of selectedArea.careerContributions" class="modal-career-item">
+            <div class="career-marker" [class]="selectedArea.colorClass"></div>
+            <span class="m-career-name">{{ career.careerName }}</span>
+            <span class="m-career-pts">{{ career.points }} pts</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Insumos Reciclados -->
+      <div class="modal-breakdown-section">
+        <h3>Residuos Aportados</h3>
+        <div class="modal-materials-grid">
+          <div *ngFor="let mat of selectedArea.materialContributions" class="modal-material-chip">
+            <span class="m-mat-lbl">{{ translateMaterial(mat.material) }}</span>
+            <span class="m-mat-val">{{ mat.quantity }} {{ getMaterialUnit(mat.material) }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Panel de Simulación Debug -->
+      <div class="debug-simulation-panel">
+        <h4>Simulador de Prototipado (Debug)</h4>
+        <p>Previsualiza los 10 niveles y sus climas asociados:</p>
+        <div class="debug-btn-grid">
+          <button 
+            *ngFor="let lvl of [1,2,3,4,5,6,7,8,9,10]" 
+            class="debug-lvl-btn" 
+            [class.active]="selectedArea.treeLevel === lvl"
+            (click)="simulateLevel(lvl)"
+          >
+            {{ lvl }}
+          </button>
+        </div>
+        <button 
+          *ngIf="realLevelBackup !== null"
+          class="reset-debug-btn" 
+          (click)="resetSimulation()"
+        >
+          Restaurar Nivel Real
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Banner de motivación: Tu impacto -->
+  <div class="container-spacing">
+    <div class="user-impact-banner card-glass" *ngIf="selectedCareer">
+      <div class="banner-icon-side theme-agronomia">
+        <ion-icon name="school-outline"></ion-icon>
+      </div>
+      <div class="banner-text-side">
+        <h3>Tu Especialidad Aporta</h3>
+        <p>Como alumno de <strong>{{ selectedCareer.name }}</strong>, todo lo que recicles suma puntos directamente al <strong>{{ selectedCareer.area }}</strong>.</p>
+        <div class="banner-footer">
+          <span class="area-badge" [class]="selectedCareer.gradientClass">
+            {{ getUserAreaPosition() }}° Lugar en el Bosque
+          </span>
+          <ion-button fill="clear" size="small" (click)="goToCareerSelection()" class="btn-change-career">
+            Cambiar Carrera <ion-icon name="arrow-forward-outline" slot="end"></ion-icon>
+          </ion-button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Si no tiene carrera seleccionada -->
+    <div class="user-impact-banner card-glass warning-banner" *ngIf="!selectedCareer">
+      <div class="banner-icon-side theme-construccion">
+        <ion-icon name="earth-outline"></ion-icon>
+      </div>
+      <div class="banner-text-side">
+        <h3>¿A qué área deseas apoyar?</h3>
+        <p>Aún no has seleccionado tu especialidad académica. Elige tu carrera para que tus reciclajes ayuden a crecer a su respectivo árbol.</p>
+        <ion-button expand="block" size="small" color="success" (click)="goToCareerSelection()" class="btn-select-career-banner">
+          Seleccionar Mi Carrera
+        </ion-button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sección de la Tabla de Posiciones y Acordeón -->
+  <div class="leaderboard-section container-spacing">
+    <div class="section-title">
+      <ion-icon name="trophy-outline"></ion-icon>
+      <h2>Tabla de Posiciones</h2>
+    </div>
+
+    <ion-accordion-group class="leaderboard-accordion-group">
+      <ion-accordion 
+        *ngFor="let area of rankings; let i = index" 
+        [value]="area.areaKey"
+        class="leaderboard-accordion-item"
+        [class.is-user-item]="isUserArea(area.areaName)"
+      >
+        <!-- Cabecera del acordeón (Fila de ranking) -->
+        <ion-item slot="header" lines="none" class="leaderboard-item-header">
+          <!-- Puesto de Ranking -->
+          <div class="rank-badge" [class]="getPodiumClass(i)">
+            <span *ngIf="i > 0">{{ i + 1 }}</span>
+            <ion-icon *ngIf="i === 0" name="trophy-outline"></ion-icon>
+          </div>
+
+          <!-- Icono de Especialidad -->
+          <div class="area-icon-avatar" [class]="area.colorClass">
+            <ion-icon [name]="area.icon"></ion-icon>
+          </div>
+
+          <!-- Detalles del Área -->
+          <div class="area-details-row">
+            <div class="name-block">
+              <h3>{{ area.areaName }}</h3>
+              <span class="level-lbl">Árbol {{ area.treeLevelName }} (Lvl {{ area.treeLevel }})</span>
+            </div>
+            <div class="points-block text-right">
+              <span class="pts-val">{{ area.points }}</span>
+              <span class="pts-lbl">puntos</span>
+            </div>
+          </div>
+        </ion-item>
+
+        <!-- Contenido del acordeón (Desglose de carreras e impacto) -->
+        <div slot="content" class="leaderboard-item-content card-glass">
+          <!-- Separador sutil -->
+          <div class="divider"></div>
+
+          <!-- Contribuciones de Carreras del área -->
+          <div class="content-block">
+            <h4>Aporte de Carreras</h4>
+            <div class="career-contributions-list">
+              <div *ngFor="let career of area.careerContributions" class="career-contribution-item">
+                <div class="career-bullet"></div>
+                <span class="career-name">{{ career.careerName }}</span>
+                <span class="career-pts font-semibold">{{ career.points }} pts</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Estadísticas de Residuos Reciclados -->
+          <div class="content-block">
+            <h4>Residuos Reciclados en la Sede</h4>
+            <div class="materials-grid">
+              <div *ngFor="let mat of area.materialContributions" class="material-chip-stat">
+                <span class="mat-name">{{ translateMaterial(mat.material) }}</span>
+                <span class="mat-qty font-bold">{{ mat.quantity }} {{ getMaterialUnit(mat.material) }}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Huella de Carbono Evitada -->
+          <div class="carbon-saved-footer">
+            <ion-icon name="earth-outline"></ion-icon>
+            <span>Total de Emisiones Evitadas: <strong>{{ area.co2Saved }} kg CO₂</strong></span>
+          </div>
+        </div>
+      </ion-accordion>
+    </ion-accordion-group>
+  </div>
+</ion-content>
