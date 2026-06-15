@@ -18,6 +18,7 @@ import {
   alertCircleOutline, calendarOutline, barcodeOutline
 } from 'ionicons/icons';
 import { AlertController } from '@ionic/angular';
+import { SeoService } from '../../core/services/seo.service';
 
 @Component({
   selector: 'app-store',
@@ -122,7 +123,8 @@ export class StorePage implements OnInit {
 
   constructor(
     private pointsService: PointsService,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    private seoService: SeoService
   ) {
     addIcons({
       giftOutline,
@@ -141,6 +143,12 @@ export class StorePage implements OnInit {
   }
 
   ngOnInit() {
+    this.seoService.generateTags({
+      title: 'Eco-Tienda',
+      description: 'Canjea tus eco-puntos por increíbles recompensas como viajes en Tarjeta Bip!, descuentos en comercios locales de Renca y productos ecológicos.',
+      url: '/store'
+    });
+
     this.pointsService.getProfile().subscribe(prof => {
       this.profile = prof;
     });

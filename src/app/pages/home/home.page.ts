@@ -29,6 +29,7 @@ import {
 import { CAREERS } from '../../core/data/career.data';
 import { Career } from '../../core/models/career.model';
 import { CareerService } from '../../core/services/career.service';
+import { SeoService } from '../../core/services/seo.service';
 
 @Component({
   selector: 'app-home',
@@ -55,7 +56,8 @@ export class HomePage implements OnInit {
     private pointsService: PointsService,
     private modalCtrl: ModalController,
     private router: Router,
-    private careerService: CareerService
+    private careerService: CareerService,
+    private seoService: SeoService
   ) {
     addIcons({
       qrCodeOutline,
@@ -102,6 +104,12 @@ export class HomePage implements OnInit {
   }
 
   ngOnInit() {
+    this.seoService.generateTags({
+      title: 'Inicio',
+      description: 'Lleva un registro de tus reciclajes en EcoRenca, acumula eco-puntos y sube de rango.',
+      url: '/home'
+    });
+
     this.pointsService.getProfile().subscribe(prof => {
       this.profile = prof;
     });
