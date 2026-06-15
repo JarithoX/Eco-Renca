@@ -1,4 +1,4 @@
-export type MaterialType = 'plastic' | 'glass' | 'paper' | 'metal';
+export type MaterialType = 'plastic' | 'glass' | 'paper' | 'metal' | 'e_waste' | 'chemical' | 'construction' | 'wood' | 'battery';
 
 export interface RecyclingBin {
   id: string;

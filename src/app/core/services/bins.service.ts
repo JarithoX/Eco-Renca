@@ -157,6 +157,56 @@ export class BinsService {
       acceptedMaterials: ['plastic', 'glass', 'paper', 'metal'],
       capacity: 70,
       status: 'available'
+    },
+    {
+      id: 'bin_16',
+      name: 'Punto Reciclaje Químico y Solventes',
+      address: 'Laboratorios de Química (Bloque F - Primer Piso), INACAP Sede Renca',
+      lat: -33.405800,
+      lng: -70.683000,
+      acceptedMaterials: ['chemical'],
+      capacity: 20,
+      status: 'available'
+    },
+    {
+      id: 'bin_17',
+      name: 'Punto de Acopio Aceites y Lubricantes',
+      address: 'Talleres de Mecánica (Bloque Z - Patio Trasero), INACAP Sede Renca',
+      lat: -33.405500,
+      lng: -70.681900,
+      acceptedMaterials: ['chemical', 'metal'],
+      capacity: 40,
+      status: 'available'
+    },
+    {
+      id: 'bin_18',
+      name: 'Contenedor de E-Waste y Componentes',
+      address: 'Pasillo Central Bloque D (Acceso Informática), INACAP Sede Renca',
+      lat: -33.405100,
+      lng: -70.683300,
+      acceptedMaterials: ['e_waste', 'battery'],
+      capacity: 10,
+      status: 'available'
+    },
+    {
+      id: 'bin_19',
+      name: 'Zona de Escombros y Maderas',
+      address: 'Patio de Acopio de Materiales (Construcción - Bloque Z), INACAP Sede Renca',
+      lat: -33.406100,
+      lng: -70.682000,
+      acceptedMaterials: ['construction', 'wood'],
+      capacity: 15,
+      status: 'available'
+    },
+    {
+      id: 'bin_20',
+      name: 'Depósito de Cables y Baterías',
+      address: 'Laboratorios de Electrónica y Automatización (Bloque E), INACAP Sede Renca',
+      lat: -33.405200,
+      lng: -70.683500,
+      acceptedMaterials: ['metal', 'battery', 'e_waste'],
+      capacity: 5,
+      status: 'available'
     }
   ];
 

@@ -13,7 +13,7 @@ export const CAREERS: Career[] = [
     wastes: [
       {
         name: 'Solventes Orgánicos Usados',
-        material: 'other',
+        material: 'chemical',
         description: 'Líquidos inflamables empleados para disoluciones, limpiezas y síntesis (acetona, etanol, hexano).',
         standardRecycling: 'Destilación fraccionada en laboratorios autorizados para recuperar disolventes con un 95% de pureza y reintroducirlos en procesos de limpieza industrial.',
         innovativeRecycling: 'Co-procesamiento térmico en hornos cementeros de alta tecnología como combustible alternativo limpio, o conversión catalítica en hidrocarburos base para bioplásticos.'
@@ -27,7 +27,7 @@ export const CAREERS: Career[] = [
       },
       {
         name: 'Ácidos e Hidróxidos Agotados',
-        material: 'other',
+        material: 'chemical',
         description: 'Soluciones acuosas ácidas (pH < 2) o alcalinas (pH > 12) utilizadas en titulaciones y limpiezas de instrumental.',
         standardRecycling: 'Neutralización química controlada mediante la mezcla balanceada de corrientes ácidas y básicas en plantas de tratamiento, ajustando el pH a 7.0 antes de su descarga segura.',
         innovativeRecycling: 'Recuperación de sales minerales de alta pureza (como sulfato de calcio o cloruro de sodio industrial) mediante cristalización por evaporación solar al vacío para su venta como insumos químicos.'
@@ -46,14 +46,14 @@ export const CAREERS: Career[] = [
     wastes: [
       {
         name: 'Madera de Encofrado y Despuntes',
-        material: 'paper',
+        material: 'wood',
         description: 'Tablas, listones y contrachapados de pino utilizados para moldes de hormigón y andamiajes temporales.',
         standardRecycling: 'Limpieza de clavos/cemento y trituración para la fabricación de tableros de partículas (MDP/MDF), palets de transporte o compostaje en plantas de biomasa.',
         innovativeRecycling: 'Producción de paneles acústicos aislantes mediante la combinación de virutas de madera limpias con aglutinantes orgánicos de micelio de hongo, logrando aislamiento térmico biodegradable e ignífugo.'
       },
       {
         name: 'Escombros de Hormigón y Ladrillo',
-        material: 'other',
+        material: 'construction',
         description: 'Restos de estructuras demolidas, sobreproducción de hormigón fresco y restos de mampostería.',
         standardRecycling: 'Chancado y cribado mecánico para obtener áridos reciclados gruesos y finos, utilizados en la pavimentación de caminos secundarios y rellenos estructurales.',
         innovativeRecycling: 'Carbonatación acelerada de áridos reciclados: inyección de CO2 industrial capturado en la grava de hormigón reciclado para mejorar su resistencia mecánica y almacenar carbono de forma permanente dentro del nuevo cemento.'
@@ -79,14 +79,14 @@ export const CAREERS: Career[] = [
     wastes: [
       {
         name: 'Baterías de Litio Dañadas (Vehículos Eléctricos)',
-        material: 'metal',
+        material: 'battery',
         description: 'Celdas de iones de litio desgastadas o dañadas procedentes de autos eléctricos.',
         standardRecycling: 'Desensamblaje manual seguro en instalaciones certificadas y trituración mecánica para recuperar la "masa negra" (cobalto, litio y níquel).',
         innovativeRecycling: 'Procesamiento pirometalúrgico avanzado para recuperar el 95% del litio de grado batería y reacondicionamiento de celdas antiguas para baterías estacionarias de almacenamiento solar domiciliario.'
       },
       {
         name: 'Aceite de Motor Usado',
-        material: 'other',
+        material: 'chemical',
         description: 'Lubricantes degradados extraídos de motores de combustión interna.',
         standardRecycling: 'Re-refinación industrial para eliminar aditivos degradados, obteniendo bases lubricantes purificadas listas para formular aceite nuevo.',
         innovativeRecycling: 'Pirólisis catalítica del aceite de motor usado para transformarlo en queroseno de aviación o combustibles sintéticos ligeros de alta eficiencia.'
@@ -111,7 +111,7 @@ export const CAREERS: Career[] = [
     wastes: [
       {
         name: 'Fluidos Hidráulicos Usados',
-        material: 'other',
+        material: 'chemical',
         description: 'Aceites hidráulicos de transmisiones pesadas degradados por temperatura y presión.',
         standardRecycling: 'Filtración de partículas de metal por centrifugación y deshidratación al vacío para reutilizar en sistemas hidráulicos de menor exigencia.',
         innovativeRecycling: 'Conversión por hidrocraqueo en lubricantes base de alta gama (Grupo III), eliminando la dependencia de petróleo crudo nuevo.'
@@ -143,7 +143,7 @@ export const CAREERS: Career[] = [
       },
       {
         name: 'Grasas Lubricantes y Estopas Limpiadoras',
-        material: 'other',
+        material: 'chemical',
         description: 'Trapos y polímeros absorbentes impregnados de aceites, disolventes y grasas pesadas.',
         standardRecycling: 'Incinineración segura en termoeléctricas autorizadas bajo estrictas normas de emisión de gases.',
         innovativeRecycling: 'Tratamiento por ultrasonido para extraer aceites residuales de los textiles de limpieza, permitiendo reciclar el paño de algodón varias veces.'
@@ -161,7 +161,7 @@ export const CAREERS: Career[] = [
     wastes: [
       {
         name: 'Placas de Sensores y Controladores Dañados',
-        material: 'metal',
+        material: 'e_waste',
         description: 'Módulos microcontroladores y sensores con fallas electrónicas irreparables.',
         standardRecycling: 'Trituración y separación electromagnética de metales para su fundición.',
         innovativeRecycling: 'Biolixiviación bacteriana para extraer trazas de oro y plata de los pines de conexión sin utilizar cianuro ni ácidos altamente contaminantes.'
@@ -187,14 +187,14 @@ export const CAREERS: Career[] = [
     wastes: [
       {
         name: 'Equipos Computacionales Obsoletos',
-        material: 'metal',
+        material: 'e_waste',
         description: 'Gabinetes, placas madre y procesadores en desuso por obsolescencia tecnológica.',
         standardRecycling: 'Desmantelamiento manual y separación de metales ferrosos, aluminio, cobre y plásticos ABS.',
         innovativeRecycling: 'Refabricación de ordenadores de bajo costo usando carcasas impresas en plástico reciclado para laboratorios de escuelas rurales vulnerables.'
       },
       {
         name: 'Cables de Red y UTP',
-        material: 'plastic',
+        material: 'e_waste',
         description: 'Cables de conexión ethernet compuestos de filamentos de cobre y fundas plásticas.',
         standardRecycling: 'Granulado mecánico de cables para separar el cobre electrolítico puro de la cubierta plástica de PVC.',
         innovativeRecycling: 'Extrusión de la cubierta plástica aislante para crear canalizaciones eléctricas subterráneas de alta resistencia.'
@@ -212,7 +212,7 @@ export const CAREERS: Career[] = [
     wastes: [
       {
         name: 'Discos Duros Triturados',
-        material: 'metal',
+        material: 'e_waste',
         description: 'Dispositivos de almacenamiento destruidos físicamente para asegurar la confidencialidad de los datos.',
         standardRecycling: 'Separación magnética del aluminio y acero inoxidable de las carcasas trituradas.',
         innovativeRecycling: 'Recuperación de imanes de tierras raras (Neodimio-Hierro-Boro) de los cabezales de los discos triturados para la fabricación de motores de generadores eólicos.'
@@ -230,14 +230,14 @@ export const CAREERS: Career[] = [
     wastes: [
       {
         name: 'Cables Apantallados de Señal',
-        material: 'metal',
+        material: 'e_waste',
         description: 'Conductores de cobre protegidos con mallas metálicas para evitar interferencias electromagnéticas.',
         standardRecycling: 'Separación de mallas trenzadas de acero/aluminio de las almas de cobre y posterior fundición.',
         innovativeRecycling: 'Conversión del plástico aislante externo libre de halógenos en recubrimientos protectores flexibles para tuberías de agua caliente.'
       },
       {
         name: 'Servomotores Industriales Dañados',
-        material: 'metal',
+        material: 'e_waste',
         description: 'Motores de precisión con bobinados quemados.',
         standardRecycling: 'Desbobinado de cobre electrolítico y fundición de carcasas de aluminio de alta pureza.',
         innovativeRecycling: 'Aprovechamiento de los imanes permanentes internos y ejes de acero templado para armar kits de aprendizaje de robótica en liceos técnicos.'
@@ -262,7 +262,7 @@ export const CAREERS: Career[] = [
       },
       {
         name: 'Enrutadores y Antenas en Desuso',
-        material: 'metal',
+        material: 'e_waste',
         description: 'Equipos receptores de telecomunicaciones que han cumplido su ciclo de vida útil.',
         standardRecycling: 'Clasificación de placas electrónicas, carcasas de aluminio y plásticos para fundición y extrusión.',
         innovativeRecycling: 'Extracción biotecnológica de plásticos termoestables de antenas para integrarlos en pavimentos viales que absorben el impacto sonoro.'
@@ -288,7 +288,7 @@ export const CAREERS: Career[] = [
       },
       {
         name: 'Cartuchos de Tóner Vacíos',
-        material: 'plastic',
+        material: 'e_waste',
         description: 'Cartuchos plásticos que contenían tintas y polvos de carbono para impresión.',
         standardRecycling: 'Desensamblaje para limpieza del polvo residual e inyección de plásticos para fabricar reglas y bolígrafos.',
         innovativeRecycling: 'Adición del polvo de tóner sobrante rico en óxidos de hierro en mezclas asfálticas para aumentar la rigidez de carreteras de alta carga.'
@@ -313,7 +313,7 @@ export const CAREERS: Career[] = [
       },
       {
         name: 'Palets de Madera Rotos',
-        material: 'paper',
+        material: 'wood',
         description: 'Estructuras de madera de pino utilizadas para el soporte de fardos en bodegas.',
         standardRecycling: 'Retiro de clavos metálicos y chipeado para camas de cultivos, compost o combustible de calderas de biomasa.',
         innovativeRecycling: 'Fabricación de mobiliario urbano (bancas de parques, maceteros grandes) mediante el lijado e impermeabilización de listones sanos seleccionados.'

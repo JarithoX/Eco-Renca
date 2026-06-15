@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { 
   IonContent, IonProgressBar, IonList, IonIcon, 
-  IonFab, IonFabButton, IonBadge, IonButton
+  IonFab, IonFabButton, IonBadge, IonButton, IonModal
 } from '@ionic/angular/standalone';
 import { PointsService } from '../../core/services/points.service';
 import { UserProfile, RecyclingActivity } from '../../core/models/user.model';
@@ -39,7 +39,7 @@ import { SeoService } from '../../core/services/seo.service';
   imports: [
     CommonModule, 
     IonContent, IonProgressBar, IonList, IonIcon, 
-    IonFab, IonFabButton, IonBadge, IonButton
+    IonFab, IonFabButton, IonBadge, IonButton, IonModal
   ],
   providers: [ModalController]
 })
@@ -47,6 +47,11 @@ export class HomePage implements OnInit {
   profile?: UserProfile;
   recentActivities: RecyclingActivity[] = [];
   
+  // Modal Secreto
+  isSecretModalOpen = false;
+  logoClickCount = 0;
+  logoClickTimeout: any;
+
   // Lógica Eco-Carreras
   careers: Career[] = CAREERS;
   selectedCareer: Career | null = null;
@@ -174,5 +179,19 @@ export class HomePage implements OnInit {
 
   isWasteExpanded(wasteName: string): boolean {
     return !!this.expandedWastes[wasteName];
+  }
+
+  onLogoClick() {
+    this.logoClickCount++;
+    if (this.logoClickCount === 4) {
+      this.logoClickCount = 0;
+      this.isSecretModalOpen = true;
+    }
+
+    // Reiniciar conteo después de 1.5 segundos de inactividad
+    clearTimeout(this.logoClickTimeout);
+    this.logoClickTimeout = setTimeout(() => {
+      this.logoClickCount = 0;
+    }, 1500);
   }
 }

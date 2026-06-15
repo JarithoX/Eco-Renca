@@ -28,6 +28,26 @@
         <ion-icon name="bar-chart-outline"></ion-icon>
         <ion-label>Metal</ion-label>
       </ion-chip>
+      <ion-chip [outline]="selectedFilter !== 'e_waste'" color="tertiary" class="filter-chip" (click)="setFilter('e_waste')">
+        <ion-icon name="hardware-chip-outline"></ion-icon>
+        <ion-label>E-Waste</ion-label>
+      </ion-chip>
+      <ion-chip [outline]="selectedFilter !== 'battery'" color="danger" class="filter-chip" (click)="setFilter('battery')">
+        <ion-icon name="flash-outline"></ion-icon>
+        <ion-label>Baterías</ion-label>
+      </ion-chip>
+      <ion-chip [outline]="selectedFilter !== 'wood'" color="warning" class="filter-chip" (click)="setFilter('wood')">
+        <ion-icon name="bonfire-outline"></ion-icon>
+        <ion-label>Madera</ion-label>
+      </ion-chip>
+      <ion-chip [outline]="selectedFilter !== 'chemical'" color="medium" class="filter-chip" (click)="setFilter('chemical')">
+        <ion-icon name="flask-outline"></ion-icon>
+        <ion-label>Químicos</ion-label>
+      </ion-chip>
+      <ion-chip [outline]="selectedFilter !== 'construction'" color="dark" class="filter-chip" (click)="setFilter('construction')">
+        <ion-icon name="hammer-outline"></ion-icon>
+        <ion-label>Escombros</ion-label>
+      </ion-chip>
     </div>
   </div>
 </ion-header>
@@ -184,7 +204,7 @@
       <span class="materials-lbl">Residuos Aceptados</span>
       <div class="chips-container ion-margin-top">
         <ion-chip *ngFor="let material of selectedBin.acceptedMaterials" [color]="getMaterialColor(material)" class="material-chip">
-          <ion-icon name="leaf-outline"></ion-icon>
+          <ion-icon [name]="getMaterialIcon(material)"></ion-icon>
           <ion-label>{{ translateMaterial(material) }}</ion-label>
         </ion-chip>
       </div>

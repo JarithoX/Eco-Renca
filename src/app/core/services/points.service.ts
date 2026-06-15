@@ -68,7 +68,12 @@ export class PointsService {
       plastic: 50,
       glass: 80,
       paper: 30,
-      metal: 100
+      metal: 100,
+      e_waste: 120,
+      chemical: 150,
+      construction: 40,
+      wood: 40,
+      battery: 90
     };
 
     const pointsEarned = pointsPerMaterial[material] * quantity;

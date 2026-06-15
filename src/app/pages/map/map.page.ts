@@ -15,7 +15,9 @@ import {
   alertCircleOutline, checkmarkCircleOutline, closeOutline,
   pinOutline, pinSharp, carOutline, schoolOutline, cafeOutline,
   wineOutline, receiptOutline, barChartOutline,
-  addOutline, removeOutline
+  addOutline, removeOutline,
+  hardwareChipOutline, flaskOutline, hammerOutline,
+  bonfireOutline, flashOutline
 } from 'ionicons/icons';
 
 @Component({
@@ -70,7 +72,12 @@ export class MapPage implements OnInit {
       receiptOutline,
       barChartOutline,
       addOutline,
-      removeOutline
+      removeOutline,
+      hardwareChipOutline,
+      flaskOutline,
+      hammerOutline,
+      bonfireOutline,
+      flashOutline
     });
   }
 
@@ -201,6 +208,11 @@ export class MapPage implements OnInit {
       case 'glass': return 'Vidrio';
       case 'paper': return 'Papel/Cartón';
       case 'metal': return 'Metal/Lata';
+      case 'e_waste': return 'E-Waste / Elec.';
+      case 'chemical': return 'Químicos/Aceites';
+      case 'construction': return 'Escombros/Áridos';
+      case 'wood': return 'Maderas';
+      case 'battery': return 'Baterías/Pilas';
       default: return material;
     }
   }
@@ -211,7 +223,27 @@ export class MapPage implements OnInit {
       case 'glass': return 'secondary';
       case 'paper': return 'warning';
       case 'metal': return 'danger';
+      case 'e_waste': return 'tertiary';
+      case 'chemical': return 'medium';
+      case 'construction': return 'dark';
+      case 'wood': return 'warning';
+      case 'battery': return 'danger';
       default: return 'medium';
+    }
+  }
+
+  getMaterialIcon(material: string): string {
+    switch (material) {
+      case 'plastic': return 'leaf-outline';
+      case 'glass': return 'wine-outline';
+      case 'paper': return 'receipt-outline';
+      case 'metal': return 'bar-chart-outline';
+      case 'e_waste': return 'hardware-chip-outline';
+      case 'chemical': return 'flask-outline';
+      case 'construction': return 'hammer-outline';
+      case 'wood': return 'bonfire-outline';
+      case 'battery': return 'flash-outline';
+      default: return 'leaf-outline';
     }
   }
 

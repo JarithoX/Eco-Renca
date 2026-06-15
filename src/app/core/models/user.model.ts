@@ -1,3 +1,5 @@
+import { MaterialType } from './bin.model';
+
 export interface UserProfile {
   name: string;
   email: string;
@@ -12,7 +14,7 @@ export interface RecyclingActivity {
   id: string;
   date: Date;
   binName: string;
-  material: 'plastic' | 'glass' | 'paper' | 'metal';
+  material: MaterialType;
   pointsEarned: number;
   quantity: number; // Cantidad en unidades o Kg
 }

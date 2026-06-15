@@ -1,6 +1,8 @@
+import { MaterialType } from './bin.model';
+
 export interface CareerWaste {
   name: string;
-  material: 'plastic' | 'glass' | 'paper' | 'metal' | 'other';
+  material: MaterialType;
   description: string;
   standardRecycling: string;
   innovativeRecycling: string;

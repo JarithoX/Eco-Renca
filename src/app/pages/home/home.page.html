@@ -29,7 +29,7 @@
   <div class="profile-header-gradient" [ngClass]="selectedCareer ? selectedCareer.gradientClass : ''">
     <div class="header-content ion-padding">
       <div class="app-branding">
-        <div class="logo-container">
+        <div class="logo-container" (click)="onLogoClick()">
           <img src="assets/icon/logo.png" class="app-logo-header" alt="EcoRenca Logo" />
         </div>
         <div class="brand-text">
@@ -193,4 +193,29 @@
       <ion-icon name="qr-code-outline"></ion-icon>
     </ion-fab-button>
   </ion-fab>
+
+  <!-- Modal Secreto del Código QR -->
+  <ion-modal [isOpen]="isSecretModalOpen" (didDismiss)="isSecretModalOpen = false" class="secret-qr-modal">
+    <ng-template>
+      <div class="secret-modal-content ion-padding ion-text-center">
+        <div class="secret-modal-header">
+          <div class="secret-modal-icon-wrapper">
+            <ion-icon name="qr-code-outline" color="success"></ion-icon>
+          </div>
+          <h2>Invitar Estudiantes</h2>
+          <p>Comparte la aplicación EcoRenca para que otros estudiantes se sumen al reciclaje.</p>
+        </div>
+        
+        <div class="qr-container ion-margin-vertical">
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=https%3A%2F%2Feco-renca-eta.vercel.app" alt="QR EcoRenca" class="qr-image" />
+        </div>
+        
+        <p class="qr-instructions">Abre la cámara de tu celular y escanea este código para ingresar de manera directa.</p>
+        
+        <ion-button expand="block" color="success" class="eco-btn ripple-btn ion-margin-top" (click)="isSecretModalOpen = false">
+          Cerrar
+        </ion-button>
+      </div>
+    </ng-template>
+  </ion-modal>
 </ion-content>
